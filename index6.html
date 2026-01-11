@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN | The Organic Nexus</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. SETTINGS --- */
+    :root {
+      --cyan: #009edb;
+      --ocean: #0468B1;
+      --ink: #221F21;
+      --snow: #FDFEFF;
+      --soft-grey: #f4f7f9;
+      --radius-lg: 40px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: var(--snow);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* --- 2. FLOATING NAVIGATION (Pill Shape) --- */
+    .nav-pill {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 10px 10px 10px 30px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: var(--ocean);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .join-btn {
+      background: var(--ink);
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    .join-btn:hover {
+      background: var(--cyan);
+      transform: scale(1.05);
+    }
+
+    /* --- 3. HERO: THE PORTAL --- */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 150px 20px 50px;
+    }
+
+    h1 {
+      font-size: clamp(50px, 7vw, 90px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+    }
+
+    h1 strong {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 60px;
+      line-height: 1.6;
+    }
+
+    /* The Organic Image Shapes */
+    .portal-container {
+      display: flex;
+      gap: 20px;
+      height: 500px;
+      width: 100%;
+      max-width: 1400px;
+      justify-content: center;
+    }
+
+    .portal {
+      flex: 1;
+      border-radius: 200px;
+      /* Pill Shape */
+      overflow: hidden;
+      position: relative;
+      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: crosshair;
+    }
+
+    .portal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s;
+    }
+
+    .portal:hover {
+      flex: 2.5;
+    }
+
+    /* Expands on hover */
+    .portal:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Different heights for organic rhythm */
+    .p-1 {
+      height: 90%;
+      align-self: center;
+    }
+
+    .p-2 {
+      height: 100%;
+    }
+
+    .p-3 {
+      height: 85%;
+      align-self: flex-end;
+    }
+
+    /* --- 4. SPLIT SCROLL (THE NARRATIVE) --- */
+    .split-section {
+      display: flex;
+      max-width: 1400px;
+      margin: 150px auto;
+      gap: 80px;
+      padding: 0 5%;
+    }
+
+    .split-sticky {
+      width: 40%;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split-scroll {
+      width: 60%;
+      padding: 100px 0;
+    }
+
+    .narrative-card {
+      background: white;
+      padding: 60px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.03);
+      margin-bottom: 60px;
+      transition: 0.3s;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .narrative-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0, 158, 219, 0.1);
+    }
+
+    .n-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .n-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .n-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* --- 5. THE PULSE STATS (Circular) --- */
+    .pulse-section {
+      background: var(--ink);
+      color: var(--snow);
+      padding: 150px 0;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .pulse-grid {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pulse-item {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* The glowing ripple behind the numbers */
+    .ripple {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(0, 158, 219, 0.3);
+      border-radius: 50%;
+      animation: ripple 3s infinite linear;
+    }
+
+    .ripple:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .ripple:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    @keyframes ripple {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+
+      100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+
+    .stat-val {
+      font-size: 60px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .stat-lbl {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    /* --- 6. CURATED STORIES (Horizontal Scroll) --- */
+    .stories-section {
+      padding: 150px 0;
+      background: var(--soft-grey);
+    }
+
+    .stories-header {
+      padding: 0 5% 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .card-scroller {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      padding: 0 5% 50px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .card-scroller::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-card {
+      min-width: 400px;
+      height: 500px;
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+      transition: 0.3s;
+    }
+
+    .story-card:hover {
+      transform: scale(0.98);
+    }
+
+    .story-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .story-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+    }
+
+    /* --- 7. FOOTER (Minimal) --- */
+    footer {
+      padding: 100px 5%;
+      text-align: center;
+    }
+
+    .big-logo {
+      font-size: 120px;
+      font-weight: 700;
+      color: #f0f0f0;
+      margin-bottom: -40px;
+      display: block;
+      pointer-events: none;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-size: 14px;
+      color: var(--ocean);
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .split-section {
+        flex-direction: column;
+        margin: 50px auto;
+      }
+
+      .split-sticky {
+        width: 100%;
+        height: auto;
+        position: relative;
+        margin-bottom: 50px;
+      }
+
+      .split-scroll {
+        width: 100%;
+        padding: 0;
+      }
+
+      .portal-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .portal {
+        height: 300px;
+        border-radius: 40px;
+      }
+
+      .nav-pill {
+        width: 90%;
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav-pill">
+    <div class="brand">GLOBAL NEXUS</div>
+    <div class="nav-links">
+      <a href="#">The Mission</a>
+      <a href="#">Data Sets</a>
+      <a href="#">Stories</a>
+    </div>
+    <a href="#" class="join-btn">Act Now</a>
+  </nav>
+
+  <section class="hero-section">
+    <h1>
+      Everything is <br><strong>Connected.</strong>
+    </h1>
+    <p class="hero-desc">
+      The 17 Sustainable Development Goals are not separate tasks. They are a single, living ecosystem of human
+      progress.
+    </p>
+
+    <div class="portal-container">
+      <div class="portal p-1">
+        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80"
+          alt="Nature">
+      </div>
+      <div class="portal p-2">
+        <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=800&q=80"
+          alt="Humanity">
+      </div>
+      <div class="portal p-3">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+          alt="Tech">
+      </div>
+    </div>
+  </section>
+
+  <section class="split-section">
+    <div class="split-sticky">
+      <h2 style="font-size: 42px; margin-bottom: 20px;">The Thread</h2>
+      <p style="font-size: 18px; line-height: 1.7; color: #666; max-width: 400px;">
+        We trace the invisible lines between climate action, economic growth, and social justice. Every data point tells
+        a story of change.
+      </p>
+      <br>
+      <a href="#" style="color: var(--cyan); font-weight: 700; font-size: 14px;">EXPLORE THE MAP &rarr;</a>
+    </div>
+
+    <div class="split-scroll">
+
+      <div class="narrative-card">
+        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb7d5fa5?auto=format&fit=crop&w=800&q=80"
+          class="n-img" alt="Solar">
+        <span class="n-tag">INTERSECTION 01: ENERGY & HEALTH</span>
+        <h3 class="n-title">Solar-powered refrigeration is revolutionizing vaccine delivery in remote equatorial zones.
+        </h3>
+        <p style="color:#888;">By stabilizing the cold chain, we've increased immunization rates by 40% in pilot
+          regions.</p>
+      </div>
+
+      <div class="narrative-card">
+        <img src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80"
+          class="n-img" alt="Farm">
+        <span class="n-tag">INTERSECTION 02: WATER & FOOD</span>
+        <h3 class="n-title">AI-driven irrigation sensors reduce water waste by 60% while doubling crop yields.</h3>
+        <p style="color:#888;">Technology meets tradition in the new agricultural initiative spanning three continents.
+        </p>
+      </div>
+
+      <div class="narrative-card">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
+          class="n-img" alt="Friends">
+        <span class="n-tag">INTERSECTION 03: GENDER & ECONOMY</span>
+        <h3 class="n-title">Micro-grants for women entrepreneurs create ripple effects in local education funding.</h3>
+        <p style="color:#888;">When women control the capital, community reinvestment rates triple.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="pulse-section">
+    <div style="position: relative; z-index: 2; margin-bottom: 60px;">
+      <h2 style="font-size: 36px;">Vital Signs</h2>
+      <p style="opacity: 0.6;">Global monitoring status</p>
+    </div>
+
+    <div class="pulse-grid">
+      <div class="pulse-item">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <span class="stat-val">12</span>
+        <span class="stat-lbl">Years Remaining</span>
+      </div>
+      <div class="pulse-item">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <span class="stat-val">193</span>
+        <span class="stat-lbl">Nations United</span>
+      </div>
+      <div class="pulse-item">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <span class="stat-val">169</span>
+        <span class="stat-lbl">Targets Set</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stories-section">
+    <div class="stories-header">
+      <h2 style="font-size: 32px;">Voices from the Field</h2>
+      <a href="#" style="border-bottom: 1px solid var(--ink);">View Archive</a>
+    </div>
+
+    <div class="card-scroller">
+      <div class="story-card">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80"
+          class="story-img">
+        <div class="story-content">
+          <h3>The Volunteers of Mumbai</h3>
+          <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">Grassroots organization in action.</p>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=800&q=80"
+          class="story-img">
+        <div class="story-content">
+          <h3>Refugee Resilience</h3>
+          <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">Education camps in Jordan.</p>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://images.unsplash.com/photo-1516937941344-00b4ec284cd3?auto=format&fit=crop&w=800&q=80"
+          class="story-img">
+        <div class="story-content">
+          <h3>The Green Energy Transition</h3>
+          <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">Inside the Nordic wind farms.</p>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+          class="story-img">
+        <div class="story-content">
+          <h3>Education for All</h3>
+          <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">Digital literacy in rural Peru.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="big-logo">NEXUS</span>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+      <a href="#">Donate</a>
+    </div>
+  </footer>
+
+</body>
+
+</html>

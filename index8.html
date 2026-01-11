@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNITAR SDGs Singapore Center | GSLDC</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* --- 1. BRAND IDENTITY VARIABLES --- */
+    :root {
+      --cyan-blue: #009edb;
+      /* Innovation / Youth */
+      --un-blue: #0468B1;
+      /* Trust / Corporate */
+      --ink-black: #221F21;
+      /* Text */
+      --paper-white: #FDFEFF;
+      /* Background */
+      --glass: rgba(255, 255, 255, 0.9);
+      --border-light: rgba(4, 104, 177, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      color: var(--ink-black);
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+    }
+
+    strong {
+      color: var(--un-blue);
+    }
+
+    /* --- 2. OFFICIAL HEADER --- */
+    header {
+      background: var(--paper-white);
+      height: 90px;
+      border-bottom: 3px solid var(--cyan-blue);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-placeholder {
+      width: 50px;
+      height: 50px;
+      background: var(--un-blue);
+      color: white;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 10px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .brand-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-black);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-sub {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink-black);
+      font-weight: 500;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--cyan-blue);
+    }
+
+    .btn-nav {
+      background: var(--un-blue);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .btn-nav:hover {
+      background: var(--cyan-blue);
+      color: white;
+    }
+
+    /* --- 3. HERO: SINGAPORE CONTEXT --- */
+    .hero {
+      height: 85vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      /* Background: Mix of Singapore Architecture + UN Blue Overlay */
+      background: linear-gradient(135deg, rgba(4, 104, 177, 0.9), rgba(0, 158, 219, 0.7)),
+        url('https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(4, 104, 177, 0.2);
+      backdrop-filter: blur(5px);
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: var(--cyan-blue);
+      color: var(--ink-black);
+      padding: 5px 15px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* --- 4. IDENTITY GRID (About GSLDC) --- */
+    .identity-section {
+      padding: 100px 10%;
+      background: var(--paper-white);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .intro-text h2 {
+      font-size: 36px;
+      color: var(--un-blue);
+      margin-bottom: 30px;
+    }
+
+    .intro-text p {
+      margin-bottom: 20px;
+      color: #444;
+      text-align: justify;
+    }
+
+    .v-m-box {
+      background: #f4f8fb;
+      border-left: 5px solid var(--cyan-blue);
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .v-m-title {
+      font-weight: 700;
+      color: var(--un-blue);
+      display: block;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .v-m-text {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
+      color: #333;
+    }
+
+    .identity-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 20px 20px 0px rgba(0, 158, 219, 0.1);
+    }
+
+    /* --- 5. KEY GOALS (3 Pillars) --- */
+    .goals-section {
+      padding: 100px 5%;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .section-heading {
+      margin-bottom: 60px;
+    }
+
+    .section-heading h2 {
+      font-size: 32px;
+      color: var(--ink-black);
+      margin-bottom: 10px;
+    }
+
+    .section-heading span {
+      width: 60px;
+      height: 4px;
+      background: var(--cyan-blue);
+      display: inline-block;
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .goal-card {
+      background: var(--paper-white);
+      padding: 40px 30px;
+      border-top: 4px solid var(--un-blue);
+      text-align: left;
+      transition: 0.3s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .goal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 158, 219, 0.15);
+      border-top-color: var(--cyan-blue);
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      background: rgba(4, 104, 177, 0.1);
+      color: var(--un-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+
+    .goal-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--un-blue);
+      height: 50px;
+    }
+
+    .goal-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* --- 6. CORE ACTIVITIES (List Style) --- */
+    .activities-section {
+      padding: 100px 10%;
+      background: var(--un-blue);
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .act-list {
+      list-style: none;
+    }
+
+    .act-item {
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .act-item:last-child {
+      border: none;
+    }
+
+    .act-head {
+      font-weight: 700;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--cyan-blue);
+    }
+
+    .act-desc {
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    .act-visual {
+      position: relative;
+    }
+
+    .act-img {
+      width: 100%;
+      border: 10px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    /* --- 7. BENEFICIARIES & AGENCIES --- */
+    .audience-section {
+      padding: 80px 5%;
+      background: var(--paper-white);
+      text-align: center;
+    }
+
+    .profile-box {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 2px solid var(--border-light);
+      padding: 40px;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+
+    .age-badge {
+      background: var(--ink-black);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .logo-scroll {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+
+    .dummy-logo {
+      width: 120px;
+      height: 60px;
+      background: #ddd;
+    }
+
+    /* --- 8. FOOTER --- */
+    footer {
+      background: var(--ink-black);
+      color: white;
+      padding: 60px 5%;
+      font-size: 14px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .f-title {
+      color: var(--cyan-blue);
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .f-links li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .f-links a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .f-links a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+
+      .intro-grid,
+      .activities-section {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      /* Hidden for demo */
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand-lockup">
+      <div class="logo-placeholder">UNITAR LOGO</div>
+      <div>
+        <span class="brand-text">UNITAR SDGs<br>Singapore Center</span>
+        <span class="brand-sub">Global SDGs & Leadership Development Center (GSLDC)</span>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Programs</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#" class="btn-nav">Get Involved</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-pill">Established 2024 • Singapore</span>
+      <h1>Empowering Youth Leaders<br>in Asia and Beyond</h1>
+      <p>
+        Connecting governments, businesses, and young leaders to drive innovation, leadership, and global perspectives
+        for SDG progress.
+      </p>
+    </div>
+  </section>
+
+  <section class="identity-section">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <h2>Bridging Learning, Leadership & Innovation</h2>
+        <p>
+          The Global SDGs and Leadership Development Center (GSLDC), also known as <strong>UNITAR SDGs Singapore
+            Center</strong>, is an international capacity-building platform. Working in strategic cooperation with
+          UNITAR, we translate Sustainable Development Goals into practical action.
+        </p>
+
+        <div class="v-m-box">
+          <span class="v-m-title">Our Vision</span>
+          <p class="v-m-text">"A generation of visionary leaders uniting hearts, minds, and actions for a sustainable
+            and equitable world."</p>
+        </div>
+
+        <div class="v-m-box" style="border-left-color: var(--un-blue); margin-top: 20px;">
+          <span class="v-m-title">Our Mission</span>
+          <p class="v-m-text">"We empower the next generation of changemakers through education, innovation, and
+            collaboration, fostering a sustainable and inclusive future."</p>
+        </div>
+      </div>
+
+      <div class="intro-visual">
+        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80"
+          class="identity-img" alt="Youth Leadership">
+      </div>
+    </div>
+  </section>
+
+  <section class="goals-section">
+    <div class="section-heading">
+      <h2>Our Strategic Pillars</h2>
+      <span></span>
+    </div>
+
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="icon-box">💡</div>
+        <h3 class="goal-title">Cultivating Future Leaders</h3>
+        <p class="goal-desc">
+          Nurturing emerging leaders through global leadership programs. We equip youth with critical thinking,
+          sustainability knowledge, and innovative mindsets to tackle global challenges effectively.
+        </p>
+      </div>
+
+      <div class="goal-card">
+        <div class="icon-box">🤝</div>
+        <h3 class="goal-title">Cross-Sector Collaboration</h3>
+        <p class="goal-desc">
+          Fostering strategic partnerships among governments and businesses. Through authoritative policy support and
+          knowledge-sharing platforms, we create impactful solutions.
+        </p>
+      </div>
+
+      <div class="goal-card">
+        <div class="icon-box">🚀</div>
+        <h3 class="goal-title">Accelerating Social Innovation</h3>
+        <p class="goal-desc">
+          Creating an ecosystem where entrepreneurship and technology-driven solutions flourish. Supporting climate
+          action, green education, and community-driven initiatives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="activities-section">
+    <div>
+      <h2 style="font-size: 32px; margin-bottom: 40px;">Core Activities</h2>
+      <ul class="act-list">
+        <li class="act-item">
+          <span class="act-head">Leadership Development Programs</span>
+          <span class="act-desc">Courses on leadership theory, team management, and SDG-focused decision-making with
+            international exchanges.</span>
+        </li>
+        <li class="act-item">
+          <span class="act-head">Knowledge Sharing & Technical Support</span>
+          <span class="act-desc">Policy analysis and research reports, collaborating on AI, big data, and blockchain
+            solutions for sustainability.</span>
+        </li>
+        <li class="act-item">
+          <span class="act-head">UN Office Visits & Learning</span>
+          <span class="act-desc">Visits to UN global/regional offices to enhance understanding of multilateral
+            operations.</span>
+        </li>
+        <li class="act-item">
+          <span class="act-head">Community Engagement</span>
+          <span class="act-desc">Volunteer-driven environmental initiatives and social innovation projects.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="act-visual">
+      <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80"
+        class="act-img" alt="Discussion">
+    </div>
+  </section>
+
+  <section class="audience-section">
+    <h2 style="margin-bottom: 40px; color: var(--un-blue);">Target Beneficiaries</h2>
+
+    <div class="profile-box">
+      <span class="age-badge">AGES 15 - 40</span>
+      <h3 style="font-size: 24px; margin-bottom: 20px;">The Next Generation of Changemakers</h3>
+      <p style="color: #555;">
+        We are looking for youth passionate about championing SDGs both within their communities and across borders,
+        with demonstrated leadership and innovator potential.
+      </p>
+    </div>
+
+    <div style="margin-top: 80px;">
+      <p style="font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 2px;">Agencies Interacted in
+        the Past</p>
+      <div class="logo-scroll">
+        <div class="dummy-logo"></div>
+        <div class="dummy-logo"></div>
+        <div class="dummy-logo"></div>
+        <div class="dummy-logo"></div>
+        <div class="dummy-logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <span class="f-title">UNITAR SDGs Singapore Center</span>
+        <p style="color: #999; font-size: 13px; line-height: 1.6;">
+          Advancing sustainable development and leadership for future changemakers through training, research, and
+          innovation.
+        </p>
+      </div>
+      <div>
+        <span class="f-title">Quick Links</span>
+        <ul class="f-links">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Leadership Programs</a></li>
+          <li><a href="#">News & Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="f-title">Contact</span>
+        <ul class="f-links">
+          <li>Singapore HQ</li>
+          <li>info@gsldc.sg</li>
+          <li>+65 6000 0000</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© 2024 UNITAR SDGs Singapore Center. All Rights Reserved.</span>
+      <span>Privacy Policy | Terms of Use</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>

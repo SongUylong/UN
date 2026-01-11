@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN | The 2030 Framework</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. SETTINGS & VARIABLES --- */
+    :root {
+      --cyan: #009edb;
+      --royal: #0468B1;
+      --ink: #221F21;
+      --paper: #FDFEFF;
+      --frame-width: 60px;
+      /* The thickness of the white frame */
+      --ease: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      /* Outer background (desk color) */
+      font-family: 'Noto Sans', sans-serif;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* --- 2. THE FLOATING "DOCUMENT" FRAME --- */
+    /* This creates the illusion that the website is a sheet of paper floating on a desk */
+    .page-frame {
+      position: relative;
+      max-width: 1600px;
+      margin: 40px auto;
+      background-color: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      /* Clips content inside the paper */
+      border-top: 5px solid var(--cyan);
+      /* The "Official" Accent */
+    }
+
+    /* --- 3. PERSISTENT UI LAYERS (Fixed inside the frame) --- */
+    .doc-id {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      text-align: right;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--royal);
+      letter-spacing: 1px;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    .brand-corner {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .un-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--cyan);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      font-size: 10px;
+    }
+
+    .brand-text {
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* The "Menu" is not a bar, but a floating interactive stamp */
+    .menu-stamp {
+      position: fixed;
+      bottom: 60px;
+      right: 60px;
+      width: 80px;
+      height: 80px;
+      background: var(--ink);
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.3s var(--ease);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-stamp:hover {
+      transform: scale(1.1);
+      background: var(--cyan);
+    }
+
+    .menu-lines {
+      width: 20px;
+      height: 2px;
+      background: white;
+      margin-bottom: 4px;
+    }
+
+    /* --- 4. HERO SECTION: "THE COVER" --- */
+    .hero {
+      height: 90vh;
+      padding: 140px 100px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+    }
+
+    /* Massive Background Number */
+    .bg-watermark {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      font-size: 40vw;
+      /* Massive */
+      font-weight: 800;
+      color: #f4f6f8;
+      z-index: 0;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(60px, 6vw, 100px);
+      font-weight: 200;
+      /* Very light weight for elegance */
+      line-height: 0.95;
+      letter-spacing: -2px;
+      color: var(--ink);
+      margin-bottom: 40px;
+    }
+
+    h1 strong {
+      font-weight: 800;
+      color: var(--royal);
+    }
+
+    .lead-p {
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 450px;
+      border-left: 2px solid var(--cyan);
+      padding-left: 30px;
+      color: #555;
+    }
+
+    /* The Image is a "Card" floating on top */
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      height: 600px;
+      width: 100%;
+    }
+
+    .img-card {
+      width: 90%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: -40px 40px 0px rgba(230, 240, 250, 1);
+      /* Solid shadow */
+      filter: grayscale(100%);
+      transition: 1s var(--ease);
+    }
+
+    .hero-visual:hover .img-card {
+      filter: grayscale(0%);
+      transform: translate(10px, -10px);
+    }
+
+    /* --- 5. THE "STRIP" (SDGs) --- */
+    .strip-section {
+      padding: 100px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .strip-header {
+      padding: 0 100px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .strip-container {
+      display: flex;
+      width: 100%;
+      height: 300px;
+    }
+
+    .sdg-slice {
+      flex: 1;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      transition: flex 0.4s var(--ease);
+      /* The accordion effect */
+      background: white;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 20px;
+      justify-content: center;
+    }
+
+    .sdg-slice:hover {
+      flex: 3;
+      /* Expands on hover */
+      background: var(--royal);
+    }
+
+    /* Inner content of SDG slice */
+    .sdg-content {
+      text-align: center;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .sdg-id {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ddd;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .sdg-name {
+      font-size: 14px;
+      font-weight: 600;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0 auto;
+      color: var(--ink);
+    }
+
+    .sdg-slice:hover .sdg-id {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .sdg-slice:hover .sdg-name {
+      writing-mode: horizontal-tb;
+      transform: rotate(0deg);
+      color: white;
+      font-size: 24px;
+      width: 80%;
+    }
+
+    /* Background image that appears on hover inside the slice */
+    .slice-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: 0.4s;
+      z-index: 0;
+      filter: brightness(0.4);
+    }
+
+    .sdg-slice:hover .slice-bg {
+      opacity: 1;
+    }
+
+    .sdg-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- 6. ASYMMETRIC CONTENT GRID --- */
+    .content-grid {
+      padding: 150px 100px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 30px;
+    }
+
+    /* Large Typography Block */
+    .block-text {
+      grid-column: 2 / 7;
+    }
+
+    h2 {
+      font-size: 42px;
+      margin-bottom: 30px;
+      letter-spacing: -1px;
+    }
+
+    /* Floating Image Block */
+    .block-img {
+      grid-column: 8 / 13;
+      position: relative;
+      top: 50px;
+      /* Offset */
+    }
+
+    .block-img img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .img-caption {
+      position: absolute;
+      left: -80px;
+      bottom: 40px;
+      background: var(--paper);
+      padding: 30px;
+      width: 200px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border-top: 3px solid var(--cyan);
+    }
+
+    /* --- 7. DATA BAR --- */
+    .data-bar {
+      background: var(--ink);
+      color: white;
+      padding: 80px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-item {
+      text-align: left;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 2px;
+      height: 40px;
+      background: var(--cyan);
+    }
+
+    .stat-val {
+      font-size: 48px;
+      font-weight: 200;
+      display: block;
+    }
+
+    .stat-lbl {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .page-frame {
+        margin: 0;
+        width: 100%;
+        border: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 40px;
+        height: auto;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .content-grid {
+        display: block;
+        padding: 60px 40px;
+      }
+
+      .block-img {
+        margin-top: 50px;
+      }
+
+      .img-caption {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: -20px;
+      }
+
+      .strip-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .sdg-slice {
+        height: 60px;
+        border-bottom: 1px solid #eee;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 0 20px;
+        align-items: center;
+      }
+
+      .sdg-name {
+        writing-mode: horizontal-tb;
+        transform: none;
+        margin: 0 0 0 20px;
+      }
+
+      .sdg-slice:hover {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="menu-stamp">
+    <div class="menu-lines"></div>
+    <div class="menu-lines"></div>
+    <span>MENU</span>
+  </div>
+
+  <div class="page-frame">
+
+    <div class="brand-corner">
+      <div class="un-icon">UN</div>
+      <div class="brand-text">GLOBAL<br>NEXUS</div>
+    </div>
+    <div class="doc-id">
+      REF: UN-2026-SDG<br>
+      STATUS: ACTIVE
+    </div>
+
+    <section class="hero">
+      <div class="bg-watermark">2030</div>
+
+      <div class="hero-text">
+        <h1>
+          Design for<br>
+          <strong>Dignity.</strong>
+        </h1>
+        <p class="lead-p">
+          We are architecting a sustainable future through transparency, diplomacy, and data-driven humanitarian action.
+          This is the blueprint for the Decade of Action.
+        </p>
+        <br><br>
+        <a href="#"
+          style="font-weight: 700; border-bottom: 2px solid var(--cyan); padding-bottom: 5px; font-size: 14px;">VIEW THE
+          BLUEPRINT &rarr;</a>
+      </div>
+
+      <div class="hero-visual">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+          class="img-card" alt="Modern Architecture">
+      </div>
+    </section>
+
+    <section class="strip-section">
+      <div class="strip-header">
+        <h3>THE 17 GOALS</h3>
+        <span style="font-size: 12px; color: #888;">INTERACTIVE SPECTRUM</span>
+      </div>
+
+      <div class="strip-container">
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">01</span><span class="sdg-name">Poverty</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">02</span><span class="sdg-name">Hunger</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">03</span><span class="sdg-name">Health</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">04</span><span class="sdg-name">Education</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">05</span><span class="sdg-name">Gender</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">06</span><span class="sdg-name">Water</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">07</span><span class="sdg-name">Energy</span></div>
+        </div>
+        <div class="sdg-slice">
+          <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+            class="slice-bg">
+          <div class="sdg-content"><span class="sdg-id">08</span><span class="sdg-name">Work</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <div class="block-text">
+        <span style="color: var(--cyan); font-weight: 700; font-size: 12px; letter-spacing: 2px;">FIELD REPORT:
+          SUDAN</span>
+        <h2>Data is the new<br>Humanitarian Aid.</h2>
+        <p style="color: #666; line-height: 1.8; margin-bottom: 20px;">
+          In a world of increasing complexity, traditional aid models are insufficient. We utilize predictive analytics
+          to determine resource allocation before crises escalate.
+        </p>
+        <p style="color: #666; line-height: 1.8;">
+          Our latest initiative involves solar-powered connectivity hubs that serve as both educational centers and
+          emergency broadcast nodes.
+        </p>
+      </div>
+
+      <div class="block-img">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80"
+          alt="Volunteers">
+        <div class="img-caption">
+          <strong>VOLUNTEER CORPS</strong><br>
+          Field agents deploying Starlink terminals in remote regions to ensure connectivity.
+        </div>
+      </div>
+    </section>
+
+    <section class="data-bar">
+      <div class="stat-item">
+        <span class="stat-val">193</span>
+        <span class="stat-lbl">Signatories</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">4.2<small style="font-size: 20px;">B</small></span>
+        <span class="stat-lbl">Lives Impacted</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">2030</span>
+        <span class="stat-lbl">Target Year</span>
+      </div>
+      <div>
+        <button
+          style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 15px 30px; cursor: pointer;">FULL
+          REPORT</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Simple Paralax for Hero Image
+    document.addEventListener('mousemove', (e) => {
+      const img = document.querySelector('.img-card');
+      const x = (window.innerWidth - e.pageX * 2) / 100;
+      const y = (window.innerHeight - e.pageY * 2) / 100;
+
+      img.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  </script>
+</body>
+
+</html>

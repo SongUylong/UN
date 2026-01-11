@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN | 2030 Global Framework</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 1. THEME VARIABLES --- */
+    :root {
+      --primary-blue: #009edb;
+      --deep-blue: #0468B1;
+      --ink-black: #221F21;
+      --paper-white: #FDFEFF;
+      --border-color: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #f4f4f4;
+      /* Slightly darker background to make the white container pop */
+      color: var(--ink-black);
+      padding: 40px;
+    }
+
+    /* --- 2. THE MAIN CONTAINER (The Blueprint) --- */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--paper-white);
+      border: 1px solid var(--ink-black);
+      /* Hard outer border */
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    /* Utility class for all internal borders */
+    .module {
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 30px;
+      position: relative;
+    }
+
+    .module:last-child {
+      border-right: none;
+    }
+
+    /* --- 3. HEADER MODULE --- */
+    .header-module {
+      grid-column: span 12;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: var(--paper-white);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: -1px;
+    }
+
+    .brand-mark {
+      width: 20px;
+      height: 20px;
+      background: var(--primary-blue);
+    }
+
+    .nav-links a {
+      margin-left: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-black);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-blue);
+    }
+
+    /* --- 4. HERO MODULE (Split) --- */
+    .hero-text-mod {
+      grid-column: span 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .hero-img-mod {
+      grid-column: span 7;
+      padding: 0;
+      /* No padding for image container */
+      height: 600px;
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .highlight {
+      color: var(--primary-blue);
+    }
+
+    .hero-btn {
+      margin-top: 40px;
+      padding: 15px 30px;
+      background: var(--ink-black);
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      width: fit-content;
+      transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+      background: var(--primary-blue);
+    }
+
+    .blueprint-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* New Image: Infrastructure focus */
+      background-image: url('https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(20%);
+      /* Slight desaturation for technical feel */
+    }
+
+    /* --- 5. SDG LIST MODULE (Table of Contents Style) --- */
+    .sdg-list-mod {
+      grid-column: span 4;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    .sdg-header {
+      padding: 20px 30px;
+      font-weight: 900;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--ink-black);
+      background: var(--paper-white);
+    }
+
+    .sdg-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 500;
+    }
+
+    .sdg-num {
+      font-weight: 900;
+      color: var(--primary-blue);
+      margin-right: 15px;
+      font-size: 14px;
+    }
+
+    .sdg-item:hover {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .sdg-item:hover .sdg-num {
+      color: white;
+    }
+
+
+    /* --- 6. FEATURE BLOCK MODULE --- */
+    .feature-mod {
+      grid-column: span 8;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* New Image: Technology/Innovation focus */
+      background-image: url('https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      transition: 1s;
+    }
+
+    .feature-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px;
+      background: linear-gradient(transparent, var(--ink-black));
+      color: white;
+    }
+
+    .feature-mod:hover .feature-bg {
+      transform: scale(1.05);
+    }
+
+    /* --- 7. NEWS GRID MODULES --- */
+    .news-mod {
+      grid-column: span 4;
+    }
+
+    .news-img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .meta-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .news-headline {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      body {
+        padding: 0;
+      }
+
+      .main-container {
+        border: none;
+      }
+
+      .hero-text-mod,
+      .hero-img-mod,
+      .sdg-list-mod,
+      .feature-mod,
+      .news-mod {
+        grid-column: span 12;
+      }
+
+      .hero-img-mod {
+        height: 400px;
+        order: -1;
+      }
+
+      .module {
+        border-right: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-container">
+    <header class="module header-module">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        UN | GLOBAL FRAMEWORK
+      </div>
+      <nav class="nav-links">
+        <a href="#">Agenda 2030</a>
+        <a href="#">Data Portal</a>
+        <a href="#">Member States</a>
+        <a href="#" style="color: var(--primary-blue);">ENG / FRA</a>
+      </nav>
+    </header>
+
+    <div class="module hero-text-mod">
+      <span style="font-weight: 700; color: var(--deep-blue); margin-bottom: 20px;">OFFICIAL PROGRESS TRACKER</span>
+      <h1>Structure for a <span class="highlight">resilient</span> future.</h1>
+      <p style="font-size: 18px; line-height: 1.6; max-width: 500px;">
+        Tracking infrastructure development, technological implementation, and policy adherence across 17 sustainable
+        development goals.
+      </p>
+      <button class="hero-btn">ACCESS DATA TERMINAL</button>
+    </div>
+    <div class="module hero-img-mod">
+      <div class="blueprint-img"></div>
+    </div>
+
+    <div class="module sdg-list-mod">
+      <div class="sdg-header">PRIORITY TARGETS</div>
+      <div class="sdg-item"><span class="sdg-num">06</span>Clean Water & Sanitation</div>
+      <div class="sdg-item"><span class="sdg-num">07</span>Affordable & Clean Energy</div>
+      <div class="sdg-item"><span class="sdg-num">09</span>Industry, Innovation & Infrastructure</div>
+      <div class="sdg-item"><span class="sdg-num">11</span>Sustainable Cities & Communities</div>
+      <div class="sdg-item"><span class="sdg-num">13</span>Climate Action</div>
+      <div style="padding: 20px 30px; font-size: 13px; font-weight: 700; color: var(--deep-blue);">VIEW ALL 17 GOALS →
+      </div>
+    </div>
+
+    <div class="module feature-mod">
+      <div class="feature-bg"></div>
+      <div class="feature-overlay">
+        <h3>TECHNOLOGY INITIATIVE</h3>
+        <h2 style="font-size: 32px; margin: 10px 0;">AI-Driven resource management deployed in arid regions.</h2>
+        <p>Report ID: UN-TECH-2026-A4</p>
+      </div>
+    </div>
+
+    <div class="module news-mod">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+        class="news-img" alt="Transport">
+      <span class="meta-tag">INFRASTRUCTURE REPORT</span>
+      <h3 class="news-headline">Electric rail networks expand in central Europe, reducing logistics emissions by 30%.
+      </h3>
+    </div>
+    <div class="module news-mod">
+      <img src="https://images.unsplash.com/photo-1590649880765-91b1956b8276?auto=format&fit=crop&w=800&q=80"
+        class="news-img" alt="Engineer">
+      <span class="meta-tag">GENDER PARITY</span>
+      <h3 class="news-headline">Women in STEM leadership roles reach new milestone in developing nations.</h3>
+    </div>
+    <div class="module news-mod" style="border-right: none;">
+      <img src="https://images.unsplash.com/photo-1583306346272-0a8695009544?auto=format&fit=crop&w=800&q=80"
+        class="news-img" alt="Water">
+      <span class="meta-tag">CRISIS RESPONSE</span>
+      <h3 class="news-headline">New filtration protocols approved for immediate deployment in disaster zones.</h3>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

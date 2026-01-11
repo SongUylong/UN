@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNITAR SDGs Singapore Center | The Kinetic Nexus</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* --- 1. SETTINGS & VARIABLES --- */
+    :root {
+      --blue-deep: #002B49;
+      /* UNITAR Navy */
+      --blue-electric: #009edb;
+      /* SDG Cyan */
+      --sg-red: #E0002B;
+      /* Singapore Accent */
+      --sand: #F3F3F3;
+      --white: #ffffff;
+      --black: #111111;
+
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--sand);
+      color: var(--black);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Texture Overlay for Premium Feel */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bW9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+');
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.1;
+    }
+
+    /* --- 2. ANIMATION UTILITIES --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s var(--ease);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scale-up {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 1s var(--ease);
+    }
+
+    .scale-up.active {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .slide-in-left {
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: all 1s var(--ease);
+    }
+
+    .slide-in-left.active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* --- 3. NAVIGATION (Floating) --- */
+    nav {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1400px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      mix-blend-mode: exclusion;
+      color: white;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .menu-btn {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: 0.3s;
+    }
+
+    .menu-btn:hover {
+      border-bottom: 1px solid white;
+    }
+
+    /* --- 4. HERO SECTION --- */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      /* Placeholder for video */
+      background: url('https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?auto=format&fit=crop&w=1920&q=80') center/cover;
+      animation: zoomBg 20s infinite alternate;
+    }
+
+    .hero-content {
+      z-index: 2;
+      max-width: 1000px;
+      padding: 0 20px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-title {
+      font-size: clamp(60px, 8vw, 120px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.9;
+      margin-bottom: 40px;
+    }
+
+    .hero-title span {
+      color: transparent;
+      -webkit-text-stroke: 1px white;
+      display: block;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.7;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: white;
+      animation: scrollLine 2s infinite;
+    }
+
+    /* --- 5. MARQUEE STRIP --- */
+    .marquee-container {
+      background: var(--blue-electric);
+      color: white;
+      padding: 20px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transform: rotate(-2deg) scale(1.05);
+      margin: -20px 0 60px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      animation: marquee 20s linear infinite;
+    }
+
+    /* --- 6. ABOUT (Sticky Layout) --- */
+    .about-section {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1400px;
+      margin: 100px auto;
+      padding: 0 5%;
+    }
+
+    .about-sticky {
+      flex: 1;
+      min-width: 300px;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      margin-bottom: 50px;
+    }
+
+    .about-scroll {
+      flex: 1.5;
+      min-width: 300px;
+      padding-left: 5%;
+    }
+
+    .section-title {
+      font-size: 60px;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+    }
+
+    .highlight {
+      color: var(--blue-electric);
+    }
+
+    .card-glass {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .card-glass:hover {
+      transform: translateY(-10px);
+      background: white;
+    }
+
+    /* --- 7. HORIZONTAL SCROLL (SDGs) --- */
+    /* This section forces a horizontal scroll interaction */
+    .h-scroll-wrapper {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      background: var(--black);
+      color: white;
+      display: none;
+      /* JS will enable this behavior, simplified for CSS-only via overflow-x */
+    }
+
+    /* Alternative CSS-only approach for horizontal styling */
+    .sdg-showcase {
+      background: var(--black);
+      color: white;
+      padding: 100px 0;
+      overflow: hidden;
+    }
+
+    .sdg-track {
+      display: flex;
+      gap: 40px;
+      padding: 0 10%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 50px;
+    }
+
+    .sdg-track::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .sdg-track::-webkit-scrollbar-thumb {
+      background: var(--blue-electric);
+    }
+
+    .sdg-card {
+      min-width: 400px;
+      height: 500px;
+      background: #222;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: center;
+      border: 1px solid #333;
+      transition: 0.4s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px;
+    }
+
+    .sdg-card:hover {
+      border-color: var(--blue-electric);
+      background: #1a1a1a;
+    }
+
+    .sdg-bg-num {
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      font-size: 200px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* --- 8. PILLARS (Broken Grid) --- */
+    .pillars-section {
+      padding: 150px 5%;
+      background: white;
+      overflow: hidden;
+    }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    /* Asymmetric Layout */
+    .p-item-1 {
+      grid-column: 1 / 7;
+      margin-top: 0;
+    }
+
+    .p-item-2 {
+      grid-column: 8 / 13;
+      margin-top: 150px;
+    }
+
+    .p-item-3 {
+      grid-column: 3 / 9;
+      margin-top: -50px;
+    }
+
+    .pillar-card {
+      position: relative;
+    }
+
+    .pillar-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: grayscale(100%);
+      transition: 0.5s;
+    }
+
+    .pillar-card:hover .pillar-img {
+      filter: grayscale(0%);
+      transform: scale(1.02);
+    }
+
+    .pillar-txt {
+      background: var(--blue-deep);
+      color: white;
+      padding: 30px;
+      width: 90%;
+      position: relative;
+      margin-top: -50px;
+      margin-left: auto;
+      z-index: 2;
+    }
+
+    /* --- 9. ACTIVITIES (Accordion Style) --- */
+    .activities-section {
+      padding: 150px 10%;
+      background: var(--sand);
+    }
+
+    .act-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .act-row:hover {
+      border-color: var(--blue-electric);
+      padding-left: 20px;
+    }
+
+    .act-num {
+      font-family: 'Space Grotesk';
+      font-size: 20px;
+      color: var(--blue-electric);
+      margin-right: 40px;
+    }
+
+    .act-title {
+      font-size: 32px;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .act-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+    }
+
+    /* --- 10. BENEFICIARIES (Typography) --- */
+    .target-section {
+      background: var(--blue-electric);
+      color: white;
+      padding: 120px 5%;
+      text-align: center;
+    }
+
+    .big-text {
+      font-size: clamp(30px, 4vw, 60px);
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .pill-white {
+      background: white;
+      color: var(--blue-electric);
+      padding: 5px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    /* --- 11. FOOTER (Reveal) --- */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 80px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 60px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .f-logo {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .f-link {
+      display: block;
+      color: #888;
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .f-link:hover {
+      color: var(--blue-electric);
+      padding-left: 5px;
+    }
+
+    .footer-big {
+      font-size: 15vw;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.03);
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    /* --- ANIMATION KEYFRAMES --- */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes zoomBg {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes scrollLine {
+      0% {
+        height: 0;
+        opacity: 0;
+      }
+
+      50% {
+        height: 60px;
+        opacity: 1;
+      }
+
+      100% {
+        height: 60px;
+        opacity: 0;
+        transform: translateY(60px);
+      }
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 50px;
+      }
+
+      .about-section {
+        flex-direction: column;
+      }
+
+      .about-sticky {
+        position: relative;
+        top: 0;
+        margin-bottom: 40px;
+      }
+
+      .pillar-grid {
+        display: block;
+      }
+
+      .pillar-card {
+        margin-bottom: 60px;
+      }
+
+      .p-item-1,
+      .p-item-2,
+      .p-item-3 {
+        margin: 0;
+      }
+
+      .pillar-txt {
+        margin-top: -20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="noise-overlay"></div>
+
+  <nav>
+    <div class="logo">UNITAR SG CENTER</div>
+    <div class="menu-btn">Menu +</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-video-bg"></div>
+    <div class="hero-content">
+      <span class="hero-label reveal">Est. November 2024</span>
+      <h1 class="hero-title reveal" style="transition-delay: 0.2s;">
+        Uniting Hearts,<br>
+        <span>Minds & Actions.</span>
+      </h1>
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-container">
+    <div class="marquee-content">
+      UNITAR SDGs Singapore Center • Global SDGs and Leadership Development Center (GSLDC) • Capacity Building • Youth
+      Empowerment • Innovation • &nbsp;
+      UNITAR SDGs Singapore Center • Global SDGs and Leadership Development Center (GSLDC) • Capacity Building • Youth
+      Empowerment • Innovation • &nbsp;
+    </div>
+  </div>
+
+  <section class="about-section">
+    <div class="about-sticky">
+      <h2 class="section-title reveal">Bridging Learning <br>& <span class="highlight">Innovation.</span></h2>
+      <p style="font-size: 18px; line-height: 1.6; color: #555;" class="reveal">
+        We are an international capacity-building platform advancing sustainable development and leadership for future
+        changemakers.
+      </p>
+      <br>
+      <p style="font-size: 14px; font-weight: 600; color: var(--blue-deep);" class="reveal">STRATEGIC COOPERATION WITH
+        UNITAR</p>
+    </div>
+
+    <div class="about-scroll">
+      <div class="card-glass scale-up">
+        <h3 style="color: var(--blue-deep); margin-bottom: 10px;">Our Vision</h3>
+        <p style="font-size: 20px; font-weight: 600; line-height: 1.4;">
+          "A generation of visionary leaders uniting hearts, minds, and actions for a sustainable and equitable world."
+        </p>
+      </div>
+      <div class="card-glass scale-up">
+        <h3 style="color: var(--blue-electric); margin-bottom: 10px;">Our Mission</h3>
+        <p style="font-size: 16px; line-height: 1.6; color: #444;">
+          We empower the next generation of changemakers through education, innovation, and collaboration. By advancing
+          SDGs, supporting climate action, and sharing knowledge, we enable real-world solutions.
+        </p>
+      </div>
+      <div class="scale-up">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=80"
+          style="width: 100%; border-radius: 20px; filter: grayscale(100%); transition: 0.5s;"
+          onmouseover="this.style.filter='grayscale(0)'" onmouseout="this.style.filter='grayscale(100%)'">
+      </div>
+    </div>
+  </section>
+
+  <section class="sdg-showcase">
+    <div style="padding: 0 10% 40px;">
+      <h2 class="section-title" style="color: white;">Advancing Key Goals</h2>
+      <p style="color: #999;">Translating global goals into practical action.</p>
+    </div>
+
+    <div class="sdg-track">
+      <div class="sdg-card">
+        <div class="sdg-bg-num">04</div>
+        <h3 style="font-size: 30px; font-weight: 800; color: #C5192D;">Quality Education</h3>
+        <p>Nurturing and empowering emerging leaders through skills development and global leadership programs.</p>
+        <button
+          style="margin-top: auto; background: transparent; border: 1px solid white; color: white; padding: 10px 20px; border-radius: 50px; width: fit-content; cursor: pointer;">View
+          Curriculum</button>
+      </div>
+
+      <div class="sdg-card">
+        <div class="sdg-bg-num">09</div>
+        <h3 style="font-size: 30px; font-weight: 800; color: #FD6925;">Innovation</h3>
+        <p>Providing a dynamic ecosystem where groundbreaking ideas, entrepreneurship, and tech solutions flourish.</p>
+        <button
+          style="margin-top: auto; background: transparent; border: 1px solid white; color: white; padding: 10px 20px; border-radius: 50px; width: fit-content; cursor: pointer;">See
+          Projects</button>
+      </div>
+
+      <div class="sdg-card">
+        <div class="sdg-bg-num">13</div>
+        <h3 style="font-size: 30px; font-weight: 800; color: #3F7E44;">Climate Action</h3>
+        <p>Supporting climate action, green education, and community-driven initiatives to accelerate transformation.
+        </p>
+        <button
+          style="margin-top: auto; background: transparent; border: 1px solid white; color: white; padding: 10px 20px; border-radius: 50px; width: fit-content; cursor: pointer;">Join
+          Initiative</button>
+      </div>
+
+      <div class="sdg-card">
+        <div class="sdg-bg-num">17</div>
+        <h3 style="font-size: 30px; font-weight: 800; color: #19486A;">Partnerships</h3>
+        <p>Strategic partnerships among governments, businesses, and organizations to advance development.</p>
+        <button
+          style="margin-top: auto; background: transparent; border: 1px solid white; color: white; padding: 10px 20px; border-radius: 50px; width: fit-content; cursor: pointer;">Partner
+          With Us</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars-section">
+    <h2 class="section-title reveal" style="text-align: center; margin-bottom: 100px;">Strategic Pillars</h2>
+
+    <div class="pillar-grid">
+      <div class="pillar-card p-item-1 reveal">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80"
+          class="pillar-img">
+        <div class="pillar-txt">
+          <h3>Cultivating Future Leaders</h3>
+          <p style="opacity: 0.8; font-size: 14px; margin-top: 10px;">Equipping youth with critical thinking and
+            innovative mindsets.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card p-item-2 reveal">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+          class="pillar-img">
+        <div class="pillar-txt" style="background: var(--blue-electric);">
+          <h3>Cross-Sector Collaboration</h3>
+          <p style="opacity: 0.9; font-size: 14px; margin-top: 10px;">Connecting governments, businesses, and young
+            leaders.</p>
+        </div>
+      </div>
+
+      <div class="pillar-card p-item-3 reveal">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+          class="pillar-img">
+        <div class="pillar-txt">
+          <h3>Accelerating Social Innovation</h3>
+          <p style="opacity: 0.8; font-size: 14px; margin-top: 10px;">Promoting global innovative leadership and tech
+            solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="activities-section">
+    <h2 class="section-title reveal" style="margin-bottom: 50px;">Core Activities</h2>
+
+    <div class="act-row slide-in-left">
+      <span class="act-num">01</span>
+      <span class="act-title">Leadership Development Programs</span>
+      <div class="act-icon">→</div>
+    </div>
+    <div class="act-row slide-in-left">
+      <span class="act-num">02</span>
+      <span class="act-title">Events & Competitions</span>
+      <div class="act-icon">→</div>
+    </div>
+    <div class="act-row slide-in-left">
+      <span class="act-num">03</span>
+      <span class="act-title">Community Engagement</span>
+      <div class="act-icon">→</div>
+    </div>
+    <div class="act-row slide-in-left">
+      <span class="act-num">04</span>
+      <span class="act-title">Knowledge Sharing & Technical Support</span>
+      <div class="act-icon">→</div>
+    </div>
+    <div class="act-row slide-in-left">
+      <span class="act-num">05</span>
+      <span class="act-title">UN Office Visits & Learning</span>
+      <div class="act-icon">→</div>
+    </div>
+  </section>
+
+  <section class="target-section">
+    <span class="pill-white scale-up">Beneficiaries</span>
+    <h2 class="big-text reveal">
+      We are looking for Youth aged <span style="border-bottom: 2px solid white;">15 to 40</span> passionate about
+      championing SDGs.
+    </h2>
+    <br><br>
+    <p class="reveal" style="opacity: 0.8; font-size: 18px;">Demonstrated leadership and innovator potentials.</p>
+    <button
+      style="margin-top: 40px; background: white; color: var(--blue-electric); padding: 15px 40px; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.3s;"
+      onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">APPLY NOW</button>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <span class="f-logo">UNITAR SDGs<br>Singapore Center</span>
+        <p style="color: #666; font-size: 14px; max-width: 300px;">
+          Empowering governments, institutions, corporates, and youths to build future-ready capabilities.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 20px;">Explore</h4>
+        <a href="#" class="f-link">Our Vision</a>
+        <a href="#" class="f-link">Strategic Pillars</a>
+        <a href="#" class="f-link">Research</a>
+        <a href="#" class="f-link">Latest News</a>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 20px;">Connect</h4>
+        <a href="#" class="f-link">LinkedIn</a>
+        <a href="#" class="f-link">Twitter / X</a>
+        <a href="#" class="f-link">Instagram</a>
+        <a href="#" class="f-link">Contact Us</a>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 20px;">Location</h4>
+        <p style="color: #888; font-size: 14px;">
+          Singapore HQ<br>
+          Global Nexus Building<br>
+          Singapore 018956
+        </p>
+      </div>
+    </div>
+    <div class="footer-big">GSLDC</div>
+    <div
+      style="position: relative; z-index: 2; border-top: 1px solid #333; margin-top: 80px; padding-top: 20px; font-size: 12px; color: #555; display: flex; justify-content: space-between;">
+      <span>© 2024 UNITAR SDGs Singapore Center. All rights reserved.</span>
+      <span>Privacy Policy • Terms & Conditions</span>
+    </div>
+  </footer>
+
+  <script>
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .scale-up, .slide-in-left').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+
+</html>

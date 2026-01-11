@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN | The Meridian Initiative</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;600;900&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* --- 1. SETTINGS --- */
+    :root {
+      --electric: #009edb;
+      --ocean: #0468B1;
+      --void: #221F21;
+      --snow: #FDFEFF;
+      --ease: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: var(--snow);
+      color: var(--void);
+      overflow-x: hidden;
+    }
+
+    /* --- 2. PROGRESS BAR --- */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--electric);
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* --- 3. NAVIGATION (Minimalist) --- */
+    nav {
+      position: fixed;
+      top: 40px;
+      width: 100%;
+      padding: 0 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 900;
+      mix-blend-mode: difference;
+      /* Adapts to dark/light backgrounds */
+      color: white;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: -1px;
+      font-size: 24px;
+    }
+
+    .menu-txt {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    /* --- 4. HERO SECTION (Cinematic) --- */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--void);
+      color: var(--snow);
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+
+    .hero-content {
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-title {
+      font-size: clamp(60px, 8vw, 140px);
+      font-weight: 100;
+      /* Thin */
+      line-height: 0.9;
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title b {
+      font-weight: 900;
+      color: var(--electric);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+    }
+
+    /* --- 5. MARQUEE SECTION (Kinetic Type) --- */
+    .marquee-section {
+      padding: 100px 0;
+      background: var(--snow);
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+
+    .marquee-track {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      font-size: 120px;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--ocean);
+      opacity: 0.2;
+      animation: marquee 40s linear infinite;
+    }
+
+    /* --- 6. THE MISSION (Editorial Layout) --- */
+    .mission-section {
+      padding: 150px 10%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .mission-text h2 {
+      font-size: 50px;
+      font-weight: 300;
+      margin-bottom: 40px;
+      line-height: 1.1;
+    }
+
+    .mission-text p {
+      font-size: 20px;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 50px;
+      margin-top: 50px;
+      padding-top: 50px;
+      border-top: 1px solid #ddd;
+    }
+
+    .stat h3 {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--electric);
+    }
+
+    .stat span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .mission-img {
+      position: relative;
+    }
+
+    .mission-img img {
+      width: 100%;
+      height: 700px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.2);
+      transition: 0.5s;
+    }
+
+    .mission-img:hover img {
+      filter: grayscale(0%);
+    }
+
+    /* --- 7. DARK DATA SECTION (The "Void") --- */
+    .data-void {
+      background-color: var(--void);
+      color: var(--snow);
+      padding: 150px 10%;
+      position: relative;
+    }
+
+    .void-header {
+      margin-bottom: 100px;
+      border-left: 4px solid var(--electric);
+      padding-left: 30px;
+    }
+
+    /* Cards floating in void */
+    .void-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      /* Thin lines */
+      background: #333;
+      /* Gap color */
+      border: 1px solid #333;
+    }
+
+    .void-card {
+      background: var(--void);
+      padding: 60px 40px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s;
+    }
+
+    .void-card:hover {
+      background: #2a2a2a;
+    }
+
+    .vc-icon {
+      font-size: 40px;
+      color: var(--electric);
+      margin-bottom: 20px;
+    }
+
+    .vc-num {
+      font-size: 60px;
+      font-weight: 100;
+      opacity: 0.5;
+    }
+
+    .vc-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .vc-desc {
+      font-size: 14px;
+      color: #888;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    /* --- 8. THE HORIZONTAL GALLERIES (SDG) --- */
+    .gallery-section {
+      padding: 150px 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      background: var(--snow);
+    }
+
+    /* Hide scrollbar */
+    .gallery-section::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-track {
+      padding: 0 10%;
+      display: inline-flex;
+      gap: 40px;
+    }
+
+    .g-item {
+      width: 40vw;
+      /* Wide cards */
+      height: 60vh;
+      background: #f4f4f4;
+      position: relative;
+      white-space: normal;
+      /* Reset text wrapping */
+      flex-shrink: 0;
+    }
+
+    .g-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .g-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: white;
+      padding: 40px;
+      width: 80%;
+    }
+
+    .g-tag {
+      background: var(--ocean);
+      color: white;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* --- 9. THE REVEAL FOOTER (Sticky Effect) --- */
+    /* To achieve the "Curtain Reveal", the body needs margin-bottom equal to footer height */
+    /* In this CSS-only version, we'll use a high Z-index cover approach */
+
+    .spacer {
+      height: 80vh;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80vh;
+      background: var(--ocean);
+      color: white;
+      z-index: -1;
+      /* Behind everything */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .main-wrapper {
+      background: var(--snow);
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+      /* Shadow to separate from footer */
+      margin-bottom: 80vh;
+      /* Reveals the footer */
+    }
+
+    /* Footer Content */
+    .f-big-link {
+      font-size: 80px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 20px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .f-big-link:hover {
+      color: var(--void);
+    }
+
+    .f-meta {
+      display: flex;
+      gap: 40px;
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 60px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translate(-50%, 0);
+      }
+
+      50% {
+        transform: translate(-50%, 10px);
+      }
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .mission-section {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 60px;
+      }
+
+      .g-item {
+        width: 85vw;
+      }
+
+      .void-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .f-big-link {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="pBar"></div>
+  </div>
+
+  <nav>
+    <div class="brand">UN | 2030</div>
+    <div class="menu-txt">MENU +</div>
+  </nav>
+
+  <div class="main-wrapper">
+
+    <header class="hero">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80"
+        class="hero-bg" alt="Global Network">
+      <div class="hero-content">
+        <h1 class="hero-title">ONE<br><b>PLANET.</b></h1>
+        <p style="font-size: 18px; letter-spacing: 3px; text-transform: uppercase;">The Meridian Framework for Global
+          Action</p>
+      </div>
+      <div class="scroll-hint">Begin The Journey ↓</div>
+    </header>
+
+    <section class="marquee-section">
+      <div class="marquee-track">
+        <div class="marquee-content">
+          DIPLOMACY • ACTION • SUSTAINABILITY • JUSTICE • PARTNERSHIP • INNOVATION • DIPLOMACY • ACTION • SUSTAINABILITY
+          • JUSTICE • PARTNERSHIP • INNOVATION •
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-section">
+      <div class="mission-text">
+        <span
+          style="color: var(--electric); font-weight: 700; letter-spacing: 2px; display: block; margin-bottom: 20px;">01.
+          THE PREMISE</span>
+        <h2>We are not waiting for the future.<br>We are building it.</h2>
+        <p>
+          The 2030 Agenda is more than a list of goals; it is a binding contract between 193 nations and the 8 billion
+          people they serve. From the ice sheets of the Arctic to the tech hubs of Nairobi, we coordinate the data,
+          funds, and policy required to survive.
+        </p>
+        <div class="stat-row">
+          <div class="stat">
+            <h3>17</h3>
+            <span>Interconnected Goals</span>
+          </div>
+          <div class="stat">
+            <h3>193</h3>
+            <span>Member States</span>
+          </div>
+        </div>
+        <br><br>
+        <a href="#" style="border-bottom: 2px solid var(--electric); padding-bottom: 5px; font-weight: 700;">READ THE
+          CHARTER</a>
+      </div>
+      <div class="mission-img">
+        <img src="https://images.unsplash.com/photo-1578357078586-4917d4b0900d?auto=format&fit=crop&w=900&q=80"
+          alt="Hands">
+      </div>
+    </section>
+
+    <section class="data-void">
+      <div class="void-header">
+        <h2 style="font-size: 36px; margin-bottom: 10px;">The Intelligence Grid</h2>
+        <p style="opacity: 0.7;">Live monitoring of humanitarian assets.</p>
+      </div>
+
+      <div class="void-grid">
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">◆</div>
+            <h3 class="vc-title">Climate Response</h3>
+            <p class="vc-desc">Real-time carbon tracking and disaster relief mobilization protocols.</p>
+          </div>
+          <div class="vc-num">01</div>
+        </div>
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">●</div>
+            <h3 class="vc-title">Food Security</h3>
+            <p class="vc-desc">Supply chain optimization for grain delivery in conflict zones.</p>
+          </div>
+          <div class="vc-num">02</div>
+        </div>
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">▲</div>
+            <h3 class="vc-title">Human Rights</h3>
+            <p class="vc-desc">Digital identity verification for displaced populations.</p>
+          </div>
+          <div class="vc-num">03</div>
+        </div>
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">■</div>
+            <h3 class="vc-title">Education</h3>
+            <p class="vc-desc">Remote learning infrastructure connecting 4M students.</p>
+          </div>
+          <div class="vc-num">04</div>
+        </div>
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">★</div>
+            <h3 class="vc-title">Clean Energy</h3>
+            <p class="vc-desc">Solar grid investments across Sub-Saharan Africa.</p>
+          </div>
+          <div class="vc-num">05</div>
+        </div>
+        <div class="void-card">
+          <div>
+            <div class="vc-icon">✚</div>
+            <h3 class="vc-title">Global Health</h3>
+            <p class="vc-desc">Vaccine distribution logistics and pandemic prevention.</p>
+          </div>
+          <div class="vc-num">06</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div style="padding: 0 10% 40px;">
+        <h2 style="font-size: 32px; font-weight: 800;">FIELD DISPATCHES</h2>
+        <p>Swipe to explore active missions.</p>
+      </div>
+
+      <div class="gallery-track">
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1596464708983-17688cb07188?auto=format&fit=crop&w=800&q=80"
+            class="g-img" alt="Water">
+          <div class="g-overlay">
+            <span class="g-tag">GOAL 06</span>
+            <h3 style="margin-top: 10px; font-size: 24px;">Sanitation upgrades in rural India</h3>
+          </div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb7d5fa5?auto=format&fit=crop&w=800&q=80"
+            class="g-img" alt="Solar">
+          <div class="g-overlay">
+            <span class="g-tag">GOAL 07</span>
+            <h3 style="margin-top: 10px; font-size: 24px;">The Sahara Solar Project</h3>
+          </div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80"
+            class="g-img" alt="People">
+          <div class="g-overlay">
+            <span class="g-tag">GOAL 17</span>
+            <h3 style="margin-top: 10px; font-size: 24px;">Diplomatic summit in Geneva</h3>
+          </div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+            class="g-img" alt="Mountain">
+          <div class="g-overlay">
+            <span class="g-tag">GOAL 15</span>
+            <h3 style="margin-top: 10px; font-size: 24px;">Reforestation of the Andes</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <footer>
+    <div style="opacity: 0.6; letter-spacing: 2px; margin-bottom: 20px;">READY TO ENGAGE?</div>
+    <div class="f-big-link">BECOME A PARTNER</div>
+    <div class="f-big-link">ACCESS OPEN DATA</div>
+    <div class="f-big-link">DONATE</div>
+
+    <div class="f-meta">
+      <span>© 2026 UN GLOBAL NEXUS</span>
+      <span>PRIVACY POLICY</span>
+      <span>TERMS OF SERVICE</span>
+      <span>FRAUD ALERT</span>
+    </div>
+  </footer>
+
+  <script>
+    // Update Progress Bar on Scroll
+    window.onscroll = function () {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("pBar").style.width = scrolled + "%";
+    };
+  </script>
+</body>
+
+</html>
