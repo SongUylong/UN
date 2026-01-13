@@ -1,0 +1,303 @@
+<!-- WordPress Custom HTML Block: UNITAR Hero Section -->
+<!-- Paste this entire code into a Custom HTML block in WordPress -->
+<!-- This section BREAKS OUT of any max-width constraints (Elementor, theme containers, etc.) -->
+<!-- Background is full-width, but text content respects 1400px max-width -->
+
+<style>
+  /* Import Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+  /* Remove body margin */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove Elementor container padding */
+  .elementor-element-1fbc80a,
+  .elementor-element-1fbc80a .elementor-widget-container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .e-con-inner {
+    padding: 0 !important;
+  }
+
+  /* Scoped CSS Variables for Hero Section */
+  .unitar-hero-section {
+    --hero-primary: #009edb;
+    --hero-secondary: #0468B1;
+    --hero-dark: #221F21;
+    --hero-light: #FDFEFF;
+  }
+
+  /* Reset for this section only */
+  .unitar-hero-section * {
+    box-sizing: border-box;
+  }
+
+  /* Hero Container - BREAKS OUT OF MAX-WIDTH */
+  .unitar-hero-section {
+    width: 100vw !important;
+    height: 90vh;
+    min-height: 600px;
+    position: relative;
+    background: url('https://unsdgleadershipcenter.org/wp-content/uploads/2026/01/Screenshot_202020-10-15_20at_201_29_33_20PM.jpeg') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  /* Dark Overlay */
+  .unitar-hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(34, 31, 33, 0.95) 0%, rgba(34, 31, 33, 0.7) 40%, rgba(34, 31, 33, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Decorative Grid Lines */
+  .unitar-hero-section .hero-grid-line {
+    position: absolute;
+    background: #ffffff;
+    opacity: 0.3;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .unitar-hero-section .hero-v-line {
+    width: 1px;
+    height: 100%;
+    left: 40%;
+    top: 0;
+  }
+
+  .unitar-hero-section .hero-h-line {
+    height: 1px;
+    width: 100%;
+    top: 60%;
+    left: 0;
+  }
+
+  .unitar-hero-section .hero-crosshair {
+    position: absolute;
+    left: 40%;
+    top: 60%;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ffffff;
+    transform: translate(-10px, -10px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Content Panel - RESPECTS MAX-WIDTH */
+  .unitar-hero-section .hero-content-panel {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 60px);
+    box-sizing: border-box;
+  }
+
+  .unitar-hero-section .hero-content-inner {
+    max-width: 600px;
+  }
+
+  /* Typography */
+  .unitar-hero-section .hero-label {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: -0.5px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--hero-primary);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .unitar-hero-section .hero-title {
+    font-size: 64px;
+    line-height: 1.1;
+    font-weight: 300;
+    margin: 0 0 30px 0;
+    color: #ffffff;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  .unitar-hero-section .hero-title strong {
+    font-weight: 700;
+    color: var(--hero-primary);
+    display: block;
+  }
+
+  .unitar-hero-section .hero-description {
+    margin: 0 0 40px 0;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 1.6;
+    max-width: 480px;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  /* Call-to-Action Button */
+  .unitar-hero-section .hero-cta-button {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 15px 40px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  .unitar-hero-section .hero-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--hero-primary);
+    z-index: -1;
+    transition: width 0.3s ease-out;
+  }
+
+  .unitar-hero-section .hero-cta-button:hover::before {
+    width: 100%;
+  }
+
+  .unitar-hero-section .hero-cta-button:hover {
+    color: #ffffff;
+    border-color: var(--hero-primary);
+    text-decoration: none;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1400px) {
+    .unitar-hero-section .hero-content-panel {
+      max-width: 1200px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .unitar-hero-section {
+      height: 80vh;
+    }
+
+    .unitar-hero-section .hero-content-panel {
+      padding: 0 40px;
+    }
+
+    .unitar-hero-section .hero-title {
+      font-size: 48px;
+    }
+
+    .unitar-hero-section .hero-v-line,
+    .unitar-hero-section .hero-crosshair {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .unitar-hero-section {
+      height: 100vh;
+      min-height: 500px;
+    }
+
+    .unitar-hero-section .hero-content-panel {
+      padding: 0 20px;
+    }
+
+    .unitar-hero-section .hero-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .unitar-hero-section .hero-description {
+      font-size: 16px !important;
+      margin-bottom: 30px;
+    }
+
+    .unitar-hero-section .hero-h-line {
+      display: none;
+    }
+
+    .unitar-hero-section .hero-cta-button {
+      padding: 12px 30px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .unitar-hero-section .hero-title {
+      font-size: 28px;
+    }
+
+    .unitar-hero-section .hero-label {
+      font-size: 10px;
+    }
+
+    .unitar-hero-section .hero-description {
+      font-size: 14px !important;
+    }
+  }
+</style>
+
+<!-- Hero Section HTML -->
+<section class="unitar-hero-section">
+  <!-- Decorative Grid Lines -->
+  <div class="hero-grid-line hero-v-line"></div>
+  <div class="hero-grid-line hero-h-line"></div>
+  <div class="hero-crosshair"></div>
+
+  <!-- Content Panel -->
+  <div class="hero-content-panel">
+    <div class="hero-content-inner">
+      <span class="hero-label">UNITAR SDGs Singapore Center</span>
+      <h1 class="hero-title">Learn, Lead,<br><strong>Leap.</strong></h1>
+      <p class="hero-description">
+        Building capacity and leadership for a more sustainable, inclusive urban future.
+      </p>
+      <a href="#get-started" class="hero-cta-button">Ready to get started</a>
+    </div>
+  </div>
+</section>
+
+<!-- Instructions:
+1. Copy this entire code block
+2. In WordPress editor, add a "Custom HTML" block
+3. Paste the code into the block
+4. Update the button link (href="#get-started") to your desired URL
+5. Publish/Update your page
+
+Note: This hero section automatically breaks out of any max-width constraints
+(Elementor containers, theme wrappers, etc.) to display edge-to-edge.
+The text content respects a 1400px max-width for optimal readability.
+
+Elementor Users: The CSS includes rules to remove padding from Elementor containers
+(.e-con-inner, .elementor-element-1fbc80a). Update the element ID if your container
+has a different ID (inspect element to find it).
+-->
+

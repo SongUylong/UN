@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alliance Initiative | International Development</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            /* Provided Theme Colors */
+            --bright-blue: #009edb;
+            --deep-blue: #0468B1;
+            --text-black: #221F21;
+            --white-bg: #FDFEFF;
+
+            --light-grey: #f4f7f9;
+            /* Subtle offset color for contrast */
+            --section-spacing: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--text-black);
+            background-color: var(--white-bg);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-highlight {
+            color: var(--bright-blue);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: var(--bright-blue);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--bright-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--deep-blue);
+            box-shadow: 0 5px 15px rgba(4, 104, 177, 0.3);
+        }
+
+        .btn-outline {
+            border-color: var(--bright-blue);
+            color: var(--bright-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bright-blue);
+            color: white;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: var(--white-bg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white-bg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--bright-blue);
+            font-size: 1.8rem;
+        }
+
+        header.scrolled .logo {
+            color: var(--deep-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            color: var(--white-bg);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        header.scrolled .nav-links li a {
+            color: var(--text-black);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bright-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(135deg, rgba(4, 104, 177, 0.7), rgba(34, 31, 33, 0.7)),
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: var(--white-bg);
+            margin-bottom: var(--section-spacing);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        /* --- INTRO SECTION --- */
+        .intro {
+            padding-bottom: var(--section-spacing);
+            text-align: center;
+        }
+
+        .intro-lead {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--deep-blue);
+            font-weight: 300;
+        }
+
+        /* --- IMPACT DATA SECTION (Requested Specifics) --- */
+        .impact-data {
+            position: relative;
+            /* Using the darker blue and black for the background */
+            background: linear-gradient(to right, var(--deep-blue), var(--text-black));
+            color: var(--white-bg);
+            padding: 120px 0;
+            overflow: hidden;
+        }
+
+        /* Interesting Background Pattern (Subtle Digital Globe/Network) */
+        .impact-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at center, transparent 0%, var(--text-black) 70%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23009edb' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--bright-blue);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--bright-blue);
+            margin-bottom: 20px;
+        }
+
+        .stat-number-container {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--bright-blue);
+            line-height: 1;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+        }
+
+        .stat-plus {
+            font-size: 2rem;
+            color: var(--white-bg);
+            margin-left: 5px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- FEATURE MAP SECTION --- */
+        .global-presence {
+            padding: var(--section-spacing) 0;
+            background-color: var(--white-bg);
+        }
+
+        .map-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Using a stylized SVG map image */
+        .world-map-img {
+            width: 100%;
+            opacity: 0.8;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        /* Simulated Map Hotspots */
+        .map-point {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: var(--bright-blue);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .map-point::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--bright-blue);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+
+            100% {
+                width: 300%;
+                height: 300%;
+                opacity: 0;
+            }
+        }
+
+        /* Positioning hotspots (approximate) */
+        .mp-1 {
+            top: 35%;
+            left: 22%;
+        }
+
+        /* North America */
+        .mp-2 {
+            top: 65%;
+            left: 30%;
+        }
+
+        /* South America */
+        .mp-3 {
+            top: 45%;
+            left: 52%;
+        }
+
+        /* Europe/Africa */
+        .mp-4 {
+            top: 58%;
+            left: 60%;
+        }
+
+        /* Africa */
+        .mp-5 {
+            top: 38%;
+            left: 75%;
+        }
+
+        /* Asia */
+        .mp-6 {
+            top: 75%;
+            left: 85%;
+        }
+
+        /* Oceania */
+
+        /* --- UPCOMING EVENTS SECTION --- */
+        .events-section {
+            padding: var(--section-spacing) 0;
+            background-color: var(--light-grey);
+        }
+
+        .events-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Main featured event */
+        .featured-event-card {
+            background: var(--white-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-event-img {
+            height: 350px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .featured-event-content {
+            padding: 30px;
+            position: relative;
+        }
+
+        .date-badge {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--bright-blue);
+            color: var(--white-bg);
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0, 158, 219, 0.3);
+        }
+
+        .date-badge span {
+            display: block;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .featured-event-content h3 {
+            font-size: 1.8rem;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            color: var(--deep-blue);
+        }
+
+        .event-meta {
+            color: #777;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+
+        .event-meta i {
+            color: var(--bright-blue);
+            margin-right: 8px;
+        }
+
+        /* Side list events */
+        .side-events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .side-event-card {
+            background: var(--white-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border-left: 4px solid var(--bright-blue);
+            transition: all 0.3s ease;
+        }
+
+        .side-event-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .side-event-date {
+            text-align: center;
+            font-weight: 700;
+            color: var(--deep-blue);
+            min-width: 60px;
+        }
+
+        .side-event-date span {
+            font-size: 1.8rem;
+            display: block;
+            line-height: 1;
+            color: var(--bright-blue);
+        }
+
+        .side-event-details h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        /* --- NEWSLETTER SECTION --- */
+        .newsletter-section {
+            padding: 80px 0;
+            background: var(--bright-blue);
+            color: var(--white-bg);
+            text-align: center;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            background: var(--white-bg);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            border: none;
+            padding: 15px 20px;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: var(--deep-blue);
+            color: var(--white-bg);
+            border: none;
+            padding: 0 30px;
+            font-weight: 700;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--text-black);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--deep-blue);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            color: var(--white-bg);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--bright-blue);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .events-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-event-img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            /* Hidden for simplicity in this demo */
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="main-header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fa-solid fa-globe"></i>
+                    GLOBAL ALLIANCE
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#mission">Our Mission</a></li>
+                    <li><a href="#impact">Impact Data</a></li>
+                    <li><a href="#global-reach">Global Reach</a></li>
+                    <li><a href="#events">Events</a></li>
+                </ul>
+                <a href="#subscribe" class="btn btn-primary">Stay Connected</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Uniting for a Sustainable and Equitable Future.</h1>
+            <p>We facilitate dialogue, implement development programs, and engage experts worldwide to address critical
+                global challenges.</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="#mission" class="btn btn-primary">Explore Our Work</a>
+                <a href="#impact" class="btn btn-outline" style="color: white; border-color: white;">View Impact</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="intro">
+        <div class="container">
+            <div class="section-header">
+                <h2>Driving Global Progress</h2>
+            </div>
+            <p class="intro-lead">We believe in the power of international cooperation. Through our network of experts
+                and on-the-ground presence, we turn ambitious goals into tangible realities for communities worldwide.
+            </p>
+        </div>
+    </section>
+
+    <section id="impact" class="impact-data">
+        <div class="impact-bg-pattern"></div>
+        <div class="container">
+            <div class="section-header" style="color: white;">
+                <h2 style="color: white;">Our Collective Impact</h2>
+                <p style="color: rgba(255,255,255,0.8);">Quantifying our engagement and reach across the globe.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fa-solid fa-users-line stat-icon"></i>
+                    <div class="stat-number-container">
+                        <span class="running-number" data-target="24000">0</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-label">Youths Engaged</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-handshake stat-icon"></i>
+                    <div class="stat-number-container">
+                        <span class="running-number" data-target="250">0</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-label">Events Hosted</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-map-location-dot stat-icon"></i>
+                    <div class="stat-number-container">
+                        <span class="running-number" data-target="22">0</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-label">Countries Implemented</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-user-tie stat-icon"></i>
+                    <div class="stat-number-container">
+                        <span class="running-number" data-target="360">0</span>
+                        <span class="stat-plus">+</span>
+                    </div>
+                    <div class="stat-label">Experts Engaged</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="global-reach" class="global-presence">
+        <div class="container">
+            <div class="section-header">
+                <h2>Where We Work</h2>
+                <p>Our programs and partnerships span across continents, focusing on regions with the greatest need for
+                    development and dialogue.</p>
+            </div>
+
+            <div class="map-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+                    alt="World Map Location" class="world-map-img">
+
+                <div class="map-point mp-1" title="North America Programs"></div>
+                <div class="map-point mp-2" title="South America Initiative"></div>
+                <div class="map-point mp-3" title="European Headquarters"></div>
+                <div class="map-point mp-4" title="African Development Sector"></div>
+                <div class="map-point mp-5" title="Asian Dialogue Forum"></div>
+                <div class="map-point mp-6" title="Oceania Climate Resilience"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events & Summits</h2>
+                <p>Join the conversation. Participate in our high-level forums and workshops.</p>
+            </div>
+
+            <div class="events-layout">
+                <div class="featured-event-card">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="Global Summit" class="featured-event-img">
+                    <div class="featured-event-content">
+                        <div class="date-badge">
+                            <span>15</span> OCT
+                        </div>
+                        <h3>Annual Global Cooperation Summit 2026</h3>
+                        <div class="event-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> Geneva, Switzerland (Hybrid)</span>
+                            <span><i class="fa-solid fa-clock"></i> 09:00 AM CEST</span>
+                        </div>
+                        <p>Bringing together world leaders, policy experts, and civil society to discuss the post-2030
+                            agenda framework.</p>
+                        <br>
+                        <a href="#" class="btn btn-outline">View Details & Register</a>
+                    </div>
+                </div>
+
+                <div class="side-events-list">
+                    <div class="side-event-card">
+                        <div class="side-event-date">
+                            <span>22</span> NOV
+                        </div>
+                        <div class="side-event-details">
+                            <h4>Youth Leadership Climate Forum</h4>
+                            <p class="event-meta" style="margin-bottom: 5px;"><i class="fa-solid fa-video"></i> Virtual
+                                Event</p>
+                            <a href="#" class="text-highlight" style="font-weight: 600; font-size: 0.9rem;">Learn More
+                                &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="side-event-card">
+                        <div class="side-event-date">
+                            <span>05</span> DEC
+                        </div>
+                        <div class="side-event-details">
+                            <h4>Experts Roundtable: Digital Inclusion</h4>
+                            <p class="event-meta" style="margin-bottom: 5px;"><i class="fa-solid fa-location-dot"></i>
+                                Nairobi, Kenya</p>
+                            <a href="#" class="text-highlight" style="font-weight: 600; font-size: 0.9rem;">Learn More
+                                &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="side-event-card"
+                        style="background: transparent; box-shadow: none; border: 2px dashed #ccc; justify-content: center;">
+                        <a href="#" class="text-highlight" style="font-weight: 700;">View All Upcoming Events &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subscribe" class="newsletter-section">
+        <div class="container newsletter-container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest briefings, impact reports, and event invitations delivered directly to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address..." required>
+                <button type="submit" class="newsletter-btn">SUBSCRIBE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-globe"></i>
+                        GLOBAL ALLIANCE
+                    </a>
+                    <p>Committed to fostering international cooperation and implementing sustainable development
+                        solutions worldwide.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Leadership</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Key Topics</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Peace & Security</a></li>
+                        <li><a href="#">Climate Action</a></li>
+                        <li><a href="#">Human Rights</a></li>
+                        <li><a href="#">Digital Innovation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><i class="fa-solid fa-location-arrow" style="color: var(--bright-blue); margin-right: 10px;"></i>
+                        123 Diplomacy Way, New York, NY 10017</p>
+                    <p><i class="fa-solid fa-envelope" style="color: var(--bright-blue); margin-right: 10px;"></i>
+                        contact@globalalliance.org</p>
+                    <div style="margin-top: 20px; font-size: 1.5rem;">
+                        <a href="#" style="margin-right: 15px;"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" style="margin-right: 15px;"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Global Alliance Initiative. All rights reserved. | Privacy Policy | Terms of Use</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Sticky Header on Scroll
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Running Numbers Animation (Robust Version with Commas)
+        const numberElements = document.querySelectorAll('.running-number');
+        const statsSection = document.getElementById('impact');
+        let hasStartedCounting = false;
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentVal = Math.floor(progress * (end - start) + start);
+                // Add commas to the number for display
+                obj.innerHTML = currentVal.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end.toLocaleString();
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        const observerOptions = {
+            threshold: 0.5 // Trigger when 50% of the section is visible
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasStartedCounting) {
+                    hasStartedCounting = true;
+                    numberElements.forEach(el => {
+                        const target = parseInt(el.getAttribute('data-target'));
+                        // Adjust duration based on magnitude of number
+                        const duration = target > 10000 ? 2500 : 1500;
+                        animateValue(el, 0, target, duration);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+
+</html>

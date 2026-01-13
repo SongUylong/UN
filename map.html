@@ -1,0 +1,643 @@
+
+<style>
+    .map-section {
+        padding: 80px 0;
+        overflow: hidden;
+    }
+
+    .map-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .map-header {
+        margin-bottom: 40px;
+        padding-left: 25px;
+        border-left: 4px solid #009edb;
+    }
+
+    .map-header h2 {
+        font-size: 2rem;
+        color: #221F21;
+        margin: 0 0 10px 0;
+    }
+
+    .map-header p {
+        font-size: 1rem;
+        color: #5f6368;
+        margin: 0;
+    }
+
+    .map-outer {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .map-wrapper {
+        max-height: 400px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 12px;
+    }
+
+    .world-map {
+        min-width: 900px;
+        min-height: 600px;
+        width: 100%;
+        height: auto;
+        display: block;
+        aspect-ratio: 1009 / 666;
+    }
+
+    .map-legend {
+        margin-top: 20px;
+        display: flex;
+        gap: 30px;
+        font-size: 0.85rem;
+        color: #5f6368;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .legend-dot {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        border-radius: 3px;
+    }
+
+    .legend-dot.reached {
+        background: #009edb;
+    }
+
+    .legend-dot.member {
+        background: #e5e7eb;
+    }
+
+    /* Zoom controls */
+    .zoom-controls {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 10;
+    }
+
+    .zoom-btn {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: none;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #221F21;
+        transition: all 0.2s ease;
+    }
+
+    .zoom-btn:hover {
+        background: #009edb;
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(0, 158, 219, 0.3);
+    }
+
+    .zoom-btn:active {
+        transform: scale(0.95);
+    }
+
+    .zoom-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .zoom-btn:disabled:hover {
+        background: #fff;
+        color: #221F21;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .map-content {
+        transform-origin: center center;
+        transition: transform 0.3s ease;
+    }
+
+    /* Tooltip styles */
+    .map-tooltip {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 600px;
+        background: #fff;
+        border-radius: 8px;
+        padding: 12px 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        height: auto;
+        min-height: 70px;
+        border-top: 3px solid #009edb;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.15s ease;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .map-tooltip.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .map-tooltip:not(.visible) h4,
+    .map-tooltip:not(.visible) p {
+        visibility: hidden;
+    }
+
+    .map-tooltip h4 {
+        margin: 0 0 6px 0;
+        font-size: 0.85rem;
+        color: #221F21;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .map-tooltip p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #5f6368;
+        line-height: 1.4;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    /* Tablet styles */
+    @media (max-width: 1024px) {
+        .map-section {
+            padding: 60px 0;
+        }
+
+        .map-header {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        .map-header h2 {
+            font-size: 1.75rem;
+        }
+
+        .map-header p {
+            font-size: 0.95rem;
+        }
+
+        .map-legend {
+            gap: 25px;
+        }
+
+        .zoom-controls {
+            top: 10px;
+            right: 15px;
+        }
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+        .map-section {
+            padding: 40px 0;
+        }
+
+        .map-container {
+            padding: 0 15px;
+        }
+
+        .map-header {
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left-width: 3px;
+        }
+
+        .map-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .map-header p {
+            font-size: 0.9rem;
+        }
+
+        .map-wrapper {
+            border-radius: 8px;
+        }
+
+        .map-legend {
+            gap: 20px;
+            font-size: 0.8rem;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        .map-tooltip {
+            bottom: 10px;
+            width: calc(100% - 30px);
+            max-width: calc(100vw - 40px);
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            min-height: 65px;
+        }
+
+        .map-tooltip h4 {
+            font-size: 0.8rem;
+        }
+
+        .map-tooltip p {
+            font-size: 0.8rem;
+        }
+
+        .zoom-controls {
+            top: 10px;
+            right: 10px;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+        }
+    }
+
+    /* Small mobile styles */
+    @media (max-width: 480px) {
+        .map-section {
+            padding: 30px 0;
+        }
+
+        .map-container {
+            padding: 0 10px;
+        }
+
+        .map-header {
+            margin-bottom: 20px;
+            padding-left: 12px;
+        }
+
+        .map-header h2 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .map-header p {
+            font-size: 0.85rem;
+        }
+
+        .map-wrapper {
+            border-radius: 6px;
+        }
+
+        .map-legend {
+            gap: 15px;
+            font-size: 0.75rem;
+        }
+
+        .map-tooltip {
+            bottom: 10px;
+            width: calc(100% - 20px);
+            max-width: calc(100vw - 30px);
+            padding: 8px 12px;
+            min-height: 60px;
+        }
+
+        .zoom-controls {
+            top: 10px;
+            right: 8px;
+            gap: 6px;
+        }
+
+        .zoom-btn {
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+        }
+
+        .zoom-btn[title="Reset Zoom"] {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="map-section">
+    <div class="map-container">
+        <div class="map-header">
+            <h2>Operational Landscape</h2>
+            <p>Countries where we have established presence and delivered impactful programs.</p>
+        </div>
+
+        <div class="map-outer">
+            <!-- Zoom controls -->
+            <div class="zoom-controls">
+                <button id="zoom-in" class="zoom-btn" title="Zoom In">+</button>
+                <button id="zoom-out" class="zoom-btn" title="Zoom Out">−</button>
+                <button id="zoom-reset" class="zoom-btn" title="Reset Zoom" style="font-size: 16px;">⟲</button>
+            </div>
+
+            <div class="map-wrapper">
+                <object id="world-map-svg" class="world-map map-content" data="/wp-content/uploads/2026/01/world.svg"
+                    type="image/svg+xml"></object>
+            </div>
+
+            <!-- Tooltip below the scrollable map -->
+            <div id="map-tooltip" class="map-tooltip">
+                <h4 id="tooltip-title"></h4>
+                <p id="tooltip-desc"></p>
+            </div>
+        </div>
+
+        <div class="map-legend">
+            <div class="legend-item">
+                <span class="legend-dot reached"></span> Reached
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot member"></span> Member State
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initWorldMap() {
+        var worldMapObject = document.getElementById('world-map-svg');
+        var mapWrapper = document.querySelector('.map-wrapper');
+        var tooltip = document.getElementById('map-tooltip');
+        var tooltipTitle = document.getElementById('tooltip-title');
+        var tooltipDesc = document.getElementById('tooltip-desc');
+        var zoomInBtn = document.getElementById('zoom-in');
+        var zoomOutBtn = document.getElementById('zoom-out');
+        var zoomResetBtn = document.getElementById('zoom-reset');
+
+        if (!worldMapObject) return;
+
+        // Zoom state
+        var currentZoom = 1;
+        var minZoom = 0.5;
+        var maxZoom = 3;
+        var zoomStep = 0.25;
+
+        // Zoom functions
+        function updateZoom(newZoom) {
+            currentZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
+            worldMapObject.style.transform = 'scale(' + currentZoom + ')';
+            
+            // Update button states
+            zoomInBtn.disabled = currentZoom >= maxZoom;
+            zoomOutBtn.disabled = currentZoom <= minZoom;
+        }
+
+        function zoomIn() {
+            updateZoom(currentZoom + zoomStep);
+        }
+
+        function zoomOut() {
+            updateZoom(currentZoom - zoomStep);
+        }
+
+        function resetZoom() {
+            updateZoom(1);
+            scrollToAsia();
+        }
+
+        // Scroll to Southeast Asia region on load
+        function scrollToAsia() {
+            if (mapWrapper) {
+                // Position slightly left of rightmost to center Southeast Asia better
+                var maxScrollX = mapWrapper.scrollWidth - mapWrapper.clientWidth;
+                var scrollX = maxScrollX * 0.93;
+                var scrollY = (mapWrapper.scrollHeight - mapWrapper.clientHeight) * 0.7;
+                mapWrapper.scrollLeft = scrollX;
+                mapWrapper.scrollTop = scrollY;
+            }
+        }
+
+        // Scroll after SVG loads
+        if (worldMapObject.contentDocument) {
+            scrollToAsia();
+        } else {
+            worldMapObject.addEventListener('load', scrollToAsia);
+        }
+        setTimeout(scrollToAsia, 500); // Fallback
+
+        // Country data with names and mock descriptions
+        var countryData = {
+            'CN': {
+                name: 'China',
+                description: 'Major operational hub since 2010. Running education, healthcare, and sustainable development programs across 20 provinces.'
+            },
+            'TH': {
+                name: 'Thailand',
+                description: 'Southeast Asia regional center. Implementing community development and environmental programs since 2015.'
+            },
+            'VN': {
+                name: 'Vietnam',
+                description: 'Active since 2016. Focused on education, rural development, and women\'s empowerment programs.'
+            },
+            'ID': {
+                name: 'Indonesia',
+                description: 'Largest Southeast Asian presence. Supporting health, sanitation, and climate resilience across 15 provinces.'
+            },
+            'PH': {
+                name: 'Philippines',
+                description: 'Key partner since 2014. Disaster response and community rebuilding programs reaching over 3 million people.'
+            },
+            'SG': {
+                name: 'Singapore',
+                description: 'Regional headquarters for Asia-Pacific. Coordinating operations and partnerships since 2011.'
+            },
+            'KH': {
+                name: 'Cambodia',
+                description: 'Active since 2013. Focused on education, clean water access, and rural community development.'
+            },
+            'MY': {
+                name: 'Malaysia',
+                description: 'Strategic partner since 2014. Supporting environmental conservation and youth empowerment programs.'
+            }
+        };
+
+        // Add country IDs you want highlighted in blue
+        var highlightedCountries = ['CN', 'TH', 'VN', 'ID', 'PH', 'SG', 'KH', 'MY'];
+
+        var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        var activeCountry = null;
+        var hideTimeout = null;
+
+        function showTooltip(countryId) {
+            // Cancel any pending hide
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+
+            var data = countryData[countryId];
+            if (data) {
+                tooltipTitle.textContent = data.name;
+                tooltipDesc.textContent = data.description;
+                tooltip.classList.add('visible');
+                activeCountry = countryId;
+            }
+        }
+
+        function hideTooltip() {
+            // Small delay to prevent flicker when moving between countries
+            hideTimeout = setTimeout(function () {
+                tooltip.classList.remove('visible');
+                activeCountry = null;
+            }, 50);
+        }
+
+        function applyStyles() {
+            try {
+                var svgDoc = worldMapObject.contentDocument;
+                if (!svgDoc) {
+                    setTimeout(applyStyles, 100);
+                    return;
+                }
+
+                var paths = svgDoc.querySelectorAll('path');
+                if (paths.length === 0) {
+                    setTimeout(applyStyles, 100);
+                    return;
+                }
+
+                for (var i = 0; i < paths.length; i++) {
+                    var path = paths[i];
+                    path.style.fill = '#e5e7eb';
+                    path.style.stroke = '#fff';
+                    path.style.strokeWidth = '0.5px';
+
+                    var countryId = path.getAttribute('id') || '';
+                    if (highlightedCountries.indexOf(countryId) !== -1) {
+                        path.style.fill = '#009edb';
+                        path.style.cursor = 'pointer';
+                        path.style.transition = 'fill 0.2s ease';
+
+                        // Add hover events for highlighted countries
+                        (function (id, pathEl) {
+                            if (isMobile) {
+                                // Touch events for mobile
+                                pathEl.addEventListener('touchstart', function (e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+
+                                    if (activeCountry === id) {
+                                        pathEl.style.fill = '#009edb';
+                                        hideTooltip();
+                                    } else {
+                                        // Hide previous tooltip and reset color
+                                        var svgDoc = worldMapObject.contentDocument;
+                                        if (svgDoc) {
+                                            var allPaths = svgDoc.querySelectorAll('path');
+                                            for (var j = 0; j < allPaths.length; j++) {
+                                                if (highlightedCountries.indexOf(allPaths[j].getAttribute('id')) !== -1) {
+                                                    allPaths[j].style.fill = '#009edb';
+                                                }
+                                            }
+                                        }
+
+                                        pathEl.style.fill = '#007ab8';
+                                        showTooltip(id);
+                                    }
+                                });
+                            } else {
+                                // Mouse events for desktop
+                                pathEl.addEventListener('mouseenter', function (e) {
+                                    pathEl.style.fill = '#007ab8';
+                                    showTooltip(id);
+                                });
+                                pathEl.addEventListener('mouseleave', function () {
+                                    pathEl.style.fill = '#009edb';
+                                    hideTooltip();
+                                });
+                            }
+                        })(countryId, path);
+                    }
+                }
+            } catch (e) {
+                setTimeout(applyStyles, 100);
+            }
+        }
+
+        if (worldMapObject.contentDocument && worldMapObject.contentDocument.querySelector('path')) {
+            applyStyles();
+        } else {
+            worldMapObject.onload = applyStyles;
+        }
+
+        // Zoom button event listeners
+        zoomInBtn.addEventListener('click', zoomIn);
+        zoomOutBtn.addEventListener('click', zoomOut);
+        zoomResetBtn.addEventListener('click', resetZoom);
+
+        // Keyboard shortcuts for zoom
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '+' || e.key === '=') {
+                e.preventDefault();
+                zoomIn();
+            } else if (e.key === '-' || e.key === '_') {
+                e.preventDefault();
+                zoomOut();
+            } else if (e.key === '0') {
+                e.preventDefault();
+                resetZoom();
+            }
+        });
+
+        // Initialize zoom state
+        updateZoom(1.75); // Start with 1.75x zoom focused on Southeast Asia
+
+        // Close tooltip when clicking/touching outside on mobile
+        if (isMobile) {
+            document.addEventListener('touchstart', function (e) {
+                if (!tooltip.contains(e.target)) {
+                    var svgDoc = worldMapObject.contentDocument;
+                    if (svgDoc) {
+                        var paths = svgDoc.querySelectorAll('path');
+                        for (var i = 0; i < paths.length; i++) {
+                            if (highlightedCountries.indexOf(paths[i].getAttribute('id')) !== -1) {
+                                paths[i].style.fill = '#009edb';
+                            }
+                        }
+                    }
+                    hideTooltip();
+                }
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWorldMap);
+    } else {
+        initWorldMap();
+    }
+</script>

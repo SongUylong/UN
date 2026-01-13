@@ -1,0 +1,243 @@
+<style>
+    /* --- 1. Background Wrapper --- */
+    .blue-texture-wrapper {
+        width: 100%;
+        min-height: auto; 
+        background-color: #009edb;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    /* Ensure all child elements use border-box sizing */
+    .blue-texture-wrapper *,
+    .blue-texture-wrapper *::before,
+    .blue-texture-wrapper *::after {
+        box-sizing: border-box;
+    }
+
+    /* --- 2. SVG Background --- */
+    .blue-texture-bg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    /* --- 3. Content Container --- */
+    .content-overlay {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 1400px; 
+        margin: 0 auto;
+        padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 40px); 
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center; 
+        gap: clamp(20px, 3vw, 35px); 
+        color: #ffffff;
+        font-family: sans-serif;
+        text-align: center;
+    }
+
+    /* --- 4. Columns --- */
+    .col-image {
+        flex: 1 1 min(350px, 100%); 
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        min-width: 0; /* Prevents flex item overflow */
+    }
+
+    .col-image img {
+        width: 100%; 
+        max-width: 100%;
+        height: auto;
+        /* Responsive height using clamp */
+        max-height: clamp(250px, 40vw, 350px); 
+        object-fit: contain;
+        border-radius: 8px;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    }
+
+    .col-text {
+        flex: 1 1 min(450px, 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(15px, 2vw, 25px); 
+        min-width: 0; /* Prevents flex item overflow */
+    }
+
+    /* --- 5. Typography --- */
+    .info-box {
+        text-align: center;
+    }
+
+    .info-box h2 {
+        color: #ffffff;
+        /* Fluid typography: scales between 24px and 36px */
+        font-size: clamp(24px, 4vw, 36px); 
+        font-weight: 700;
+        margin: 0 0 clamp(6px, 1vw, 10px) 0;
+        line-height: 1.2;
+    }
+
+    .info-box p {
+        color: #ffffff;
+        /* Fluid typography: scales between 16px and 20px */
+        font-size: clamp(16px, 2.5vw, 20px); 
+        line-height: 1.6;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    /* --- 6. Responsive Breakpoints --- */
+    
+    /* Tablet and below */
+    @media (max-width: 900px) {
+        .blue-texture-wrapper {
+            padding-bottom: 35px;
+        }
+        .content-overlay {
+            flex-direction: column;
+            gap: clamp(15px, 2.5vw, 25px);
+        }
+        .col-image img {
+            /* Bigger image for medium screens */
+            max-height: clamp(280px, 45vw, 380px); 
+        }
+        /* Smaller text for medium screens */
+        .info-box h2 {
+            font-size: clamp(22px, 3.5vw, 28px);
+        }
+        .info-box p {
+            font-size: clamp(15px, 2.2vw, 18px);
+        }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+        .blue-texture-wrapper {
+            min-height: auto;
+            padding-bottom: 30px;
+        }
+        .content-overlay {
+            padding: clamp(20px, 5vw, 30px) clamp(15px, 4vw, 20px);
+            gap: 12px;
+        }
+        .col-image img {
+            /* Bigger image for small screens */
+            max-height: 240px;
+            border-radius: 6px;
+        }
+        .col-text {
+            gap: 12px;
+        }
+        /* Smaller text for small screens */
+        .info-box h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .info-box p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+        .blue-texture-wrapper {
+            padding-bottom: 25px;
+        }
+        .content-overlay {
+            padding: 20px 12px;
+            gap: 10px;
+        }
+        .col-image img {
+            /* Bigger image even on very small screens */
+            max-height: 200px;
+        }
+        .col-text {
+            gap: 10px;
+        }
+        /* Extra small text for very small screens */
+        .info-box h2 {
+            font-size: 18px;
+        }
+        .info-box p {
+            font-size: 13px;
+        }
+    }
+
+    /* Large desktop screens */
+    @media (min-width: 1400px) {
+        .content-overlay {
+            gap: 40px;
+        }
+        .col-image img {
+            max-height: 400px;
+        }
+    }
+</style>
+
+<div class="blue-texture-wrapper">
+    
+    <svg class="blue-texture-bg" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="minimalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0077a5" stop-opacity="0.5"/>
+                <stop offset="25%" stop-color="#009edb" stop-opacity="0"/>
+                <stop offset="75%" stop-color="#009edb" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#221F21" stop-opacity="0.4"/>
+            </linearGradient>
+
+            <filter id="grainFilter" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+                <feColorMatrix in="noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 12 -7" result="contrastNoiseBlue"/>
+                <feFlood flood-color="#0077a5" flood-opacity="0.3" result="deepBlueColor"/> 
+                <feComposite operator="in" in="deepBlueColor" in2="contrastNoiseBlue" result="coloredNoiseBlue"/>
+                <feColorMatrix in="noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -10" result="contrastNoiseBlack"/>
+                <feFlood flood-color="#221F21" flood-opacity="0.25" result="blackColor"/> 
+                <feComposite operator="in" in="blackColor" in2="contrastNoiseBlack" result="coloredNoiseBlack"/>
+                <feMerge result="mixedNoise">
+                    <feMergeNode in="coloredNoiseBlue"/>
+                    <feMergeNode in="coloredNoiseBlack"/>
+                </feMerge>
+                <feBlend mode="multiply" in="mixedNoise" in2="SourceGraphic" />
+            </filter>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#009edb"/>
+        <rect width="100%" height="100%" fill="url(#minimalGradient)"/>
+        <rect width="100%" height="100%" fill="transparent" filter="url(#grainFilter)"/>
+    </svg>
+
+    <div class="content-overlay">
+        
+        <div class="col-image">
+            <img src="https://unsdgleadershipcenter.org/wp-content/uploads/2025/03/image-8.png" alt="UNSDG Leadership Center">
+        </div>
+
+        <div class="col-text">
+            <div class="info-box">
+                <h2>Vision</h2>
+                <p>A generation of visionary leaders uniting hearts, minds, and actions for a sustainable and equitable world.</p>
+            </div>
+
+            <div class="info-box">
+                <h2>Mission</h2>
+                <p>Bridging learning, leadership, and innovation to advance shared sustainable future.</p>
+            </div>
+        </div>
+
+    </div>
+</div>

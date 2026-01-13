@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Stats Variants 11-15</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL VARIABLES & RESET --- */
+        :root {
+            --blue-primary: #009edb;
+            --blue-deep: #0468B1;
+            --text-black: #221F21;
+            --white: #FDFEFF;
+            --border-color: #e6e6e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-black);
+            padding-bottom: 100px;
+        }
+
+        /* Utility */
+        .variant-label {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* --- VARIANT 11: THE "SWISS GRID" --- 
+           Minimalist, bordered boxes, very precise typography. 
+           No background images, pure data focus.
+        */
+        .v11-section {
+            background: var(--white);
+            padding: 100px 0;
+            border-bottom: 4px solid var(--blue-primary);
+        }
+
+        .v11-header {
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .v11-header h2 {
+            font-size: 2rem;
+            color: var(--text-black);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .v11-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .v11-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .v11-card {
+            padding: 50px 30px;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .v11-card:hover {
+            background: #f9fbfd;
+        }
+
+        .v11-icon {
+            font-size: 1.5rem;
+            color: var(--blue-deep);
+            margin-bottom: 25px;
+            display: inline-block;
+            padding: 12px;
+            background: rgba(4, 104, 177, 0.1);
+        }
+
+        .v11-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            color: var(--text-black);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .v11-label {
+            font-size: 0.9rem;
+            color: #777;
+            font-weight: 500;
+        }
+
+
+        /* --- VARIANT 12: THE "INSTITUTIONAL DARK" --- 
+           High contrast, serious, authority. 
+        */
+        .v12-section {
+            background-color: var(--text-black);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Geometric Abstract Background */
+        .v12-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 0, transparent 50%);
+            background-size: 20px 20px;
+        }
+
+        .v12-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .v12-item {
+            border-left: 2px solid var(--blue-primary);
+            padding-left: 25px;
+            color: var(--white);
+        }
+
+        .v12-number {
+            font-size: 3.5rem;
+            font-weight: 300;
+            /* Light weight for elegance */
+            color: var(--white);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .v12-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: var(--blue-primary);
+            font-weight: 700;
+        }
+
+
+        /* --- VARIANT 13: THE "STRATEGIC OVERLAY" --- 
+           Image on left, clean stats list on right. Very common in annual reports.
+        */
+        .v13-section {
+            background: var(--white);
+            display: flex;
+            min-height: 500px;
+        }
+
+        .v13-img {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            position: relative;
+        }
+
+        .v13-img::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 104, 177, 0.2);
+            /* Blue tint */
+        }
+
+        .v13-content {
+            flex: 1;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .v13-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .v13-row:first-child {
+            border-top: 1px solid #eee;
+        }
+
+        .v13-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-black);
+        }
+
+        .v13-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+        }
+
+
+        /* --- VARIANT 14: THE "GLASS ARCHITECT" --- 
+           Background architectural image with frosted glass cards.
+        */
+        .v14-section {
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .v14-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(34, 31, 33, 0.7);
+        }
+
+        .v14-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .v14-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 20px;
+            text-align: left;
+            color: var(--white);
+        }
+
+        .v14-card:hover {
+            border-color: var(--blue-primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .v14-icon {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--blue-primary);
+        }
+
+        .v14-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .v14-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+
+        /* --- VARIANT 15: THE "PILLAR" (Vertical) --- 
+           Clean, vertical columns with gradients.
+        */
+        .v15-section {
+            background: var(--white);
+            padding: 100px 0;
+        }
+
+        .v15-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .v15-item {
+            text-align: center;
+            position: relative;
+            padding-top: 20px;
+        }
+
+        /* Top Blue Bar */
+        .v15-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: var(--blue-primary);
+        }
+
+        .v15-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            /* Gradient Text */
+            background: linear-gradient(180deg, var(--text-black) 0%, var(--blue-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .v15-label {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .v15-sub {
+            font-size: 0.8rem;
+            color: #999;
+            display: block;
+            margin-top: 5px;
+        }
+
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+
+            .v11-grid,
+            .v12-grid,
+            .v14-grid,
+            .v15-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .v11-grid {
+                border-right: 1px solid var(--border-color);
+            }
+
+            .v13-section {
+                flex-direction: column;
+            }
+
+            .v13-img {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .v11-grid,
+            .v12-grid,
+            .v14-grid,
+            .v15-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .v11-grid {
+                border: none;
+            }
+
+            .v11-card {
+                border: 1px solid var(--border-color);
+                margin-bottom: 10px;
+            }
+
+            .v13-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="variant-label">Variant 11: The Swiss Grid (Pure Data)</div>
+    <section class="v11-section count-trigger">
+        <div class="container">
+            <div class="v11-header">
+                <h2>Our Impact by the Numbers</h2>
+                <p>Quantifiable results from our 2025 Annual Report.</p>
+            </div>
+            <div class="v11-grid">
+                <div class="v11-card">
+                    <div class="v11-icon"><i class="fa-solid fa-user-group"></i></div>
+                    <span class="v11-number counter" data-target="24000">0</span>
+                    <span class="v11-label">Youths Engaged</span>
+                </div>
+                <div class="v11-card">
+                    <div class="v11-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+                    <span class="v11-number counter" data-target="250">0</span>
+                    <span class="v11-label">Events Hosted</span>
+                </div>
+                <div class="v11-card">
+                    <div class="v11-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <span class="v11-number counter" data-target="22">0</span>
+                    <span class="v11-label">Countries & Regions</span>
+                </div>
+                <div class="v11-card">
+                    <div class="v11-icon"><i class="fa-solid fa-id-card"></i></div>
+                    <span class="v11-number counter" data-target="360">0</span>
+                    <span class="v11-label">Experts Engaged</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 12: The Institutional Dark</div>
+    <section class="v12-section count-trigger">
+        <div class="v12-bg"></div>
+        <div class="container">
+            <div class="v12-grid">
+                <div class="v12-item">
+                    <span class="v12-number counter" data-target="24000">0</span>
+                    <span class="v12-label">Youths Engaged</span>
+                </div>
+                <div class="v12-item">
+                    <span class="v12-number counter" data-target="250">0</span>
+                    <span class="v12-label">Events Hosted</span>
+                </div>
+                <div class="v12-item">
+                    <span class="v12-number counter" data-target="22">0</span>
+                    <span class="v12-label">Program Regions</span>
+                </div>
+                <div class="v12-item">
+                    <span class="v12-number counter" data-target="360">0</span>
+                    <span class="v12-label">Experts Deployed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 13: The Strategic Split</div>
+    <section class="v13-section count-trigger">
+        <div class="v13-img"></div>
+        <div class="v13-content">
+            <h2 style="font-size: 2rem; margin-bottom: 40px; color: var(--text-black);">Operational Metrics</h2>
+
+            <div class="v13-row">
+                <span class="v13-label">Youth Engagement</span>
+                <span class="v13-number"><span class="counter" data-target="24000">0</span>+</span>
+            </div>
+            <div class="v13-row">
+                <span class="v13-label">Events & Summits</span>
+                <span class="v13-number"><span class="counter" data-target="250">0</span>+</span>
+            </div>
+            <div class="v13-row">
+                <span class="v13-label">Global Presence</span>
+                <span class="v13-number"><span class="counter" data-target="22">0</span> Countries</span>
+            </div>
+            <div class="v13-row">
+                <span class="v13-label">Expert Network</span>
+                <span class="v13-number"><span class="counter" data-target="360">0</span>+</span>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <a href="#"
+                    style="font-weight: 700; color: var(--blue-primary); text-transform: uppercase; font-size: 0.9rem;">Download
+                    Full Report &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 14: The Glass Architect</div>
+    <section class="v14-section count-trigger">
+        <div class="v14-overlay"></div>
+        <div class="container">
+            <div class="v14-grid">
+                <div class="v14-card">
+                    <i class="fa-solid fa-users v14-icon"></i>
+                    <span class="v14-number counter" data-target="24000">0</span>
+                    <span class="v14-label">Youths Engaged</span>
+                </div>
+                <div class="v14-card">
+                    <i class="fa-regular fa-calendar-check v14-icon"></i>
+                    <span class="v14-number counter" data-target="250">0</span>
+                    <span class="v14-label">Events Hosted</span>
+                </div>
+                <div class="v14-card">
+                    <i class="fa-solid fa-earth-americas v14-icon"></i>
+                    <span class="v14-number counter" data-target="22">0</span>
+                    <span class="v14-label">Countries Implemented</span>
+                </div>
+                <div class="v14-card">
+                    <i class="fa-solid fa-briefcase v14-icon"></i>
+                    <span class="v14-number counter" data-target="360">0</span>
+                    <span class="v14-label">Experts Engaged</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 15: The Pillar</div>
+    <section class="v15-section count-trigger">
+        <div class="container">
+            <div class="v15-grid">
+                <div class="v15-item">
+                    <span class="v15-number counter" data-target="24000">0</span>
+                    <span class="v15-label">Youths Engaged</span>
+                    <span class="v15-sub">Through workshops & forums</span>
+                </div>
+                <div class="v15-item">
+                    <span class="v15-number counter" data-target="250">0</span>
+                    <span class="v15-label">Events Hosted</span>
+                    <span class="v15-sub">Globally & Virtually</span>
+                </div>
+                <div class="v15-item">
+                    <span class="v15-number counter" data-target="22">0</span>
+                    <span class="v15-label">Countries</span>
+                    <span class="v15-sub">Across 5 Continents</span>
+                </div>
+                <div class="v15-item">
+                    <span class="v15-number counter" data-target="360">0</span>
+                    <span class="v15-label">Experts</span>
+                    <span class="v15-sub">Deployed in the field</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const speed = 2000;
+
+                        const updateCount = () => {
+                            const current = +counter.innerText.replace(/,/g, '');
+                            const increment = target / (speed / 16);
+
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current + increment).toLocaleString();
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target.toLocaleString();
+                                if (target > 1000) counter.innerText += "+"; // Op@tional plus sign
+                            }
+                        };
+                        updateCount();
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.count-trigger').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

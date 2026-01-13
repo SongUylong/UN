@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>United International Council | Global Development</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. DESIGN TOKENS & RESET --- */
+        :root {
+            /* Palette */
+            --p-blue: #009edb;
+            /* Primary UN Blue */
+            --d-blue: #0468B1;
+            /* Deep Corporate Blue */
+            --text-main: #221F21;
+            /* Charcoal Black */
+            --text-light: #5f6368;
+            /* Muted Text */
+            --bg-white: #FDFEFF;
+            /* Pure White */
+            --bg-off: #f8f9fa;
+            /* Off White Section */
+            --border: #e0e0e0;
+
+            /* Motion */
+            --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+            --duration: 0.8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Roboto Slab', serif;
+            /* Serif headings for institutional authority */
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- 2. UTILITY CLASSES (SQUARE AESTHETIC) --- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Strict Square Edges */
+        .btn,
+        .card,
+        input,
+        img,
+        .map-container {
+            border-radius: 0 !important;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 36px;
+            font-family: 'Noto Sans', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-premium);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--p-blue);
+            color: white;
+            border-color: var(--p-blue);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--d-blue);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .btn-primary:hover::after {
+            width: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--d-blue);
+            border-color: var(--d-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--d-blue);
+            color: white;
+        }
+
+        /* Section Styling */
+        .section-pad {
+            padding: 120px 0;
+        }
+
+        .section-head {
+            margin-bottom: 70px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .section-head::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 40px;
+            width: 4px;
+            background: var(--p-blue);
+        }
+
+        .section-head h2 {
+            font-size: 2.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .section-head p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--duration) ease, transform var(--duration) var(--ease-premium);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 3. HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: padding 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--d-blue);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .logo i {
+            color: var(--p-blue);
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--p-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: #f4f7f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Professional Abstract Background Pattern */
+        .hero-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(#e1e4e8 1px, transparent 1px),
+                linear-gradient(90deg, #e1e4e8 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .hero-img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px 60px 60px 0;
+            /* Asymmetric padding */
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        /* --- 5. VISION / MISSION --- */
+        .mission {
+            background: var(--bg-white);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .mission-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--d-blue);
+        }
+
+        .mission-text p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .mission-img-wrap {
+            position: relative;
+        }
+
+        .mission-img-wrap img {
+            filter: grayscale(100%);
+            transition: 0.5s ease;
+        }
+
+        .mission-img-wrap:hover img {
+            filter: grayscale(0%);
+        }
+
+        .mission-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: var(--p-blue);
+            color: white;
+            padding: 20px 40px;
+            font-weight: 700;
+        }
+
+        /* --- 6. IMPACT STATS (Data Grid Design) --- */
+        .stats {
+            background: var(--text-main);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .stats-bg-graphic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 0, transparent 50%);
+            background-size: 20px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            padding: 50px 20px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--p-blue);
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .stat-desc {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* --- 7. ADVANCED MAP SECTION --- */
+        .map-section {
+            background: var(--bg-off);
+            overflow: hidden;
+        }
+
+        .map-wrapper {
+            position: relative;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        /* SVG Styling */
+        svg.world-map {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
+        }
+
+        path {
+            fill: #e5e7eb;
+            /* Default Grey */
+            stroke: #fff;
+            stroke-width: 0.5px;
+            transition: fill 0.3s ease;
+        }
+
+        /* Programmatic Blue Fills */
+        path.active-region {
+            fill: var(--p-blue);
+            /* The Request: Blue Countries */
+            cursor: pointer;
+        }
+
+        path.active-region:hover {
+            fill: var(--d-blue);
+        }
+
+        /* Pulsing Beacons */
+        .beacon {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-white);
+            border: 2px solid var(--p-blue);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .beacon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: var(--p-blue);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 0.8;
+            }
+
+            100% {
+                width: 400%;
+                height: 400%;
+                opacity: 0;
+            }
+        }
+
+        /* Positioning Beacons (percentages of map wrapper) */
+        .b-brazil {
+            top: 65%;
+            left: 32%;
+        }
+
+        .b-france {
+            top: 32%;
+            left: 49%;
+        }
+
+        .b-kenya {
+            top: 58%;
+            left: 58%;
+        }
+
+        .b-india {
+            top: 45%;
+            left: 70%;
+        }
+
+        /* --- 8. EVENTS (Timeline Style) --- */
+        .events {
+            background: var(--bg-white);
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .event-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 200px;
+            padding: 35px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .event-row:hover {
+            background: #f9f9f9;
+            padding-left: 20px;
+        }
+
+        .date-block {
+            font-weight: 700;
+            color: var(--d-blue);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .date-block span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .event-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .event-info p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .event-info i {
+            color: var(--p-blue);
+            margin-right: 8px;
+        }
+
+        /* --- 9. NEWS & UPDATES (Card Grid) --- */
+        .news {
+            background: var(--bg-off);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border: 1px solid var(--border);
+            transition: transform 0.4s var(--ease-premium);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--p-blue);
+        }
+
+        .news-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .news-img img {
+            transition: transform 0.6s ease;
+        }
+
+        .news-card:hover .news-img img {
+            transform: scale(1.05);
+        }
+
+        .news-body {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--p-blue);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .news-body h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- 10. NEWSLETTER & FOOTER --- */
+        .newsletter {
+            background: var(--d-blue);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .nl-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .nl-text h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .nl-form {
+            display: flex;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .nl-form input {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .nl-form button {
+            background: var(--text-main);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nl-form button:hover {
+            background: black;
+        }
+
+        footer {
+            background: var(--text-main);
+            color: #9aa0a6;
+            padding: 80px 0 30px;
+        }
+
+        .foot-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .foot-title {
+            color: white;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .foot-links li {
+            margin-bottom: 12px;
+        }
+
+        .foot-links a:hover {
+            color: var(--p-blue);
+            text-decoration: underline;
+        }
+
+        .foot-bottom {
+            border-top: 1px solid #3c4043;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-img {
+                width: 40%;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                height: auto;
+                padding-top: 100px;
+            }
+
+            .hero-img {
+                position: relative;
+                width: 100%;
+                height: 300px;
+            }
+
+            .hero-content {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: left;
+                padding: 25px 10px;
+            }
+
+            .date-block {
+                text-align: left;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-earth-americas"></i>
+                UNITED COUNCIL
+            </a>
+            <nav class="nav-menu">
+                <a href="#about">Mission</a>
+                <a href="#impact">Impact Data</a>
+                <a href="#map">Global Presence</a>
+                <a href="#events">Agenda</a>
+                <a href="#news">Briefings</a>
+            </nav>
+            <a href="#" class="btn btn-primary">Take Action</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-img"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="reveal">
+                    <span
+                        style="color: var(--p-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display:block; margin-bottom: 15px;">2026
+                        Strategic Framework</span>
+                    <h1>Building a Resilient Foundation for <span style="color: var(--p-blue);">Future
+                            Generations.</span></h1>
+                    <p>We unite experts, governments, and civil society to implement sustainable solutions in over 20
+                        regions worldwide.</p>
+                    <div style="display: flex; gap: 20px;">
+                        <a href="#map" class="btn btn-primary">View Operations</a>
+                        <a href="#about" class="btn btn-outline">Our Charter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-pad mission">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-text reveal">
+                    <div class="section-head">
+                        <h2>Our Mandate</h2>
+                        <p>To promote international cooperation and achieve peace through development.</p>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <h3>01. Conflict Prevention</h3>
+                        <p>Using diplomacy and dialogue to prevent disputes from escalating into conflict and to
+                            facilitate the restoration of peace.</p>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <h3>02. Sustainable Development</h3>
+                        <p>Promoting prosperity and economic opportunity, greater social well-being, and protection of
+                            the environment.</p>
+                    </div>
+                    <div>
+                        <h3>03. Human Rights</h3>
+                        <p>Protecting human rights through legal instruments and on-the-ground activities.</p>
+                    </div>
+                </div>
+                <div class="mission-img-wrap reveal">
+                    <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="Council Meeting">
+                    <div class="mission-overlay">
+                        General Assembly Hall, 2026
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="stats">
+        <div class="stats-bg-graphic"></div>
+        <div class="container">
+            <div class="section-head" style="margin-bottom: 60px; padding-left: 0; text-align: center;">
+                <h2 style="color: white;">Our Reach</h2>
+                <p style="color: rgba(255,255,255,0.7); margin: 0 auto;">Quantifiable impact across our key operational
+                    pillars.</p>
+            </div>
+
+            <div class="stats-grid reveal">
+                <div class="stat-item">
+                    <span class="stat-num counter" data-target="24000">0</span>
+                    <span class="stat-desc">Youths Engaged</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num counter" data-target="250">0</span>
+                    <span class="stat-desc">Events Hosted</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num counter" data-target="22">0</span>
+                    <span class="stat-desc">Countries Active</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num counter" data-target="360">0</span>
+                    <span class="stat-desc">Experts Deployed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="map" class="section-pad map-section">
+        <div class="container">
+            <div class="section-head">
+                <h2>Operational Landscape</h2>
+                <p>Countries where we have established presence and delivered impactful programs.</p>
+            </div>
+
+            <div class="map-wrapper reveal">
+                <object id="world-map-svg" class="world-map" data="world.svg" type="image/svg+xml"></object>
+
+                <div style="margin-top: 20px; display: flex; gap: 30px; font-size: 0.85rem; color: var(--text-light);">
+                    <div style="display:flex; align-items: center; gap:10px;"><span
+                            style="width:12px; height:12px; background:var(--p-blue);"></span> Reached</div>
+                    <div style="display:flex; align-items: center; gap:10px;"><span
+                            style="width:12px; height:12px; background:#e5e7eb;"></span> Member State</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="section-pad events">
+        <div class="container">
+            <div class="section-head">
+                <h2>Upcoming Agenda</h2>
+                <p>High-level summits, technical workshops, and public forums.</p>
+            </div>
+
+            <div class="event-list reveal">
+                <div class="event-row">
+                    <div class="date-block">15 <span>OCT 2026</span></div>
+                    <div class="event-info">
+                        <h4>Global Security & Peace Summit</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Geneva, Switzerland (Hybrid)</p>
+                    </div>
+                    <div><a href="#" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.7rem;">Details</a>
+                    </div>
+                </div>
+                <div class="event-row">
+                    <div class="date-block">02 <span>NOV 2026</span></div>
+                    <div class="event-info">
+                        <h4>Climate Resilience Workshop</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Nairobi, Kenya</p>
+                    </div>
+                    <div><a href="#" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.7rem;">Details</a>
+                    </div>
+                </div>
+                <div class="event-row">
+                    <div class="date-block">20 <span>DEC 2026</span></div>
+                    <div class="event-info">
+                        <h4>Youth Leadership Forum</h4>
+                        <p><i class="fa-solid fa-video"></i> Virtual Event</p>
+                    </div>
+                    <div><a href="#" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.7rem;">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="section-pad news">
+        <div class="container">
+            <div class="section-head">
+                <h2>Latest Briefings</h2>
+            </div>
+
+            <div class="news-grid reveal">
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Tech">
+                    </div>
+                    <div class="news-body">
+                        <span class="tag">Technology</span>
+                        <h4>New framework adopted for AI ethics in developing nations.</h4>
+                        <a href="#" class="read-more">Read Report <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Aid">
+                    </div>
+                    <div class="news-body">
+                        <span class="tag">Humanitarian</span>
+                        <h4>Emergency relief fund reaches milestone of $500M.</h4>
+                        <a href="#" class="read-more">Read Report <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Policy">
+                    </div>
+                    <div class="news-body">
+                        <span class="tag">Policy</span>
+                        <h4>Secretary-General announces new youth advisory board.</h4>
+                        <a href="#" class="read-more">Read Report <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container nl-content">
+            <div class="nl-text">
+                <h3>Stay Informed</h3>
+                <p>Subscribe to our weekly briefing on global developments.</p>
+            </div>
+            <form class="nl-form">
+                <input type="email" placeholder="Email Address">
+                <button type="button">SUBSCRIBE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="foot-grid">
+                <div>
+                    <div class="logo" style="color: white; margin-bottom: 20px;">
+                        <i class="fa-solid fa-earth-americas"></i> UNITED COUNCIL
+                    </div>
+                    <p style="font-size: 0.9rem; line-height: 1.8;">Fostering international dialogue and implementing
+                        sustainable solutions for a peaceful world.</p>
+                </div>
+                <div>
+                    <h5 class="foot-title">Organization</h5>
+                    <ul class="foot-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Leadership</a></li>
+                        <li><a href="#">Secretariat</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="foot-title">Resources</h5>
+                    <ul class="foot-links">
+                        <li><a href="#">Document Library</a></li>
+                        <li><a href="#">Open Data</a></li>
+                        <li><a href="#">Media Center</a></li>
+                        <li><a href="#">Procurement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="foot-title">Contact</h5>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                        405 East 42nd Street<br>New York, NY 10017
+                    </p>
+                    <p style="font-size: 0.9rem;"><a href="mailto:info@unitedcouncil.org">info@unitedcouncil.org</a></p>
+                    <div style="margin-top: 20px; font-size: 1.2rem;">
+                        <a href="#" style="margin-right: 15px;"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" style="margin-right: 15px;"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="foot-bottom">
+                <span>&copy; 2026 United International Council. All Rights Reserved.</span>
+                <span>Fraud Alert | Privacy Policy | Terms of Use</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Smooth Scroll Reveal (Using Intersection Observer)
+        const observerOptions = {
+            root: null,
+            threshold: 0.15, // Trigger when 15% visible
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2. Navbar State
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+                header.style.padding = "10px 0";
+            } else {
+                header.classList.remove('scrolled');
+                header.style.padding = "0";
+            }
+        });
+
+        // 3. Count Up Animation
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const speed = 2000; // Total duration in ms
+
+                        let start = 0;
+                        const increment = target / (speed / 16); // 60fps
+
+                        const updateCount = () => {
+                            start += increment;
+                            if (start < target) {
+                                counter.innerText = Math.floor(start).toLocaleString() + "+";
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target.toLocaleString() + "+";
+                            }
+                        };
+                        updateCount();
+                    });
+                    countObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.getElementById('impact');
+        if (statsSection) countObserver.observe(statsSection);
+
+        // 4. World Map SVG Highlighting
+        const worldMapObject = document.getElementById('world-map-svg');
+        if (worldMapObject) {
+            worldMapObject.addEventListener('load', function () {
+                const svgDoc = worldMapObject.contentDocument;
+                if (svgDoc) {
+                    // Get all path elements in the SVG
+                    const paths = svgDoc.querySelectorAll('path');
+
+                    // Countries to highlight in blue - use country IDs (e.g., 'BR', 'FR', 'KE', 'IN')
+                    const highlightedCountries = ['BR', 'FR', 'KE', 'IN']; // Brazil, France, Kenya, India
+
+                    paths.forEach((path) => {
+                        // Set default gray color for all countries
+                        path.style.fill = '#e5e7eb';
+                        path.style.stroke = '#fff';
+                        path.style.strokeWidth = '0.5px';
+
+                        // Check if this country should be highlighted
+                        const countryId = path.getAttribute('id') || '';
+                        const countryName = path.getAttribute('title') || path.getAttribute('name') || '';
+
+                        // Highlight specific countries in blue if they're in the list
+                        if (highlightedCountries.includes(countryId)) {
+                            path.style.fill = '#009edb'; // Primary UN blue
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

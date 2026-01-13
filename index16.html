@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITAR SDGs Singapore Center | The Crystal Nexus</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. DESIGN TOKENS --- */
+        :root {
+            --primary: #0468B1;
+            /* Corporate UN Blue */
+            --accent: #009edb;
+            /* Innovation Cyan */
+            --dark: #0a192f;
+            /* Deep Navy (Night Sky) */
+            --light: #f8f9fa;
+            /* Marble White */
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+
+            --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- 2. FLOATING NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1400px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid white;
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-a:hover {
+            color: var(--accent);
+        }
+
+        .nav-btn {
+            background: var(--dark);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+        }
+
+        /* --- 3. HERO (The Lens) --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Abstract blurred background shapes */
+        .hero-blobs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 158, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(4, 104, 177, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-pill {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0, 158, 219, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(60px, 8vw, 110px);
+            font-weight: 300;
+            margin-bottom: 30px;
+            background: linear-gradient(180deg, var(--dark), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            font-weight: 700;
+        }
+
+        /* The "Lens" Image Interaction */
+        .hero-lens {
+            width: 200px;
+            height: 300px;
+            border-radius: 100px;
+            margin: 40px auto 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.8s var(--ease-smooth);
+            transform: scale(1);
+        }
+
+        .hero:hover .hero-lens {
+            width: 600px;
+            border-radius: 20px;
+            transform: scale(1.05);
+        }
+
+        .hero-lens img {
+            transform: scale(1.2);
+        }
+
+        /* --- 4. DATA TICKER (The Stream) --- */
+        .ticker-wrap {
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+            margin-top: -50px;
+            transform: rotate(-1deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+
+        .stat-group {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 80px;
+        }
+
+        .stat-val {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-right: 15px;
+        }
+
+        .stat-lbl {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            max-width: 100px;
+            line-height: 1.2;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* --- 5. STICKY CHAPTERS (Vision/Mission) --- */
+        .chapter-section {
+            padding: 150px 5%;
+        }
+
+        .chapter-container {
+            display: flex;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .chapter-sticky {
+            width: 35%;
+            height: fit-content;
+            position: sticky;
+            top: 150px;
+        }
+
+        .chapter-scroll {
+            width: 65%;
+        }
+
+        .sticky-title {
+            font-size: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .sticky-head {
+            font-size: 48px;
+            color: var(--dark);
+            line-height: 1.1;
+        }
+
+        .glass-card {
+            background: white;
+            border: 1px solid #eee;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            transition: 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(4, 104, 177, 0.1);
+            border-color: var(--accent);
+        }
+
+        .gc-icon {
+            font-size: 30px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .gc-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .gc-text {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* --- 6. PILLARS (Horizontal Accordion) --- */
+        .pillars-section {
+            padding: 100px 5%;
+            background: #f0f4f8;
+        }
+
+        .pillars-header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .accordion-container {
+            display: flex;
+            height: 500px;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .acc-item {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: flex 0.6s var(--ease-smooth);
+            cursor: pointer;
+        }
+
+        .acc-item:hover {
+            flex: 3;
+        }
+
+        .acc-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+            transition: 0.6s;
+        }
+
+        .acc-item:hover .acc-bg {
+            filter: brightness(0.8);
+        }
+
+        .acc-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .acc-num {
+            font-size: 60px;
+            font-weight: 700;
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .acc-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .acc-desc {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.4s;
+            font-size: 14px;
+            white-space: normal;
+        }
+
+        .acc-item:hover .acc-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 7. ACTIVITIES (Inverted "Blue Mode") --- */
+        .blue-mode {
+            background: var(--dark);
+            color: white;
+            padding: 150px 5%;
+        }
+
+        .grid-editorial {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto 150px;
+        }
+
+        .grid-editorial.reverse {
+            direction: rtl;
+        }
+
+        .grid-editorial.reverse .txt-col {
+            direction: ltr;
+        }
+
+        .img-frame {
+            position: relative;
+            height: 500px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Stylish angled overlay */
+        .img-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 104, 177, 0.3);
+            mix-blend-mode: color;
+        }
+
+        .txt-col h3 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        .txt-col ul {
+            list-style: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .txt-col li {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* --- 8. BENEFICIARIES (The "Passport" Look) --- */
+        .passport-section {
+            padding: 150px 5%;
+            text-align: center;
+        }
+
+        .pp-card {
+            background: white;
+            border: 1px solid #ddd;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Stamp effect */
+        .pp-stamp {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            transform: rotate(15deg);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .pp-title {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .pp-desc {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .agency-scroll {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        /* --- 9. FOOTER --- */
+        footer {
+            background: #f1f1f1;
+            padding: 100px 5% 40px;
+            color: var(--dark);
+        }
+
+        .f-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .f-brand h4 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .f-links a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .f-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .chapter-container {
+                flex-direction: column;
+            }
+
+            .chapter-sticky {
+                width: 100%;
+                position: relative;
+                top: 0;
+                margin-bottom: 40px;
+            }
+
+            .chapter-scroll {
+                width: 100%;
+            }
+
+            .accordion-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .acc-item {
+                height: 250px;
+            }
+
+            .acc-desc {
+                opacity: 1;
+                transform: none;
+            }
+
+            .grid-editorial {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 80px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .stat-group {
+                margin-right: 40px;
+            }
+
+            .stat-val {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand-lockup">
+            <div class="logo-dot"></div>
+            UNITAR SG Center
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-a">Identity</a>
+            <a href="#" class="nav-a">Pillars</a>
+            <a href="#" class="nav-a">Impact</a>
+        </div>
+        <a href="#" class="nav-btn">Partner With Us</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-blobs"></div>
+        <div class="hero-content">
+            <span class="hero-pill">Established Nov 2024</span>
+            <h1>
+                Driving<br>
+                <span>Shared Progress.</span>
+            </h1>
+            <p style="font-size: 18px; color: #555; max-width: 500px; margin: 0 auto;">
+                Connecting governments, businesses, and young leaders to drive innovation and global perspectives.
+            </p>
+            <div class="hero-lens">
+                <img src="https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?auto=format&fit=crop&w=800&q=80"
+                    alt="Singapore">
+            </div>
+        </div>
+    </section>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="stat-group">
+                <span class="stat-val">24,000+</span>
+                <span class="stat-lbl">Youths<br>Engaged</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">250+</span>
+                <span class="stat-lbl">Events<br>Hosted</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">22+</span>
+                <span class="stat-lbl">Countries<br>& Regions</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">360+</span>
+                <span class="stat-lbl">Experts<br>Engaged</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">24,000+</span>
+                <span class="stat-lbl">Youths<br>Engaged</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">250+</span>
+                <span class="stat-lbl">Events<br>Hosted</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-val">22+</span>
+                <span class="stat-lbl">Countries<br>& Regions</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="chapter-section">
+        <div class="chapter-container">
+            <div class="chapter-sticky">
+                <span class="sticky-title">About GSLDC</span>
+                <h2 class="sticky-head">Bridging Learning, Leadership & Innovation.</h2>
+                <p style="margin-top: 30px; color: #666;">
+                    The GSLDC creates a strategic bridge between UNITAR and regional youth, translating Sustainable
+                    Development Goals into practical action.
+                </p>
+            </div>
+
+            <div class="chapter-scroll">
+                <div class="glass-card">
+                    <span class="gc-icon">👁‍🗨</span>
+                    <h3 class="gc-title">Our Vision</h3>
+                    <p class="gc-text">
+                        "A generation of visionary leaders uniting hearts, minds, and actions for a sustainable and
+                        equitable world."
+                    </p>
+                </div>
+                <div class="glass-card">
+                    <span class="gc-icon">🚀</span>
+                    <h3 class="gc-title">Our Mission</h3>
+                    <p class="gc-text">
+                        "Empowering the next generation of changemakers through education, innovation, and
+                        collaboration."
+                    </p>
+                </div>
+                <div class="glass-card" style="background: var(--dark); color: white; border: none;">
+                    <span class="gc-icon">🤝</span>
+                    <h3 class="gc-title" style="color: var(--accent);">Our Goal</h3>
+                    <p class="gc-text" style="color: #ccc;">
+                        To build future-ready capabilities in governments, institutions, corporates, and youths.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars-section">
+        <div class="pillars-header">
+            <span class="sticky-title">Strategic Framework</span>
+            <h2 style="font-size: 36px;">Three Pillars of Action</h2>
+        </div>
+
+        <div class="accordion-container">
+            <div class="acc-item">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
+                    class="acc-bg">
+                <div class="acc-content">
+                    <span class="acc-num">01</span>
+                    <div class="acc-title">Cultivating Future Leaders</div>
+                    <p class="acc-desc">Nurturing emerging talents through skills development and equipping youth with
+                        critical thinking and innovative mindsets.</p>
+                </div>
+            </div>
+            <div class="acc-item">
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                    class="acc-bg">
+                <div class="acc-content">
+                    <span class="acc-num">02</span>
+                    <div class="acc-title">Cross-Sector Collaboration</div>
+                    <p class="acc-desc">Fostering strategic partnerships among governments and businesses through
+                        authoritative policy support.</p>
+                </div>
+            </div>
+            <div class="acc-item">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+                    class="acc-bg">
+                <div class="acc-content">
+                    <span class="acc-num">03</span>
+                    <div class="acc-title">Accelerating Innovation</div>
+                    <p class="acc-desc">Providing a dynamic ecosystem where groundbreaking ideas and technology-driven
+                        solutions flourish.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blue-mode">
+        <div class="grid-editorial">
+            <div class="img-frame">
+                <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=1200&q=80">
+            </div>
+            <div class="txt-col">
+                <span class="sticky-title">What We Do</span>
+                <h3>Education &<br>Development</h3>
+                <ul>
+                    <li><span>Leadership Development Programs</span> <span>→</span></li>
+                    <li><span>Cross-Cultural Workshops</span> <span>→</span></li>
+                    <li><span>International Exchanges</span> <span>→</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid-editorial reverse">
+            <div class="img-frame">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80">
+            </div>
+            <div class="txt-col">
+                <span class="sticky-title">Knowledge</span>
+                <h3>Research &<br>Technical Support</h3>
+                <ul>
+                    <li><span>Policy Analysis</span> <span>→</span></li>
+                    <li><span>SDG Alignment Strategies</span> <span>→</span></li>
+                    <li><span>AI & Blockchain Solutions</span> <span>→</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid-editorial">
+            <div class="img-frame">
+                <img
+                    src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1200&q=80">
+            </div>
+            <div class="txt-col">
+                <span class="sticky-title">Engagement</span>
+                <h3>Community &<br>UN Visits</h3>
+                <ul>
+                    <li><span>UN Office Visits</span> <span>→</span></li>
+                    <li><span>Youth Forums & Competitions</span> <span>→</span></li>
+                    <li><span>Volunteer Initiatives</span> <span>→</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="passport-section">
+        <div class="pp-card">
+            <div class="pp-stamp">Target<br>Group</div>
+            <span class="sticky-title">Profile of Beneficiaries</span>
+            <h2 class="pp-title">Youth Aged 15-40</h2>
+            <p class="pp-desc">
+                We engage individuals passionate about championing SDGs within their communities and across borders,
+                demonstrating leadership and innovator potential.
+            </p>
+            <div
+                style="border-top: 1px solid #eee; padding-top: 30px; font-size: 13px; font-weight: 600; color: var(--primary);">
+                AGENCIES INTERACTED IN THE PAST
+            </div>
+            <div class="agency-scroll">
+                <div>GOV</div>
+                <div>NGO</div>
+                <div>CORP</div>
+                <div>EDU</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="f-grid">
+            <div class="f-brand">
+                <h4>UNITAR SDGs<br>Singapore Center</h4>
+                <p style="font-size: 14px; opacity: 0.7;">
+                    Global SDGs and Leadership Development Center.<br>
+                    Strategic Cooperation with UNITAR.
+                </p>
+            </div>
+            <div class="f-links">
+                <span style="display:block; margin-bottom: 20px; font-weight: 700;">Explore</span>
+                <a href="#">About Us</a>
+                <a href="#">Mission</a>
+                <a href="#">Impact</a>
+            </div>
+            <div class="f-links">
+                <span style="display:block; margin-bottom: 20px; font-weight: 700;">Actions</span>
+                <a href="#">Programs</a>
+                <a href="#">Events</a>
+                <a href="#">Research</a>
+            </div>
+            <div class="f-links">
+                <span style="display:block; margin-bottom: 20px; font-weight: 700;">Contact</span>
+                <a href="#">Singapore HQ</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Email Us</a>
+            </div>
+        </div>
+        <div style="font-size: 12px; color: #888; display: flex; justify-content: space-between;">
+            <span>© 2024 UNITAR SDGs Singapore Center. All rights reserved.</span>
+            <span>Privacy Policy • Terms of Use</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

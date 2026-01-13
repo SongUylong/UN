@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UN-Style Stats Variations</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* GLOBAL RESET & VARIABLES */
+        :root {
+            --blue-primary: #009edb;
+            --blue-dark: #0468B1;
+            --text-black: #221F21;
+            --white: #FDFEFF;
+            --bg-light: #f4f6f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #eef1f5;
+            color: var(--text-black);
+            padding-bottom: 100px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            width: 100%;
+        }
+
+        .variant-label {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            background: #eef1f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- VARIANT 1: THE "ANNUAL REPORT" (Clean Grid) --- */
+        .v1-section {
+            background: var(--white);
+            padding: 80px 0;
+            border-top: 5px solid var(--blue-primary);
+        }
+
+        .v1-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            /* Creates the border lines */
+            border: 1px solid #e0e0e0;
+        }
+
+        .v1-item {
+            background: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .v1-icon {
+            color: var(--blue-dark);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .v1-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--blue-primary);
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .v1-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+        }
+
+        /* --- VARIANT 2: THE "EXECUTIVE" (Dark Blue Split) --- */
+        .v2-section {
+            display: flex;
+            background: var(--text-black);
+            min-height: 400px;
+        }
+
+        .v2-image {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            position: relative;
+        }
+
+        .v2-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 158, 219, 0.2);
+        }
+
+        .v2-content {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--text-black) 0%, #1a1819 100%);
+            color: var(--white);
+        }
+
+        .v2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .v2-item h3 {
+            font-size: 2.5rem;
+            color: var(--blue-primary);
+            font-weight: 700;
+            margin-bottom: 5px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .v2-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        /* --- VARIANT 3: THE "IMPACT" (Full Image Overlay) --- */
+        .v3-section {
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            padding: 100px 0;
+            color: var(--white);
+        }
+
+        .v3-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 104, 177, 0.85);
+            /* Deep Blue Overlay */
+        }
+
+        .v3-container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .v3-item {
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .v3-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        .v3-number {
+            font-size: 3.5rem;
+            font-weight: 300;
+            /* Thin font for elegance */
+        }
+
+        .v3-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* --- VARIANT 4: THE "BANNER" (Horizontal Strip) --- */
+        .v4-section {
+            background: var(--white);
+            padding: 50px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .v4-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .v4-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 0 20px;
+            border-right: 1px solid #eee;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .v4-item:last-child {
+            border: none;
+        }
+
+        .v4-icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* Rounded for this specific variant */
+            background: rgba(0, 158, 219, 0.1);
+            color: var(--blue-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .v4-text-wrap {
+            text-align: left;
+        }
+
+        .v4-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-black);
+            line-height: 1;
+        }
+
+        .v4-label {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        /* --- VARIANT 5: THE "MODERN TECH" (Cards with Map) --- */
+        .v5-section {
+            background: #f0f2f5;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v5-map-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23009edb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .v5-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .v5-card {
+            background: var(--white);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-bottom: 4px solid var(--blue-dark);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v5-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .v5-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: -webkit-linear-gradient(var(--blue-dark), var(--blue-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .v5-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+
+            .v1-grid,
+            .v3-container,
+            .v4-grid,
+            .v5-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .v4-grid {
+                flex-wrap: wrap;
+            }
+
+            .v4-item {
+                flex: 0 0 50%;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 20px;
+                justify-content: flex-start;
+            }
+
+            .v2-section {
+                flex-direction: column;
+            }
+
+            .v2-image {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .v1-grid,
+            .v2-grid,
+            .v3-container,
+            .v4-grid,
+            .v5-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .v4-item {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="variant-label">Variant 1: The Annual Report</div>
+    <section class="v1-section count-trigger">
+        <div class="container">
+            <div class="v1-grid">
+                <div class="v1-item">
+                    <div class="v1-icon"><i class="fa-solid fa-users"></i></div>
+                    <span class="v1-number counter" data-target="24000">0</span>
+                    <span class="v1-text">Youths Engaged</span>
+                </div>
+                <div class="v1-item">
+                    <div class="v1-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <span class="v1-number counter" data-target="250">0</span>
+                    <span class="v1-text">Events Hosted</span>
+                </div>
+                <div class="v1-item">
+                    <div class="v1-icon"><i class="fa-solid fa-globe"></i></div>
+                    <span class="v1-number counter" data-target="22">0</span>
+                    <span class="v1-text">Countries/Regions</span>
+                </div>
+                <div class="v1-item">
+                    <div class="v1-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <span class="v1-number counter" data-target="360">0</span>
+                    <span class="v1-text">Experts Engaged</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 2: The Executive</div>
+    <section class="v2-section count-trigger">
+        <div class="v2-image"></div>
+        <div class="v2-content">
+            <div style="margin-bottom: 30px;">
+                <h2 style="text-transform: uppercase; letter-spacing: 1px;">Our Reach</h2>
+            </div>
+            <div class="v2-grid">
+                <div class="v2-item">
+                    <h3><span class="counter" data-target="24000">0</span>+</h3>
+                    <p>Youths Engaged</p>
+                </div>
+                <div class="v2-item">
+                    <h3><span class="counter" data-target="250">0</span>+</h3>
+                    <p>Events Hosted</p>
+                </div>
+                <div class="v2-item">
+                    <h3><span class="counter" data-target="22">0</span>+</h3>
+                    <p>Countries & Regions</p>
+                </div>
+                <div class="v2-item">
+                    <h3><span class="counter" data-target="360">0</span>+</h3>
+                    <p>Experts Engaged</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 3: The Impact Overlay</div>
+    <section class="v3-section count-trigger">
+        <div class="v3-overlay"></div>
+        <div class="container v3-container">
+            <div class="v3-item">
+                <i class="fa-solid fa-people-group" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.7;"></i>
+                <div class="v3-number"><span class="counter" data-target="24000">0</span>+</div>
+                <span class="v3-label">Youths Engaged</span>
+            </div>
+            <div class="v3-item">
+                <i class="fa-regular fa-handshake" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.7;"></i>
+                <div class="v3-number"><span class="counter" data-target="250">0</span>+</div>
+                <span class="v3-label">Events Hosted</span>
+            </div>
+            <div class="v3-item">
+                <i class="fa-solid fa-map-location-dot" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.7;"></i>
+                <div class="v3-number"><span class="counter" data-target="22">0</span>+</div>
+                <span class="v3-label">Countries & Regions</span>
+            </div>
+            <div class="v3-item">
+                <i class="fa-solid fa-user-tie" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.7;"></i>
+                <div class="v3-number"><span class="counter" data-target="360">0</span>+</div>
+                <span class="v3-label">Experts Engaged</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 4: The Horizontal Banner</div>
+    <section class="v4-section count-trigger">
+        <div class="container">
+            <div class="v4-grid">
+                <div class="v4-item">
+                    <div class="v4-icon-circle"><i class="fa-solid fa-users"></i></div>
+                    <div class="v4-text-wrap">
+                        <div class="v4-number"><span class="counter" data-target="24000">0</span>+</div>
+                        <div class="v4-label">Youths Engaged</div>
+                    </div>
+                </div>
+                <div class="v4-item">
+                    <div class="v4-icon-circle"><i class="fa-solid fa-microphone-lines"></i></div>
+                    <div class="v4-text-wrap">
+                        <div class="v4-number"><span class="counter" data-target="250">0</span>+</div>
+                        <div class="v4-label">Events Hosted</div>
+                    </div>
+                </div>
+                <div class="v4-item">
+                    <div class="v4-icon-circle"><i class="fa-solid fa-earth-africa"></i></div>
+                    <div class="v4-text-wrap">
+                        <div class="v4-number"><span class="counter" data-target="22">0</span>+</div>
+                        <div class="v4-label">Countries Implemented</div>
+                    </div>
+                </div>
+                <div class="v4-item">
+                    <div class="v4-icon-circle"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="v4-text-wrap">
+                        <div class="v4-number"><span class="counter" data-target="360">0</span>+</div>
+                        <div class="v4-label">Experts Engaged</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="variant-label">Variant 5: Modern Card Grid</div>
+    <section class="v5-section count-trigger">
+        <div class="v5-map-bg"></div>
+        <div class="container">
+            <div class="v5-grid">
+                <div class="v5-card">
+                    <span class="v5-number"><span class="counter" data-target="24000">0</span>+</span>
+                    <span class="v5-label">Youths Engaged</span>
+                </div>
+                <div class="v5-card">
+                    <span class="v5-number"><span class="counter" data-target="250">0</span>+</span>
+                    <span class="v5-label">Events Hosted</span>
+                </div>
+                <div class="v5-card">
+                    <span class="v5-number"><span class="counter" data-target="22">0</span>+</span>
+                    <span class="v5-label">Countries & Regions</span>
+                </div>
+                <div class="v5-card">
+                    <span class="v5-number"><span class="counter" data-target="360">0</span>+</span>
+                    <span class="v5-label">Experts Engaged</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Setup Intersection Observer to trigger counting when a section scrolls into view
+        const sections = document.querySelectorAll('.count-trigger');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const speed = 2000; // Animation duration in ms
+
+                        const updateCount = () => {
+                            const current = +counter.innerText.replace(/,/g, ''); // Remove commas to add logic
+                            const increment = target / (speed / 16); // 60fps
+
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current + increment).toLocaleString();
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target.toLocaleString();
+                            }
+                        };
+                        updateCount();
+                    });
+
+                    // Unobserve after triggering to prevent re-running
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of section is visible
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

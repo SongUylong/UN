@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITAR SDGs Singapore Center | Impact Velocity</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Public+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. DESIGN TOKENS --- */
+        :root {
+            --un-blue: #009edb;
+            /* Electric Cyan */
+            --un-dark: #002B49;
+            /* Deep Navy */
+            --ink: #111111;
+            /* Rich Black */
+            --paper: #f4f4f4;
+            /* Light Grey */
+            --white: #ffffff;
+
+            --angle: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            /* The dynamic cut */
+            --angle-inv: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+
+            --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--ink);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- 2. NAVIGATION (Transparent to Solid) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 43, 73, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand {
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-main {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .brand-sub {
+            font-size: 10px;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            color: var(--un-blue);
+        }
+
+        .btn-action {
+            padding: 10px 25px;
+            background: var(--un-blue);
+            color: white;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            /* Subtle angle */
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            background: white;
+            color: var(--un-blue);
+        }
+
+        /* --- 3. HERO SECTION (Parallax) --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            clip-path: var(--angle);
+            /* Angled bottom */
+            margin-bottom: -100px;
+            /* Overlap effect */
+            z-index: 2;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80') center/cover;
+            filter: brightness(0.4);
+            z-index: -1;
+            background-attachment: fixed;
+            /* Parallax effect */
+        }
+
+        .hero-content h1 {
+            font-size: clamp(60px, 8vw, 120px);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        /* --- 4. THE IMPACT DASHBOARD (New Data Section) --- */
+        .stats-section {
+            background: var(--ink);
+            color: white;
+            padding: 150px 5% 100px;
+            /* Top padding accounts for hero overlap */
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 60px 0;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-num {
+            font-family: 'Oswald';
+            font-size: 60px;
+            font-weight: 700;
+            color: var(--un-blue);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        .stat-intro {
+            grid-column: span 4;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+
+        .stat-intro h2 {
+            font-size: 40px;
+            max-width: 500px;
+        }
+
+        /* --- 5. VISION & IDENTITY (Split Diagonal) --- */
+        .identity-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .id-content {
+            padding: 80px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .id-visual {
+            height: 100%;
+            min-height: 600px;
+            position: relative;
+        }
+
+        /* Angled image container */
+        .id-visual img {
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .h-label {
+            color: var(--un-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .mission-box {
+            border-left: 4px solid var(--un-dark);
+            padding-left: 30px;
+            margin-top: 40px;
+        }
+
+        .mission-box h4 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--un-dark);
+        }
+
+        .mission-box p {
+            font-size: 16px;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* --- 6. PILLARS (Passport Cards) --- */
+        .pillars-section {
+            background: var(--paper);
+            padding: 150px 5%;
+            clip-path: var(--angle-inv);
+            /* Reverse angle top */
+            margin-top: -50px;
+        }
+
+        .cards-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .pillar-card {
+            background: white;
+            padding: 50px 30px;
+            border-top: 5px solid var(--un-dark);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            border-top-color: var(--un-blue);
+        }
+
+        /* Watermark effect */
+        .pillar-card::before {
+            content: 'UN';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 150px;
+            font-weight: 900;
+            color: #f9f9f9;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .p-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .p-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .p-desc {
+            font-size: 15px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- 7. ACTIVITIES (Masonry Grid) --- */
+        .activities-section {
+            padding: 100px 5%;
+        }
+
+        .act-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .act-item {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            color: white;
+        }
+
+        .act-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            z-index: 0;
+        }
+
+        .act-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, black, transparent);
+            z-index: 1;
+        }
+
+        .act-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .act-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Spanning items for interesting layout */
+        .span-full {
+            grid-column: span 2;
+            height: 500px;
+        }
+
+        /* --- 8. BENEFICIARIES (Target) --- */
+        .target-section {
+            background: var(--un-dark);
+            color: white;
+            padding: 120px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+            margin-top: -50px;
+            padding-top: 150px;
+            /* Compensation for angle */
+        }
+
+        .target-box {
+            max-width: 800px;
+        }
+
+        .target-badge {
+            background: var(--un-blue);
+            color: var(--ink);
+            font-weight: 800;
+            padding: 5px 20px;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        /* --- 9. FOOTER --- */
+        footer {
+            background: #0b0b0b;
+            color: #666;
+            padding: 80px 5%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 60px;
+            margin-bottom: 40px;
+        }
+
+        .f-logo {
+            color: white;
+            font-family: 'Oswald';
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .f-col h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .f-col ul {
+            list-style: none;
+        }
+
+        .f-col li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .f-col li:hover {
+            color: var(--un-blue);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .split-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .id-visual {
+                height: 400px;
+                order: -1;
+            }
+
+            .id-visual img {
+                clip-path: none;
+            }
+
+            .cards-row {
+                grid-template-columns: 1fr;
+            }
+
+            .act-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .span-full {
+                grid-column: span 1;
+                height: 350px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">
+            <span class="brand-main">UNITAR SDGs Singapore Center</span>
+            <span class="brand-sub">Global SDGs & Leadership Development Center</span>
+        </div>
+        <div class="nav-list">
+            <a href="#" class="nav-item">About</a>
+            <a href="#" class="nav-item">Impact</a>
+            <a href="#" class="nav-item">Pillars</a>
+            <a href="#" class="nav-item">Programs</a>
+        </div>
+        <button class="btn-action">Partner With Us</button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Established Nov 2024</div>
+            <h1>
+                Driving<br>
+                Shared Progress.
+            </h1>
+            <p>
+                Connecting governments, businesses, and young leaders to drive innovation, leadership, and global
+                perspectives to support SDG progress.
+            </p>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <div class="stat-intro">
+            <div>
+                <span class="h-label">Our Reach</span>
+                <h2>Measuring Global Impact</h2>
+            </div>
+            <p style="text-align: right; max-width: 400px; color: #888;">
+                Since our inception, we have rapidly scaled our engagement across Asia and beyond.
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-num" data-target="24000">24,000+</div>
+                <div class="stat-label">Youths Engaged</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="250">250+</div>
+                <div class="stat-label">Events Hosted</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="22">22+</div>
+                <div class="stat-label">Countries & Regions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="360">360+</div>
+                <div class="stat-label">Experts Engaged</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="identity-section">
+        <div class="split-layout">
+            <div class="id-content">
+                <span class="h-label">Who We Are</span>
+                <h2 style="font-size: 48px; margin-bottom: 30px; color: var(--un-dark);">Bridging Learning, Leadership &
+                    Innovation.</h2>
+                <p style="color: #666; font-size: 18px; line-height: 1.7;">
+                    The GSLDC works in strategic cooperation with UNITAR to translate the Sustainable Development Goals
+                    (SDGs) into practical action. We empower governments, institutions, corporates, and youths to build
+                    future-ready capabilities.
+                </p>
+
+                <div class="mission-box">
+                    <h4>Vision</h4>
+                    <p>"A generation of visionary leaders uniting hearts, minds, and actions for a sustainable and
+                        equitable world."</p>
+                </div>
+
+                <div class="mission-box" style="border-left-color: var(--un-blue);">
+                    <h4>Mission</h4>
+                    <p>"Empowering the next generation of changemakers through education, innovation, and
+                        collaboration."</p>
+                </div>
+            </div>
+            <div class="id-visual">
+                <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=1200&q=80"
+                    alt="Singapore Conference">
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars-section">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <span class="h-label">Our Strategy</span>
+            <h2>Three Pillars of Action</h2>
+            <p style="margin-top: 20px; color: #666;">Our core framework for accelerating the 2030 Agenda.</p>
+        </div>
+
+        <div class="cards-row">
+            <div class="pillar-card">
+                <span class="p-icon">🎓</span>
+                <h3 class="p-title">Cultivating<br>Future Leaders</h3>
+                <p class="p-desc">
+                    Nurturing emerging leaders and top talents through education. Equipping youth with critical thinking
+                    and innovative mindsets to tackle global challenges effectively.
+                </p>
+            </div>
+            <div class="pillar-card">
+                <span class="p-icon">🤝</span>
+                <h3 class="p-title">Cross-Sector<br>Collaboration</h3>
+                <p class="p-desc">
+                    Fostering strategic partnerships among governments and businesses. Through authoritative policy
+                    support and knowledge-sharing, we create impactful solutions.
+                </p>
+            </div>
+            <div class="pillar-card">
+                <span class="p-icon">💡</span>
+                <h3 class="p-title">Accelerating<br>Social Innovation</h3>
+                <p class="p-desc">
+                    Promoting global innovative leadership by providing a dynamic ecosystem where groundbreaking ideas
+                    and technology-driven solutions flourish.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="activities-section">
+        <div style="margin-bottom: 60px;">
+            <span class="h-label">What We Do</span>
+            <h2>Core Activities</h2>
+        </div>
+
+        <div class="act-grid">
+            <div class="act-item span-full">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                    alt="Leadership">
+                <div class="act-text">
+                    <h3>Leadership Development Programs</h3>
+                    <p>Courses on leadership theory, team management, and SDG-focused decision making.</p>
+                </div>
+            </div>
+
+            <div class="act-item">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+                    alt="Research">
+                <div class="act-text">
+                    <h3>Knowledge & Technical Support</h3>
+                    <p>Policy analysis, research reports, and AI/Blockchain solutions.</p>
+                </div>
+            </div>
+
+            <div class="act-item">
+                <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80"
+                    alt="UN Visit">
+                <div class="act-text">
+                    <h3>UN Office Visits</h3>
+                    <p>Visits to global offices to understand multilateral operations.</p>
+                </div>
+            </div>
+
+            <div class="act-item span-full">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80"
+                    alt="Events">
+                <div class="act-text">
+                    <h3>Events & Competitions</h3>
+                    <p>Organizing forums, seminars, and youth competitions to foster innovation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="target-section">
+        <div class="target-box">
+            <span class="target-badge">Profile of Beneficiaries</span>
+            <h2 style="font-size: 60px; line-height: 1; margin-bottom: 30px;">
+                Youth <span style="color: var(--un-blue);">Aged 15-40</span>
+            </h2>
+            <p style="font-size: 20px; opacity: 0.8; line-height: 1.6;">
+                We are looking for passionate individuals championing SDGs within their communities and across borders.
+            </p>
+            <div
+                style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 40px; display: flex; justify-content: center; gap: 40px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">
+                <span>Demonstrated Leadership</span>
+                <span>•</span>
+                <span>Innovator Potential</span>
+                <span>•</span>
+                <span>Global Mindset</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <span class="f-logo">GSLDC Singapore</span>
+                <p style="font-size: 14px; max-width: 300px;">
+                    UNITAR SDGs Singapore Center.<br>
+                    Empowering the next generation of changemakers.
+                </p>
+            </div>
+            <div class="f-col">
+                <h4>Center</h4>
+                <ul>
+                    <li>About Us</li>
+                    <li>Mission & Vision</li>
+                    <li>Strategic Pillars</li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Action</h4>
+                <ul>
+                    <li>Programs</li>
+                    <li>Events</li>
+                    <li>Research</li>
+                </ul>
+            </div>
+        </div>
+        <div style="font-size: 12px; display: flex; justify-content: space-between;">
+            <span>© 2024 UNITAR SDGs Singapore Center. All Rights Reserved.</span>
+            <span>Privacy Policy | Terms of Use</span>
+        </div>
+    </footer>
+
+    <script>
+        const stats = document.querySelectorAll('.stat-num');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const increment = target / (duration / 16);
+
+                    let current = 0;
+                    const updateCount = () => {
+                        current += increment;
+                        if (current < target) {
+                            entry.target.innerText = Math.ceil(current).toLocaleString() + "+";
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            entry.target.innerText = target.toLocaleString() + "+";
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => observer.observe(stat));
+    </script>
+
+</body>
+
+</html>

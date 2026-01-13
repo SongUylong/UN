@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alliance | International Organization</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-blue: #009edb;
+            --deep-blue: #0468B1;
+            --text-black: #221F21;
+            --white-bg: #FDFEFF;
+            --grey-light: #f4f4f4;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--text-black);
+            background-color: var(--white-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- UTILITY CLASSES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--deep-blue);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white-bg);
+            color: var(--white-bg);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--white-bg);
+            color: var(--deep-blue);
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--deep-blue);
+            margin-bottom: 10px;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-blue);
+            margin-top: 10px;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background-color: var(--white-bg);
+            border-bottom: 1px solid #e0e0e0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar {
+            background-color: var(--text-black);
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 0;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--deep-blue);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-black);
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .search-icon {
+            color: var(--primary-blue);
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile Menu Toggle */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(4, 104, 177, 0.6), rgba(34, 31, 33, 0.7)),
+                url('https://images.unsplash.com/photo-1532375810709-75b1da00537c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding-top: 60px;
+            /* Offset for fixed header */
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* --- QUICK STATS / FOCUS BAR --- */
+        .focus-bar {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 40px 0;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .focus-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .focus-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* --- MISSION SECTION --- */
+        .mission {
+            padding: 80px 0;
+            background-color: var(--white-bg);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .mission-card {
+            padding: 30px;
+            background: white;
+            border: 1px solid #eee;
+            border-bottom: 4px solid var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .mission-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .mission-card h3 {
+            margin-bottom: 15px;
+            color: var(--deep-blue);
+        }
+
+        /* --- LATEST NEWS (Split Layout) --- */
+        .news-section {
+            padding: 80px 0;
+            background-color: var(--grey-light);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        .featured-article {
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-img {
+            height: 400px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 30px;
+        }
+
+        .featured-content .tag {
+            background: var(--deep-blue);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .featured-content h3 {
+            font-size: 2rem;
+            margin: 15px 0;
+        }
+
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-item {
+            background: white;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border-left: 3px solid transparent;
+        }
+
+        .news-item:hover {
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        /* --- IMPACT / STATS PARALLAX --- */
+        .impact-stats {
+            padding: 100px 0;
+            background: var(--deep-blue);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-item h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- MULTIMEDIA / STORIES --- */
+        .stories {
+            padding: 80px 0;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .story-card {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            group: cursor;
+        }
+
+        .story-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .story-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .story-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(34, 31, 33, 0.9));
+            padding: 30px;
+            color: white;
+        }
+
+        /* --- NEWSLETTER --- */
+        .newsletter {
+            background-color: var(--grey-light);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .newsletter-form button {
+            background: var(--text-black);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--deep-blue);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary-blue);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Simplified mobile handling */
+            .hamburger {
+                display: block;
+                color: var(--text-black);
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="top-bar">
+            <div class="container">
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+                <a href="#">Français</a>
+                <a href="#">Español</a>
+            </div>
+        </div>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-earth-americas"></i>
+                GLOBAL ALLIANCE
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Our Work</a></li>
+                <li><a href="#news">News & Media</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#donate" style="color: var(--primary-blue); font-weight: 700;">Donate</a></li>
+            </ul>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <div class="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Building a Sustainable Future for All</h1>
+            <p>We unite nations and people to address the world's most pressing challenges: peace, security, and human
+                rights.</p>
+            <a href="#" class="btn btn-primary">Our Mission</a>
+            <a href="#" class="btn btn-outline" style="margin-left: 10px;">Latest Reports</a>
+        </div>
+    </section>
+
+    <div class="focus-bar">
+        <div class="container focus-grid">
+            <div class="focus-item">
+                <h3><i class="fa-solid fa-wheat-awn"></i> Zero Hunger</h3>
+                <p>Ending hunger and promoting agriculture.</p>
+            </div>
+            <div class="focus-item">
+                <h3><i class="fa-solid fa-hand-holding-heart"></i> Human Rights</h3>
+                <p>Upholding dignity and justice globally.</p>
+            </div>
+            <div class="focus-item">
+                <h3><i class="fa-solid fa-cloud-sun-rain"></i> Climate Action</h3>
+                <p>Urgent measures to combat climate change.</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="mission reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Pillars of Action</h2>
+                <p>Working on the ground in over 190 countries and territories.</p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <i class="fa-solid fa-dove"></i>
+                    <h3>Peace & Security</h3>
+                    <p>Through diplomacy and peacekeeping, we assist nations in navigating the difficult path from
+                        conflict to peace.</p>
+                    <br>
+                    <a href="#" style="color: var(--primary-blue); font-weight: 600;">Learn more &rarr;</a>
+                </div>
+                <div class="mission-card">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <h3>International Law</h3>
+                    <p>Developing the legal framework to facilitate international relations and cooperation among
+                        states.</p>
+                    <br>
+                    <a href="#" style="color: var(--primary-blue); font-weight: 600;">Learn more &rarr;</a>
+                </div>
+                <div class="mission-card">
+                    <i class="fa-solid fa-briefcase-medical"></i>
+                    <h3>Humanitarian Aid</h3>
+                    <p>Coordinating relief operations to victims of natural and man-made disasters and emergencies.</p>
+                    <br>
+                    <a href="#" style="color: var(--primary-blue); font-weight: 600;">Learn more &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="news-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Global News & Briefings</h2>
+            </div>
+            <div class="news-grid">
+                <article class="featured-article">
+                    <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="Education" class="featured-img">
+                    <div class="featured-content">
+                        <span class="tag">Education</span>
+                        <h3>New Initiative Launches to Support Education in Rural Areas</h3>
+                        <p class="date">January 12, 2026</p>
+                        <p>A new multi-national coalition has been formed to ensure access to quality primary education
+                            for children in conflict zones.</p>
+                        <br>
+                        <a href="#" class="btn btn-primary">Read Full Story</a>
+                    </div>
+                </article>
+
+                <div class="side-news">
+                    <div class="news-item">
+                        <div>
+                            <p class="date">January 11, 2026</p>
+                            <h4>Security Council adopts resolution on maritime security.</h4>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div>
+                            <p class="date">January 10, 2026</p>
+                            <h4>World Health Assembly agrees on pandemic treaty framework.</h4>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div>
+                            <p class="date">January 09, 2026</p>
+                            <h4>Climate Report: Renewable energy adoption reaches record high.</h4>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-outline"
+                        style="background: white; color: var(--deep-blue); border-color: var(--deep-blue); text-align: center;">View
+                        All News</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="impact-stats reveal">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h2 class="counter" data-target="193">0</h2>
+                    <p>Member States</p>
+                </div>
+                <div class="stat-item">
+                    <h2 class="counter" data-target="80">0</h2>
+                    <p>Countries Served</p>
+                </div>
+                <div class="stat-item">
+                    <h2 class="counter" data-target="105">0</h2>
+                    <p>Million People Aided</p>
+                </div>
+                <div class="stat-item">
+                    <h2 class="counter" data-target="2030">0</h2>
+                    <p>Agenda Goal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stories reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Field Stories</h2>
+                <p>Voices from the people we serve around the world.</p>
+            </div>
+            <div class="story-grid">
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        alt="Volunteers">
+                    <div class="story-overlay">
+                        <h3>Rebuilding Hope</h3>
+                        <p>Volunteers in Southeast Asia work to restore local infrastructure.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        alt="Environment">
+                    <div class="story-overlay">
+                        <h3>Guardians of the Forest</h3>
+                        <p>Indigenous communities leading the fight for biodiversity.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                        alt="Healthcare">
+                    <div class="story-overlay">
+                        <h3>Health for All</h3>
+                        <p>Mobile clinics bring essential care to remote villages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Informed</h2>
+            <p>Subscribe to get the latest updates, reports, and stories delivered to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Secretariat</a></li>
+                        <li><a href="#">History</a></li>
+                        <li><a href="#">Charter</a></li>
+                        <li><a href="#">Structural Org Chart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li><a href="#">Sustainable Development</a></li>
+                        <li><a href="#">Climate Change</a></li>
+                        <li><a href="#">Gender Equality</a></li>
+                        <li><a href="#">Health</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Maps</a></li>
+                        <li><a href="#">Databases</a></li>
+                        <li><a href="#">Library</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; opacity: 0.8;">Headquarters<br>New York, NY 10017
+                    </p>
+                    <div class="social-links" style="font-size: 1.2rem;">
+                        <i class="fa-brands fa-twitter" style="margin-right: 15px; cursor:pointer;"></i>
+                        <i class="fa-brands fa-facebook" style="margin-right: 15px; cursor:pointer;"></i>
+                        <i class="fa-brands fa-instagram" style="margin-right: 15px; cursor:pointer;"></i>
+                        <i class="fa-brands fa-youtube" style="cursor:pointer;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Global Alliance Organization. All rights reserved. | Privacy Policy | Terms of Use</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Sticky Header Animation
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Scroll Reveal Animation (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // 3. Number Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasCounted) {
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const speed = 200; // The lower the slower
+
+                        const updateCount = () => {
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                    hasCounted = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.impact-stats');
+        if (statsSection) {
+            countObserver.observe(statsSection);
+        }
+
+        // 4. Mobile Menu (Simple Toggle)
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            // Very simple toggle for demonstration
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '20px';
+                navLinks.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+
+</html>
