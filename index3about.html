@@ -1,0 +1,121 @@
+<style>
+    /* --- ABOUT US SECTION STYLES --- */
+    .about-section {
+        --cyan: #009edb;
+        --royal: #0468B1;
+        --ink: #221F21;
+        --paper: #FDFEFF;
+        --ease: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .about-section * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .about-section {
+        font-family: 'Noto Sans', sans-serif;
+        background-color: var(--paper);
+        color: var(--ink);
+    }
+
+    .content-grid {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: clamp(60px, 10vw, 150px) clamp(20px, 4vw, 100px);
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: clamp(20px, 3vw, 30px);
+    }
+
+    .block-text {
+        grid-column: 2 / 7;
+    }
+
+    .block-text h2 {
+        font-size: 42px;
+        margin-bottom: 30px;
+        letter-spacing: -1px;
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    .block-img {
+        grid-column: 8 / 13;
+        position: relative;
+        top: 50px;
+    }
+
+    .block-img img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .img-caption {
+        position: absolute;
+        left: -80px;
+        bottom: 40px;
+        background: var(--paper);
+        padding: 30px;
+        width: 200px;
+        font-size: 13px;
+        line-height: 1.6;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-top: 3px solid var(--cyan);
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+        .content-grid {
+            display: block;
+            padding: 60px 40px;
+        }
+
+        .block-img {
+            margin-top: 50px;
+        }
+
+        .img-caption {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            margin-top: -20px;
+        }
+    }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
+
+<div class="about-section">
+    <section class="content-grid">
+        <div class="block-text">
+            <span style="color: #009edb; font-weight: 700; font-size: 12px; letter-spacing: 2px;">ABOUT US</span>
+            <h2>Empowering Youth<br>for Global Impact.</h2>
+            <p style="color: #666; line-height: 1.8; margin-bottom: 20px;">
+                Founded in November 2024 in Singapore, the Center empowers youth leaders in Asia and beyond through
+                capacity-building programs aligned with the UN SDGs.
+            </p>
+            <p style="color: #666; line-height: 1.8;">
+                It connects governments, businesses, and young leaders to drive sustainable solutions, fostering
+                innovation,
+                leadership, and global perspectives to support SDG progress.
+            </p>
+        </div>
+
+        <div class="block-img">
+            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80"
+                alt="UN Sustainable Development Goals">
+            <div class="img-caption">
+                <strong>UN SDGs</strong><br>
+                Driving the 2030 Agenda through youth empowerment and sustainable partnerships.
+            </div>
+        </div>
+    </section>
+</div>
