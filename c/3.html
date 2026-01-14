@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UN Event Carousel - Collection 3 (Styles 21-30)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =========================================
+           SHARED / BASE CSS
+           ========================================= */
+      :root {
+        /* PALETTE */
+        --blue: #009edb;
+        --deep-blue: #0468b1;
+        --black: #221f21;
+        --white: #fdfeff;
+
+        /* Utils */
+        --bg-color: #eef2f5;
+        --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans", sans-serif;
+        background-color: var(--bg-color);
+        padding: 40px 20px;
+        min-height: 100vh;
+        color: var(--black);
+      }
+
+      /* Style Switcher */
+      .style-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        background: var(--white);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+      }
+      select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-family: inherit;
+      }
+
+      /* Carousel Layout */
+      .carousel-container-wrapper {
+        max-width: 1200px;
+        margin: 60px auto 0;
+        overflow: hidden;
+        position: relative;
+        padding: 20px 0 80px;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 30px;
+        transition: transform 0.5s ease-in-out;
+        padding-left: 20px;
+      }
+
+      .event-card {
+        flex: 0 0 300px; /* Default width */
+        position: relative;
+        cursor: pointer;
+      }
+      .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Controls */
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        padding: 0 20px;
+      }
+      .progress-bar {
+        flex-grow: 1;
+        height: 3px;
+        background: #d1d9e0;
+        margin-right: 30px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--blue);
+        transition: width 0.3s;
+      }
+
+      .nav-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid #d1d9e0;
+        background: var(--white);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        color: var(--black);
+      }
+      .nav-btn:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+      .nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      /* =========================================
+           STYLES 21-30 (The New Set)
+           ========================================= */
+
+      /* --- STYLE 21: THE DIPLOMATIC PASS (Ticket Style) ---
+           Unique Feature: Dashed cutout lines and a technical "ticket" look. */
+      .style-21 .event-card {
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+      .style-21 .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 158, 219, 0.15);
+      }
+      .style-21 .card-image-wrapper {
+        height: 180px;
+        position: relative;
+      }
+      /* The "Tear Line" */
+      .style-21 .card-content {
+        padding: 20px;
+        position: relative;
+        border-top: 2px dashed #d1d9e0;
+      }
+      /* The Side Notches (using radial gradient mask illusion) */
+      .style-21 .card-content::before,
+      .style-21 .card-content::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        width: 20px;
+        height: 20px;
+        background: var(--bg-color);
+        border-radius: 50%;
+      }
+      .style-21 .card-content::before {
+        left: -10px;
+      }
+      .style-21 .card-content::after {
+        right: -10px;
+      }
+      .style-21 .date-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--black);
+        color: var(--white);
+        padding: 5px 10px;
+        font-weight: 700;
+        font-size: 12px;
+        border-radius: 4px;
+      }
+      .style-21 .event-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+      .style-21 .event-location {
+        font-family: monospace;
+        color: var(--deep-blue);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      /* --- STYLE 22: THE FLOATING ORB (Geometric Overlap) ---
+           Unique Feature: The date is a circle floating exactly between image and text. */
+      .style-22 .event-card {
+        background: var(--white);
+        padding-bottom: 15px;
+        border-radius: 8px;
+        transition: var(--transition);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      .style-22 .event-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .style-22 .card-image-wrapper {
+        height: 200px;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+      }
+      .style-22 .card-content {
+        padding: 25px 20px 10px 20px;
+        position: relative;
+      }
+      .style-22 .date-badge {
+        position: absolute;
+        top: -30px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: var(--blue);
+        border: 4px solid var(--white);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-weight: 700;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      .style-22 .event-card:hover .date-badge {
+        background: var(--deep-blue);
+        transform: scale(1.1);
+      }
+      .style-22 .date-month {
+        font-size: 9px;
+        text-transform: uppercase;
+      }
+      .style-22 .date-day {
+        font-size: 20px;
+        line-height: 1;
+      }
+      .style-22 .event-title {
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: var(--black);
+      }
+      .style-22 .event-location {
+        font-size: 13px;
+        color: #888;
+      }
+
+      /* --- STYLE 23: THE DIAGONAL CUT (Dynamic Motion) ---
+           Unique Feature: The image is clipped at a sharp angle. */
+      .style-23 .event-card {
+        background: var(--white);
+        filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.05));
+        transition: var(--transition);
+      }
+      .style-23 .event-card:hover {
+        transform: translateY(-5px);
+      }
+      .style-23 .card-image-wrapper {
+        height: 240px;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        transition: var(--transition);
+      }
+      .style-23 .event-card:hover .card-image-wrapper {
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+      }
+      .style-23 .card-content {
+        padding: 0 20px 20px 20px;
+        margin-top: -10px;
+      }
+      .style-23 .date-badge {
+        color: var(--blue);
+        font-weight: 900;
+        font-size: 14px;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+      }
+      .style-23 .event-title {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+      .style-23 .event-location {
+        border-left: 2px solid var(--deep-blue);
+        padding-left: 10px;
+        font-size: 12px;
+        color: var(--black);
+      }
+
+      /* --- STYLE 24: THE CARD STACK (Depth Illusion) ---
+           Unique Feature: Looks like multiple cards stacked on top of each other. */
+      .style-24 .event-card {
+        background: var(--white);
+        padding: 15px;
+        border: 1px solid #eee;
+        /* The stack illusion */
+        box-shadow:
+          6px 6px 0 var(--deep-blue),
+          12px 12px 0 rgba(4, 104, 177, 0.2);
+        transition: var(--transition);
+        margin-bottom: 15px;
+        margin-right: 15px;
+      }
+      .style-24 .event-card:hover {
+        transform: translate(6px, 6px);
+        box-shadow:
+          0 0 0 var(--deep-blue),
+          0 0 0 rgba(4, 104, 177, 0.2);
+      }
+      .style-24 .card-image-wrapper {
+        height: 180px;
+        margin-bottom: 15px;
+        filter: grayscale(100%);
+        transition: var(--transition);
+      }
+      .style-24 .event-card:hover .card-image-wrapper {
+        filter: grayscale(0%);
+      }
+      .style-24 .date-badge {
+        float: right;
+        font-weight: 700;
+        color: var(--black);
+        background: #eee;
+        padding: 2px 8px;
+        font-size: 12px;
+      }
+      .style-24 .event-title {
+        font-weight: 900;
+        font-size: 18px;
+        margin-bottom: 10px;
+        clear: both;
+      }
+      .style-24 .event-location {
+        font-size: 12px;
+        color: var(--blue);
+        font-weight: 600;
+      }
+
+      /* --- STYLE 25: THE PEEK-A-BOO (Hover Reveal) ---
+           Unique Feature: Text slides up over the image on hover. Minimal initial state. */
+      .style-25 .event-card {
+        height: 380px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 4px;
+        background: var(--black);
+      }
+      .style-25 .card-image-wrapper {
+        height: 100%;
+        width: 100%;
+        opacity: 0.8;
+        transition: var(--transition);
+      }
+      .style-25 .event-card:hover .card-image-wrapper {
+        opacity: 0.4;
+        transform: scale(1.05);
+      }
+      .style-25 .card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        transform: translateY(40px);
+        transition: var(--transition);
+      }
+      .style-25 .event-card:hover .card-content {
+        transform: translateY(0);
+      }
+      .style-25 .date-badge {
+        color: var(--blue);
+        font-weight: 700;
+        margin-bottom: 5px;
+        display: block;
+      }
+      .style-25 .event-title {
+        color: var(--white);
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .style-25 .event-location {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transition: var(--transition);
+        transform: translateY(10px);
+      }
+      .style-25 .event-card:hover .event-location {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- STYLE 26: THE SIDE-STRIP (Asymmetrical Grid) ---
+           Unique Feature: Colored strip on the left containing the date vertically. */
+      .style-26 .event-card {
+        display: flex;
+        background: var(--white);
+        height: 160px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: var(--transition);
+      }
+      .style-26 .event-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+      .style-26 .date-badge {
+        width: 50px;
+        background: var(--deep-blue);
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .style-26 .date-day {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .style-26 .date-month {
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 2px;
+        transform: rotate(180deg);
+      }
+      .style-26 .card-image-wrapper {
+        width: 120px;
+        flex-shrink: 0;
+      }
+      .style-26 .card-content {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .style-26 .event-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .style-26 .event-location {
+        font-size: 11px;
+        color: var(--blue);
+        font-weight: 600;
+      }
+
+      /* --- STYLE 27: THE FRAME (Art Gallery) ---
+           Unique Feature: Image is smaller than the card, creating a white "mat" frame effect. */
+      .style-27 .event-card {
+        background: var(--white);
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #eee;
+        transition: var(--transition);
+      }
+      .style-27 .event-card:hover {
+        border-color: var(--blue);
+      }
+      .style-27 .card-image-wrapper {
+        height: 180px;
+        width: 100%;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .style-27 .card-image {
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #eee;
+      }
+      .style-27 .date-badge {
+        display: inline-block;
+        border-bottom: 2px solid var(--blue);
+        padding-bottom: 2px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--black);
+      }
+      .style-27 .event-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--deep-blue);
+        margin-bottom: 10px;
+      }
+      .style-27 .event-location {
+        font-size: 12px;
+        color: #999;
+      }
+
+      /* --- STYLE 28: THE CORNER RIBBON (Classic Badge) ---
+           Unique Feature: CSS Triangle ribbon in top-left. */
+      .style-28 .event-card {
+        background: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        transition: var(--transition);
+      }
+      .style-28 .event-card:hover {
+        box-shadow: 0 10px 30px rgba(0, 158, 219, 0.2);
+      }
+      .style-28 .card-image-wrapper {
+        height: 200px;
+      }
+      /* Ribbon Container */
+      .style-28 .date-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--blue);
+        color: var(--white);
+        padding: 8px 15px;
+        border-bottom-left-radius: 12px;
+        font-weight: 700;
+        font-size: 13px;
+        z-index: 2;
+      }
+      .style-28 .card-content {
+        padding: 20px;
+        border-bottom: 4px solid var(--bg-color);
+        transition: var(--transition);
+      }
+      .style-28 .event-card:hover .card-content {
+        border-bottom-color: var(--deep-blue);
+      }
+      .style-28 .event-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .style-28 .event-location {
+        display: inline-block;
+        background: #eee;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        color: var(--black);
+      }
+
+      /* --- STYLE 29: THE TYPOGRAPHY HERO (Big Text) ---
+           Unique Feature: Title is massive and overlaps the image. Image is secondary. */
+      .style-29 .event-card {
+        background: transparent;
+      }
+      .style-29 .card-image-wrapper {
+        height: 280px;
+        width: 85%;
+        margin-left: auto;
+        border-radius: 0 0 0 40px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+      }
+      .style-29 .card-content {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 90%;
+        z-index: 2;
+        pointer-events: none; /* Let clicks pass through */
+      }
+      .style-29 .event-title {
+        background: var(--white);
+        padding: 15px 15px 15px 0;
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--black);
+        box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      .style-29 .event-card:hover .event-title {
+        color: var(--blue);
+        padding-left: 15px;
+      }
+      .style-29 .date-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--deep-blue);
+        background: var(--white);
+        padding: 10px;
+        z-index: 3;
+      }
+      .style-29 .event-location {
+        display: none;
+      } /* Hidden for this style */
+
+      /* --- STYLE 30: THE NEON BORDER (Dark Mode Tech) ---
+           Unique Feature: Full dark mode with a glowing blue border on hover. */
+      .style-30 .carousel-container-wrapper {
+        background: #1a1a1a;
+        padding: 40px;
+        border-radius: 10px;
+      }
+      .style-30 .event-card {
+        background: #2a2a2a;
+        color: var(--white);
+        border: 2px solid #333;
+        padding: 20px;
+        transition: var(--transition);
+      }
+      .style-30 .event-card:hover {
+        border-color: var(--blue);
+        box-shadow: 0 0 15px var(--blue);
+      }
+      .style-30 .card-image-wrapper {
+        height: 160px;
+        margin-bottom: 20px;
+        opacity: 0.7;
+        transition: var(--transition);
+      }
+      .style-30 .event-card:hover .card-image-wrapper {
+        opacity: 1;
+      }
+      .style-30 .date-badge {
+        color: var(--blue);
+        font-family: monospace;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .style-30 .event-title {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+      }
+      .style-30 .event-location {
+        font-size: 12px;
+        color: #888;
+        border-top: 1px solid #444;
+        padding-top: 15px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="style-switcher">
+      <label>Select Design (21-30):</label>
+      <select id="styleSelect">
+        <option value="style-21">21. The Diplomatic Pass</option>
+        <option value="style-22">22. The Floating Orb</option>
+        <option value="style-23">23. The Diagonal Cut</option>
+        <option value="style-24">24. The Card Stack</option>
+        <option value="style-25">25. The Peek-a-Boo</option>
+        <option value="style-26">26. The Side-Strip</option>
+        <option value="style-27">27. The Frame</option>
+        <option value="style-28">28. The Corner Ribbon</option>
+        <option value="style-29">29. The Typography Hero</option>
+        <option value="style-30">30. The Neon Border</option>
+      </select>
+    </div>
+
+    <div class="carousel-container-wrapper style-21" id="carouselWrapper">
+      <div class="carousel-track" id="track">
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+          </div>
+          <div class="date-badge">
+            <span class="date-day">12</span> <span class="date-month">OCT</span>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">Corporate Sustainability Summit 2025</h3>
+            <div class="event-location">
+              <span>New York, HQ</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+          </div>
+          <div class="date-badge">
+            <span class="date-day">05</span> <span class="date-month">NOV</span>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">Global Digital Ethics Convention</h3>
+            <div class="event-location">
+              <span>Geneva, CH</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+          </div>
+          <div class="date-badge">
+            <span class="date-day">18</span> <span class="date-month">DEC</span>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">Future of Clean Water Infrastructure</h3>
+            <div class="event-location">
+              <span>Nairobi, KE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+          </div>
+          <div class="date-badge">
+            <span class="date-day">22</span> <span class="date-month">JAN</span>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">Women in Leadership Forum</h3>
+            <div class="event-location">
+              <span>Brussels, BE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+          </div>
+          <div class="date-badge">
+            <span class="date-day">09</span> <span class="date-month">FEB</span>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">Tech for Peace: Cyber Security</h3>
+            <div class="event-location">
+              <span>Tokyo, JP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button class="nav-btn" id="prevBtn" disabled>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="nav-btn" id="nextBtn">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const styleSelect = document.getElementById("styleSelect");
+        const carouselWrapper = document.getElementById("carouselWrapper");
+        let currentStyleClass = "style-21";
+
+        styleSelect.addEventListener("change", (e) => {
+          const newStyleClass = e.target.value;
+          carouselWrapper.classList.remove(currentStyleClass);
+          carouselWrapper.classList.add(newStyleClass);
+          currentStyleClass = newStyleClass;
+          currentIndex = 0;
+          updateCarousel();
+        });
+
+        const track = document.getElementById("track");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const progressFill = document.getElementById("progressFill");
+        const cards = document.querySelectorAll(".event-card");
+
+        let currentIndex = 0;
+        const cardsToShow = 3;
+        const maxIndex = cards.length - cardsToShow;
+
+        function updateCarousel() {
+          const cardWidth = cards[0].offsetWidth;
+          const gap = 30;
+          const moveAmount = (cardWidth + gap) * currentIndex;
+
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          const progressPercentage =
+            ((currentIndex + 1) / (maxIndex + 1)) * 100;
+          progressFill.style.width = `${progressPercentage}%`;
+
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === maxIndex;
+        }
+
+        nextBtn.addEventListener("click", () => {
+          if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+          }
+        });
+
+        prevBtn.addEventListener("click", () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+          }
+        });
+
+        updateCarousel();
+        window.addEventListener("resize", updateCarousel);
+      });
+    </script>
+  </body>
+</html>

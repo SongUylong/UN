@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10 UN-Style Event Carousel Variants</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Inter:wght@400;700&family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =========================================
+           SHARED / BASE CSS
+           ========================================= */
+      :root {
+        --un-blue: #009edb;
+        --un-dark: #1a1a1a;
+        --un-grey: #f4f6f7;
+        --un-text-light: #666;
+        --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #e5e9ec;
+        padding: 40px 20px;
+        min-height: 100vh;
+      }
+
+      /* Style Switcher UI */
+      .style-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        font-family: inherit;
+      }
+
+      /* Carousel Base Structure */
+      .carousel-container-wrapper {
+        max-width: 1200px;
+        margin: 60px auto 0;
+        overflow: hidden;
+        position: relative;
+        padding: 20px 0 50px;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 24px;
+        transition: transform 0.5s ease-in-out;
+        padding-left: 20px;
+      }
+      .event-card {
+        flex: 0 0 320px; /* Base width */
+        position: relative;
+        cursor: pointer;
+      }
+      .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .location-icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+      }
+
+      /* Controls Base */
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        padding: 0 20px;
+      }
+      .progress-bar {
+        flex-grow: 1;
+        height: 3px;
+        background: #ddd;
+        margin-right: 20px;
+        position: relative;
+        border-radius: 2px;
+      }
+      .progress-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 20%;
+        background: var(--un-blue);
+        transition: width 0.3s;
+        border-radius: 2px;
+      }
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+      }
+      .nav-btn:hover {
+        border-color: var(--un-blue);
+        color: var(--un-blue);
+      }
+      .nav-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* =========================================
+           STYLE VARIANT CSS (The Magic Happens Here)
+           ========================================= */
+
+      /* --- STYLE 1: THE DIPLOMAT (Layered Architectural) --- */
+      .style-1 .card-image-wrapper {
+        height: 360px;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+      }
+      .style-1 .card-image {
+        transition: transform 0.5s;
+      }
+      .style-1 .event-card:hover .card-image {
+        transform: scale(1.05);
+      }
+      .style-1 .date-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 12px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: 700;
+      }
+      .style-1 .date-day {
+        color: var(--un-blue);
+        font-size: 22px;
+        display: block;
+      }
+      .style-1 .date-month {
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+      .style-1 .card-content {
+        background: white;
+        margin: -80px 0 0 16px;
+        padding: 24px;
+        border-radius: 4px 0 8px 8px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: var(--transition-smooth);
+        border-bottom: 3px solid transparent;
+      }
+      .style-1 .event-card:hover .card-content {
+        transform: translateY(-5px);
+        border-bottom-color: var(--un-blue);
+        box-shadow: 0 15px 30px rgba(0, 158, 219, 0.15);
+      }
+      .style-1 .event-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .style-1 .event-location {
+        color: var(--un-text-light);
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- STYLE 2: FROSTED GLASS (Modern & Transparent) --- */
+      .style-2 .card-image-wrapper {
+        height: 450px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+      .style-2 .card-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: var(--transition-smooth);
+      }
+      .style-2 .event-card:hover .card-content {
+        background: rgba(255, 255, 255, 0.9);
+      }
+      .style-2 .date-badge {
+        font-weight: 900;
+        color: var(--un-blue);
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+      .style-2 .event-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .style-2 .event-location {
+        font-size: 12px;
+        color: var(--un-dark);
+        opacity: 0.8;
+        display: flex;
+        align-items: center;
+      }
+      .style-2 .date-month {
+        display: inline;
+        margin-left: 4px;
+      }
+
+      /* --- STYLE 3: THE JOURNAL (Clean Editorial) --- */
+      .style-3 {
+        font-family: "Merriweather", serif;
+      }
+      .style-3 .event-card {
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: var(--transition-smooth);
+        border: 1px solid transparent;
+      }
+      .style-3 .event-card:hover {
+        border-color: var(--un-blue);
+        transform: translateY(-3px);
+      }
+      .style-3 .card-image-wrapper {
+        height: 240px;
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+      }
+      .style-3 .card-content {
+        padding: 24px;
+      }
+      .style-3 .date-badge {
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--un-blue);
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .style-3 .date-day,
+      .style-3 .date-month {
+        display: inline;
+      }
+      .style-3 .event-title {
+        font-size: 19px;
+        line-height: 1.4;
+        margin-bottom: 16px;
+        color: #222;
+      }
+      .style-3 .event-location {
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        color: #888;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- STYLE 4: THE ACTION BLOCK (Bold & Brutalist-lite) --- */
+      .style-4 .event-card {
+        display: flex;
+        flex-direction: column;
+        border: 3px solid var(--un-dark);
+        background: white;
+        transition: var(--transition-smooth);
+      }
+      .style-4 .event-card:hover {
+        border-color: var(--un-blue);
+        box-shadow: 8px 8px 0 var(--un-blue);
+        transform: translate(-4px, -4px);
+      }
+      .style-4 .card-image-wrapper {
+        height: 200px;
+        border-bottom: 3px solid var(--un-dark);
+      }
+      .style-4 .card-image {
+        filter: grayscale(100%);
+        transition: var(--transition-smooth);
+      }
+      .style-4 .event-card:hover .card-image {
+        filter: grayscale(0%);
+      }
+      .style-4 .date-badge {
+        background: var(--un-dark);
+        color: white;
+        padding: 15px;
+        font-weight: 900;
+        text-align: center;
+        transition: var(--transition-smooth);
+      }
+      .style-4 .event-card:hover .date-badge {
+        background: var(--un-blue);
+      }
+      .style-4 .date-day {
+        font-size: 28px;
+        display: block;
+      }
+      .style-4 .card-content {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .style-4 .event-title {
+        font-size: 20px;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.2;
+      }
+      .style-4 .event-location {
+        margin-top: 20px;
+        font-weight: 700;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- STYLE 5: THE GLOBAL LENS (Circular Motif) --- */
+      .style-5 .event-card {
+        text-align: center;
+        background: white;
+        padding: 30px 20px;
+        border-radius: 16px;
+        transition: var(--transition-smooth);
+      }
+      .style-5 .event-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 158, 219, 0.15);
+      }
+      .style-5 .card-image-wrapper {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        margin: 0 auto 25px;
+        overflow: hidden;
+        border: 5px solid var(--un-grey);
+        transition: var(--transition-smooth);
+      }
+      .style-5 .event-card:hover .card-image-wrapper {
+        border-color: var(--un-blue);
+        padding: 5px;
+      }
+      .style-5 .date-badge {
+        font-family: "Inter", sans-serif;
+        color: var(--un-blue);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .style-5 .date-day,
+      .style-5 .date-month {
+        display: inline;
+        font-size: 14px;
+      }
+      .style-5 .event-title {
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .style-5 .event-location {
+        font-size: 13px;
+        color: var(--un-text-light);
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- STYLE 6: DARK MODE SUMMIT --- */
+      .style-6 .carousel-container-wrapper {
+        background: #0f172a;
+        padding: 40px;
+        border-radius: 12px;
+      }
+      .style-6 .event-card {
+        background: #1e293b;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #334155;
+        transition: var(--transition-smooth);
+      }
+      .style-6 .event-card:hover {
+        border-color: var(--un-blue);
+        box-shadow: 0 0 20px rgba(0, 158, 219, 0.3);
+      }
+      .style-6 .card-image-wrapper {
+        height: 220px;
+        position: relative;
+      }
+      /* Subtle blue overlay */
+      .style-6 .card-image-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, transparent, #1e293b);
+      }
+      .style-6 .card-content {
+        padding: 24px;
+        color: white;
+      }
+      .style-6 .date-badge {
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+        color: var(--un-blue);
+        margin-bottom: 10px;
+      }
+      .style-6 .date-day {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .style-6 .date-month {
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+      .style-6 .event-title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .style-6 .event-location {
+        color: #94a3b8;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+      }
+      .style-6 .nav-btn {
+        background: #1e293b;
+        border-color: #334155;
+        color: white;
+      }
+      .style-6 .progress-bar {
+        background: #334155;
+      }
+
+      /* --- STYLE 7: THE SPLIT HORIZON (Side-by-Side) --- */
+      .style-7 .event-card {
+        flex: 0 0 500px; /* Wider card for this style */
+        display: flex;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition-smooth);
+      }
+      .style-7 .event-card:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+      .style-7 .card-image-wrapper {
+        flex: 1;
+        position: relative;
+      }
+      .style-7 .date-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--un-blue);
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+      .style-7 .date-day {
+        font-size: 20px;
+        font-weight: 700;
+        display: block;
+      }
+      .style-7 .card-content {
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 3px solid var(--un-grey);
+        transition: var(--transition-smooth);
+      }
+      .style-7 .event-card:hover .card-content {
+        border-left-color: var(--un-blue);
+      }
+      .style-7 .event-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .style-7 .event-location {
+        display: flex;
+        align-items: center;
+        color: var(--un-text-light);
+        font-size: 14px;
+      }
+
+      /* --- STYLE 8: THE MANIFESTO (Typography Forward) --- */
+      .style-8 .event-card {
+        background: white;
+        padding: 30px;
+        border-left: 8px solid var(--un-grey);
+        transition: var(--transition-smooth);
+      }
+      .style-8 .event-card:hover {
+        border-left-color: var(--un-blue);
+        background: #f0f7fa;
+      }
+      .style-8 .card-image-wrapper {
+        height: 100px;
+        width: 100px;
+        border-radius: 4px;
+        overflow: hidden;
+        float: right;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: var(--transition-smooth);
+      }
+      .style-8 .event-card:hover .card-image-wrapper {
+        filter: grayscale(0%);
+        opacity: 1;
+      }
+      .style-8 .date-badge {
+        font-weight: 900;
+        color: var(--un-blue);
+        font-size: 14px;
+        margin-bottom: 15px;
+        display: block;
+      }
+      .style-8 .date-day {
+        font-size: 40px;
+        color: var(--un-dark);
+      }
+      .style-8 .date-month {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .style-8 .card-content {
+        clear: right;
+      }
+      .style-8 .event-title {
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1.3;
+        margin-bottom: 20px;
+      }
+      .style-8 .event-location {
+        font-weight: 500;
+        color: var(--un-text-light);
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- STYLE 9: THE HOPE GRADIENT (Soft & Modern) --- */
+      .style-9 .card-image-wrapper {
+        height: 300px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+      /* Gradient Overlay */
+      .style-9 .card-image-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 158, 219, 0.8),
+          transparent
+        );
+        z-index: 1;
+        opacity: 0.7;
+        transition: var(--transition-smooth);
+      }
+      .style-9 .event-card:hover .card-image-wrapper::before {
+        opacity: 0.9;
+      }
+      .style-9 .date-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 2;
+        background: white;
+        color: var(--un-blue);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 13px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .style-9 .card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        z-index: 2;
+        color: white;
+      }
+      .style-9 .event-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .style-9 .event-location {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+      }
+      .style-9 .location-icon {
+        filter: brightness(0) invert(1);
+      }
+
+      /* --- STYLE 10: THE NETWORK (Connected Dots) --- */
+      .style-10 .carousel-track {
+        padding-top: 30px; /* Space for dots */
+      }
+      .style-10 .event-card {
+        background: white;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        transition: var(--transition-smooth);
+        margin-top: 20px;
+      }
+      .style-10 .event-card:hover {
+        transform: translateY(-10px);
+      }
+      /* The Connecting Dot & Line */
+      .style-10 .event-card::before {
+        content: "";
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background: var(--un-grey);
+        border: 3px solid white;
+        border-radius: 50%;
+        z-index: 2;
+        transition: var(--transition-smooth);
+      }
+      .style-10 .event-card:hover::before {
+        background: var(--un-blue);
+      }
+      .style-10 .event-card::after {
+        content: "";
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        width: 2px;
+        height: 25px;
+        background: var(--un-grey);
+        z-index: 1;
+      }
+      .style-10 .card-image-wrapper {
+        height: 200px;
+      }
+      .style-10 .card-content {
+        padding: 20px;
+        text-align: center;
+      }
+      .style-10 .date-badge {
+        color: var(--un-blue);
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 13px;
+      }
+      .style-10 .event-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--un-dark);
+      }
+      .style-10 .event-location {
+        font-size: 12px;
+        color: var(--un-text-light);
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="style-switcher">
+      <label for="styleSelect">Select Style:</label>
+      <select id="styleSelect">
+        <option value="style-1">1. The Diplomat (Layered)</option>
+        <option value="style-2">2. Frosted Glass (Modern)</option>
+        <option value="style-3">3. The Journal (Editorial)</option>
+        <option value="style-4">4. Action Block (Brutalist)</option>
+        <option value="style-5">5. Global Lens (Circular)</option>
+        <option value="style-6">6. Night Summit (Dark Mode)</option>
+        <option value="style-7">7. Split Horizon (Side-by-Side)</option>
+        <option value="style-8">8. The Manifesto (Typography)</option>
+        <option value="style-9">9. Hope Gradient (Soft)</option>
+        <option value="style-10">10. The Network (Connected)</option>
+      </select>
+    </div>
+
+    <div class="carousel-container-wrapper style-1" id="carouselWrapper">
+      <div class="carousel-track" id="track">
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+            <div class="date-badge">
+              <span class="date-day">14</span
+              ><span class="date-month">APR</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">
+              Global Summit on Climate Action & Sustainability Targets
+            </h3>
+            <div class="event-location">
+              <svg
+                class="location-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span>Geneva, Switzerland</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1541872703-74c5963631df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+            <div class="date-badge">
+              <span class="date-day">22</span
+              ><span class="date-month">MAY</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">
+              Human Rights in the Digital Age: A New Frontier
+            </h3>
+            <div class="event-location">
+              <svg
+                class="location-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span>New York, USA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+            <div class="date-badge">
+              <span class="date-day">09</span
+              ><span class="date-month">JUN</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">
+              International Women's Leadership Forum 2024
+            </h3>
+            <div class="event-location">
+              <svg
+                class="location-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span>Paris, France</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+            <div class="date-badge">
+              <span class="date-day">18</span
+              ><span class="date-month">JUL</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">
+              Clean Water Initiative: Infrastructure Policy
+            </h3>
+            <div class="event-location">
+              <svg
+                class="location-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span>Nairobi, Kenya</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1526304640152-d46196bfc485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+              class="card-image"
+            />
+            <div class="date-badge">
+              <span class="date-day">30</span
+              ><span class="date-month">AUG</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="event-title">
+              Agricultural Innovation for Food Security
+            </h3>
+            <div class="event-location">
+              <svg
+                class="location-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span>Rome, Italy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button class="nav-btn" id="prevBtn" disabled>←</button>
+          <button class="nav-btn" id="nextBtn">→</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- STYLE SWITCHER LOGIC ---
+        const styleSelect = document.getElementById("styleSelect");
+        const carouselWrapper = document.getElementById("carouselWrapper");
+        let currentStyleClass = "style-1";
+
+        styleSelect.addEventListener("change", (e) => {
+          const newStyleClass = e.target.value;
+          carouselWrapper.classList.remove(currentStyleClass);
+          carouselWrapper.classList.add(newStyleClass);
+          currentStyleClass = newStyleClass;
+          // Reset carousel position when style changes to avoid layout glitches
+          currentIndex = 0;
+          updateCarousel();
+        });
+
+        // --- CAROUSEL LOGIC ---
+        const track = document.getElementById("track");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const progressFill = document.getElementById("progressFill");
+        const cards = document.querySelectorAll(".event-card");
+
+        let currentIndex = 0;
+        // We show 3 cards at a time roughly, so max index is total - 3
+        const cardsToShow = 3;
+        const maxIndex = cards.length - cardsToShow;
+
+        function updateCarousel() {
+          // Get current card width dynamically as it changes per style
+          const cardWidth = cards[0].offsetWidth;
+          // Get gap dynamically (approximated for this demo)
+          const gap = 24;
+          const moveAmount = (cardWidth + gap) * currentIndex;
+
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          // Update Progress
+          const progressPercentage =
+            ((currentIndex + 1) / (maxIndex + 1)) * 100;
+          progressFill.style.width = `${progressPercentage}%`;
+
+          // Update Buttons
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === maxIndex;
+        }
+
+        nextBtn.addEventListener("click", () => {
+          if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+          }
+        });
+
+        prevBtn.addEventListener("click", () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+          }
+        });
+
+        // Initial call
+        updateCarousel();
+        // Recalculate on window resize to handle responsive style changes
+        window.addEventListener("resize", updateCarousel);
+      });
+    </script>
+  </body>
+</html>
