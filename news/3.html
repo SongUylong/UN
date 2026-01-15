@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UN Professional Split Layouts</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- CORE THEME --- */
+      :root {
+        --primary-blue: #009edb;
+        --deep-blue: #0468b1;
+        --black: #221f21;
+        --white: #fdfeff;
+        --grey-light: #f4f6f8;
+        --border-color: #e0e0e0;
+        --font-main: "Noto Sans", sans-serif;
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: #ffffff;
+        color: var(--black);
+        padding-bottom: 100px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px 0 20px;
+      }
+
+      .label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #999;
+        margin-bottom: 20px;
+        display: block;
+        border-left: 3px solid var(--primary-blue);
+        padding-left: 10px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* --- 1. The "Corporate Standard" --- 
+           Classic 2/3 Split. Clean list on the right with hover highlights.
+        */
+      .split-1 {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 40px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 40px;
+      }
+      .s1-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .s1-hero img {
+        transition: var(--transition);
+      }
+      .s1-hero:hover img {
+        transform: scale(1.03);
+      }
+      .s1-hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 30px;
+        color: var(--white);
+      }
+      .s1-tag {
+        background: var(--primary-blue);
+        color: var(--white);
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      .s1-hero-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .s1-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .s1-item {
+        padding: 15px;
+        border-left: 2px solid transparent;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .s1-item:hover {
+        background: var(--grey-light);
+        border-left: 4px solid var(--deep-blue);
+      }
+      .s1-date {
+        color: var(--primary-blue);
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .s1-title {
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--black);
+      }
+
+      /* --- 2. The "Dark Mode Focus" --- 
+           Hero is text-based (Blue BG), List is image-based. High contrast.
+        */
+      .split-2 {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        background: var(--black);
+        min-height: 400px;
+      }
+      .s2-hero {
+        background: var(--deep-blue);
+        color: var(--white);
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+      .s2-hero::after {
+        content: "→";
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        font-size: 2rem;
+        opacity: 0;
+        transition: var(--transition);
+        transform: translateX(-10px);
+      }
+      .s2-hero:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .s2-label {
+        opacity: 0.7;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .s2-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+      .s2-desc {
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+
+      .s2-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .s2-item {
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .s2-item img {
+        opacity: 0.6;
+        transition: var(--transition);
+      }
+      .s2-item:hover img {
+        opacity: 0.4;
+        transform: scale(1.05);
+      }
+      .s2-item-text {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.95rem;
+        pointer-events: none;
+      }
+
+      /* --- 3. The "Overlap Card" --- 
+           List floats over the Hero image. Very modern depth.
+        */
+      .split-3 {
+        position: relative;
+        height: 500px;
+        display: flex;
+        align-items: flex-end;
+      }
+      .s3-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 85%;
+        height: 100%;
+        z-index: 1;
+      }
+      .s3-card {
+        position: relative;
+        z-index: 2;
+        width: 400px;
+        background: var(--white);
+        margin-left: auto; /* Push to right */
+        margin-right: 50px;
+        margin-bottom: 50px;
+        box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.1);
+        border-top: 5px solid var(--primary-blue);
+      }
+      .s3-hero-content {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        z-index: 2;
+        width: 40%;
+        color: var(--white);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+      .s3-hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+      }
+
+      .s3-list {
+        padding: 0;
+      }
+      .s3-item {
+        padding: 20px 25px;
+        border-bottom: 1px solid #eee;
+        transition: var(--transition);
+      }
+      .s3-item:last-child {
+        border-bottom: none;
+      }
+      .s3-item:hover {
+        background-color: #fafafa;
+        padding-left: 30px;
+      }
+      .s3-date {
+        color: var(--deep-blue);
+        font-weight: 700;
+        font-size: 0.75rem;
+        display: block;
+      }
+
+      /* --- 4. The "Asymmetric Mosaic" --- 
+           One tall hero, two stacked medium cards.
+        */
+      .split-4 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        height: 500px;
+      }
+      .s4-hero {
+        position: relative;
+        background: #000;
+        overflow: hidden;
+      }
+      .s4-hero img {
+        opacity: 0.8;
+        transition: var(--transition);
+      }
+      .s4-hero:hover img {
+        opacity: 0.6;
+        transform: scale(1.02);
+      }
+      .s4-hero-text {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        color: var(--white);
+      }
+      .s4-hero-text h3 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .s4-side {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+      }
+      .s4-card {
+        background: var(--grey-light);
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: var(--transition);
+        border: 1px solid transparent;
+      }
+      .s4-card:hover {
+        background: var(--white);
+        border-color: var(--border-color);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .s4-date {
+        color: var(--primary-blue);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .s4-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      /* --- 5. The "Accordion" Split --- 
+           Visual only - simulates interaction.
+        */
+      .split-5 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid var(--border-color);
+      }
+      .s5-hero {
+        padding: 40px;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .s5-img {
+        height: 250px;
+        margin-bottom: 20px;
+      }
+      .s5-hero h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--deep-blue);
+      }
+
+      .s5-list {
+        background: var(--grey-light);
+      }
+      .s5-item {
+        padding: 30px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .s5-item:hover {
+        background: var(--white);
+      }
+      .s5-item.active {
+        background: var(--white);
+        border-left: 5px solid var(--primary-blue);
+      }
+      .s5-date {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 5px;
+      }
+      .s5-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .s5-desc {
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 0;
+        transition: var(--transition);
+      }
+      .s5-item:hover .s5-desc,
+      .s5-item.active .s5-desc {
+        height: auto;
+        opacity: 1;
+        margin-top: 10px;
+      }
+
+      /* --- 6. The "Tabbed" Focus --- 
+           Hero left, compact text list right.
+        */
+      .split-6 {
+        display: grid;
+        grid-template-columns: 3fr 1.5fr;
+        gap: 2px;
+        background: var(--border-color); /* Creates gaps */
+      }
+      .split-6 > div {
+        background: var(--white);
+      }
+
+      .s6-hero {
+        padding: 40px;
+      }
+      .s6-hero img {
+        height: 300px;
+        margin-bottom: 20px;
+      }
+      .s6-hero h3 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+      .s6-hero p {
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .s6-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .s6-item {
+        flex-grow: 1;
+        padding: 25px;
+        border-bottom: 1px solid #f0f0f0;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .s6-item:hover {
+        background-color: #f9fcff;
+      }
+      .s6-item-content {
+        padding-right: 10px;
+      }
+      .s6-date {
+        font-size: 0.75rem;
+        color: var(--primary-blue);
+        font-weight: 700;
+      }
+      .s6-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-top: 5px;
+      }
+      .s6-arrow {
+        color: var(--deep-blue);
+        font-weight: 700;
+        transform: translateX(0);
+        transition: var(--transition);
+      }
+      .s6-item:hover .s6-arrow {
+        transform: translateX(5px);
+      }
+
+      /* --- 7. The "Data" Split --- 
+           For statistics/reports.
+        */
+      .split-7 {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .s7-stat-card {
+        background: var(--deep-blue);
+        color: var(--white);
+        padding: 40px;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(4, 104, 177, 0.3);
+        transition: var(--transition);
+      }
+      .s7-stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .s7-big-num {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .s7-label {
+        font-size: 1.1rem;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .s7-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .s7-item {
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 4px;
+        transition: var(--transition);
+      }
+      .s7-item:hover {
+        border-color: var(--primary-blue);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .s7-title {
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 8px;
+      }
+      .s7-p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* --- 8. The "Tickertape" --- 
+           Scrollable list on right.
+        */
+      .split-8 {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 0;
+        border: 1px solid var(--border-color);
+      }
+      .s8-hero {
+        position: relative;
+        height: 400px;
+      }
+      .s8-hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 30px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        width: 100%;
+      }
+      .s8-title {
+        color: var(--white);
+        font-size: 1.6rem;
+        font-weight: 700;
+      }
+
+      .s8-scroll-wrap {
+        height: 400px;
+        overflow-y: auto;
+        background: #fff;
+      }
+      .s8-item {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        transition: background 0.2s;
+      }
+      .s8-item:hover {
+        background: #f9f9f9;
+      }
+      .s8-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+        color: #888;
+      }
+      .s8-tag {
+        color: var(--primary-blue);
+        font-weight: 700;
+      }
+      .s8-headline {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      /* --- 9. The "Magazine Layout" --- 
+           Text Hero Left, Image List Right.
+        */
+      .split-9 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+      }
+      .s9-hero {
+        padding-right: 20px;
+        border-right: 1px solid var(--border-color);
+      }
+      .s9-date {
+        font-size: 4rem;
+        font-weight: 300;
+        color: var(--border-color);
+        line-height: 0.8;
+        margin-bottom: 20px;
+        display: block;
+      }
+      .s9-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--black);
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+      .s9-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background: var(--black);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        transition: var(--transition);
+      }
+      .s9-btn:hover {
+        background: var(--primary-blue);
+      }
+
+      .s9-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .s9-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .s9-img {
+        width: 120px;
+        height: 90px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .s9-item:hover img {
+        transform: scale(1.1);
+        transition: var(--transition);
+      }
+
+      /* --- 10. The "Breaking" Split --- 
+           Bright accent color focus.
+        */
+      .split-10 {
+        display: grid;
+        grid-template-columns: 10px 1fr 1fr;
+        gap: 30px;
+      }
+      .s10-bar {
+        background: var(--primary-blue);
+        height: 100%;
+        width: 100%;
+      }
+      .s10-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .s10-hero h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--deep-blue);
+        margin-bottom: 15px;
+      }
+      .s10-hero p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #444;
+      }
+      .s10-img-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .s10-thumb {
+        height: 150px;
+        position: relative;
+      }
+      .s10-thumb:first-child {
+        grid-column: span 2;
+        height: 200px;
+      }
+      .s10-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+      }
+      .s10-thumb:hover .s10-overlay {
+        opacity: 1;
+      }
+      .s10-overlay span {
+        color: white;
+        font-weight: 600;
+        border: 1px solid white;
+        padding: 5px 10px;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .split-1,
+        .split-2,
+        .split-4,
+        .split-5,
+        .split-6,
+        .split-7,
+        .split-8,
+        .split-9,
+        .split-10 {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          height: auto;
+        }
+        .s2-grid,
+        .s7-list {
+          grid-template-columns: 1fr;
+        }
+        .split-2 {
+          min-height: auto;
+        }
+        .split-3 {
+          display: block;
+          height: auto;
+        }
+        .s3-bg {
+          position: relative;
+          width: 100%;
+          height: 250px;
+        }
+        .s3-hero-content {
+          top: 20px;
+          left: 20px;
+          width: 90%;
+          font-size: 0.8rem;
+        }
+        .s3-card {
+          width: 100%;
+          margin: 0;
+          margin-top: -30px;
+        }
+        .s9-hero {
+          border-right: none;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 30px;
+          margin-bottom: 30px;
+        }
+        .s10-bar {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span class="label">01. The Standard Split</span>
+      <div class="split-1">
+        <div class="s1-hero">
+          <img
+            src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1000&q=80"
+            alt="UN"
+          />
+          <div class="s1-hero-overlay">
+            <span class="s1-tag">FEATURED</span>
+            <div class="s1-hero-title">
+              New educational framework adopted by General Assembly.
+            </div>
+          </div>
+        </div>
+        <div class="s1-list">
+          <div class="s1-item">
+            <div class="s1-date">TODAY</div>
+            <div class="s1-title">
+              Security Council discusses regional stability measures.
+            </div>
+          </div>
+          <div class="s1-item">
+            <div class="s1-date">YESTERDAY</div>
+            <div class="s1-title">
+              Climate report indicates need for rapid action in coastal zones.
+            </div>
+          </div>
+          <div class="s1-item">
+            <div class="s1-date">12 OCT</div>
+            <div class="s1-title">
+              Global health initiative reaches milestone in vaccine
+              distribution.
+            </div>
+          </div>
+          <div class="s1-item">
+            <div class="s1-date">10 OCT</div>
+            <div class="s1-title">
+              Women's leadership forum announces new grant opportunities.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px"
+        >02. The Inverted Split (Dark Mode)</span
+      >
+      <div class="split-2">
+        <div class="s2-hero">
+          <div class="s2-label">Press Release</div>
+          <div class="s2-title">Humanitarian aid reaches critical zones.</div>
+          <div class="s2-desc">
+            Teams on the ground have successfully delivered 50 tons of supplies
+            following the ceasefire agreement.
+          </div>
+        </div>
+        <div class="s2-grid">
+          <div class="s2-item">
+            <img
+              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=600&q=80"
+            />
+            <div class="s2-item-text">Logistics Update</div>
+          </div>
+          <div class="s2-item">
+            <img
+              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&q=80"
+            />
+            <div class="s2-item-text">Donation Report</div>
+          </div>
+          <div class="s2-item">
+            <img
+              src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=600&q=80"
+            />
+            <div class="s2-item-text">Volunteer Calls</div>
+          </div>
+          <div class="s2-item">
+            <img
+              src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=600&q=80"
+            />
+            <div class="s2-item-text">Field Operations</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px">03. The Overlap Card</span>
+      <div class="split-3">
+        <div class="s3-bg">
+          <img
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80"
+          />
+          <div class="s3-hero-content">
+            <div
+              style="
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--primary-blue);
+                margin-bottom: 10px;
+              "
+            >
+              SUMMIT 2024
+            </div>
+            <div class="s3-hero-title">Connecting Nations.</div>
+          </div>
+        </div>
+        <div class="s3-card">
+          <div class="s3-list">
+            <div class="s3-item">
+              <span class="s3-date">10:00 AM</span>
+              <div style="font-weight: 600">Opening Ceremony Remarks</div>
+            </div>
+            <div class="s3-item">
+              <span class="s3-date">11:30 AM</span>
+              <div style="font-weight: 600">Panel: The Future of Energy</div>
+            </div>
+            <div class="s3-item">
+              <span class="s3-date">02:00 PM</span>
+              <div style="font-weight: 600">Delegate Voting Session</div>
+            </div>
+            <div class="s3-item">
+              <span class="s3-date">04:00 PM</span>
+              <div style="font-weight: 600">Press Q&A with Secretary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px"
+        >04. The Asymmetric Mosaic</span
+      >
+      <div class="split-4">
+        <div class="s4-hero">
+          <img
+            src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80"
+          />
+          <div class="s4-hero-text">
+            <h3>Global Conference on Innovation</h3>
+            <p>Highlighting the roadmap for digital infrastructure.</p>
+          </div>
+        </div>
+        <div class="s4-side">
+          <div class="s4-card">
+            <div class="s4-date">POLICY UPDATE</div>
+            <div class="s4-title">
+              Revised guidelines for AI ethics released today.
+            </div>
+          </div>
+          <div class="s4-card">
+            <div class="s4-date">INTERVIEW</div>
+            <div class="s4-title">
+              "We must act now," says Regional Director.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px"
+        >05. The Interactive Accordion</span
+      >
+      <div class="split-5">
+        <div class="s5-hero">
+          <div>
+            <img
+              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80"
+              class="s5-img"
+            />
+            <h3>Quarterly Economic Outlook</h3>
+          </div>
+          <a
+            href="#"
+            style="
+              color: var(--primary-blue);
+              text-decoration: none;
+              font-weight: 700;
+            "
+            >Download Full Report &rarr;</a
+          >
+        </div>
+        <div class="s5-list">
+          <div class="s5-item active">
+            <div class="s5-date">CHAPTER 1</div>
+            <div class="s5-title">Trade Deficits & Growth</div>
+            <div class="s5-desc">
+              Analyzing the impact of new tariffs on global trade routes and
+              emerging markets.
+            </div>
+          </div>
+          <div class="s5-item">
+            <div class="s5-date">CHAPTER 2</div>
+            <div class="s5-title">Sustainable Investment</div>
+            <div class="s5-desc">
+              How green bonds are reshaping the financial landscape.
+            </div>
+          </div>
+          <div class="s5-item">
+            <div class="s5-date">CHAPTER 3</div>
+            <div class="s5-title">Digital Currencies</div>
+            <div class="s5-desc">
+              The role of central bank digital currencies in future economies.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px">06. The Tabbed List</span>
+      <div class="split-6">
+        <div class="s6-hero">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+          />
+          <h3 style="color: var(--black)">Corporate Responsibility Report</h3>
+          <p>
+            Our commitment to sustainable development is stronger than ever.
+            This year we focused on reducing carbon footprints across all field
+            offices.
+          </p>
+        </div>
+        <div class="s6-list">
+          <div class="s6-item">
+            <div class="s6-item-content">
+              <div class="s6-date">UPDATED</div>
+              <div class="s6-title">Environmental Impact</div>
+            </div>
+            <div class="s6-arrow">&rarr;</div>
+          </div>
+          <div class="s6-item">
+            <div class="s6-item-content">
+              <div class="s6-date">UPDATED</div>
+              <div class="s6-title">Social Governance</div>
+            </div>
+            <div class="s6-arrow">&rarr;</div>
+          </div>
+          <div class="s6-item">
+            <div class="s6-item-content">
+              <div class="s6-date">NEW</div>
+              <div class="s6-title">Future Goals 2030</div>
+            </div>
+            <div class="s6-arrow">&rarr;</div>
+          </div>
+          <div class="s6-item">
+            <div class="s6-item-content">
+              <div class="s6-date">ARCHIVE</div>
+              <div class="s6-title">2022 Results</div>
+            </div>
+            <div class="s6-arrow">&rarr;</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px">07. The Data Split</span>
+      <div class="split-7">
+        <div class="s7-stat-card">
+          <div class="s7-big-num">85%</div>
+          <div class="s7-label">
+            Goal Completion Rate<br />for Project Alpha
+          </div>
+        </div>
+        <div class="s7-list">
+          <div class="s7-item">
+            <div class="s7-title">Region: East Asia</div>
+            <div class="s7-p">
+              Infrastructure projects completed ahead of schedule.
+            </div>
+          </div>
+          <div class="s7-item">
+            <div class="s7-title">Region: Europe</div>
+            <div class="s7-p">
+              Policy integration successfully ratified by members.
+            </div>
+          </div>
+          <div class="s7-item">
+            <div class="s7-title">Region: Americas</div>
+            <div class="s7-p">
+              Funding secured for phase two of development.
+            </div>
+          </div>
+          <div class="s7-item">
+            <div class="s7-title">Region: Africa</div>
+            <div class="s7-p">
+              Agricultural initiatives showing positive yield data.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px">08. The News Feed</span>
+      <div class="split-8">
+        <div class="s8-hero">
+          <img
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
+          />
+          <div class="s8-hero-overlay">
+            <span
+              style="
+                background: var(--primary-blue);
+                color: white;
+                padding: 2px 5px;
+                font-size: 0.7rem;
+              "
+              >LIVE</span
+            >
+            <div class="s8-title">Assembly in Session</div>
+          </div>
+        </div>
+        <div class="s8-scroll-wrap">
+          <div class="s8-item">
+            <div class="s8-meta">
+              <span class="s8-tag">POLITICS</span> <span>10m ago</span>
+            </div>
+            <div class="s8-headline">
+              Delegate from France proposes amendment to Article 4.
+            </div>
+          </div>
+          <div class="s8-item">
+            <div class="s8-meta">
+              <span class="s8-tag">ECONOMY</span> <span>25m ago</span>
+            </div>
+            <div class="s8-headline">
+              Budget committee releases preliminary figures.
+            </div>
+          </div>
+          <div class="s8-item">
+            <div class="s8-meta">
+              <span class="s8-tag">GENERAL</span> <span>40m ago</span>
+            </div>
+            <div class="s8-headline">
+              Brief recess called until 14:00 hours.
+            </div>
+          </div>
+          <div class="s8-item">
+            <div class="s8-meta">
+              <span class="s8-tag">PRESS</span> <span>1h ago</span>
+            </div>
+            <div class="s8-headline">
+              Media center briefing scheduled for evening.
+            </div>
+          </div>
+          <div class="s8-item">
+            <div class="s8-meta">
+              <span class="s8-tag">SECURITY</span> <span>2h ago</span>
+            </div>
+            <div class="s8-headline">
+              Security clearance levels updated for Zone B.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px">09. The Magazine Split</span>
+      <div class="split-9">
+        <div class="s9-hero">
+          <span class="s9-date">12.10</span>
+          <h3 class="s9-title">Global Youth Initiative Launches Today.</h3>
+          <p style="margin-bottom: 20px; color: #555">
+            Empowering the next generation of leaders through education,
+            technology, and cross-border collaboration.
+          </p>
+          <a href="#" class="s9-btn">Read Full Story</a>
+        </div>
+        <div class="s9-list">
+          <div class="s9-item">
+            <div class="s9-img">
+              <img
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80"
+              />
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 1.1rem">
+                Mentorship Program
+              </div>
+              <span style="font-size: 0.8rem; color: #888"
+                >Applications Open</span
+              >
+            </div>
+          </div>
+          <div class="s9-item">
+            <div class="s9-img">
+              <img
+                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=200&q=80"
+              />
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 1.1rem">Tech Grants</div>
+              <span style="font-size: 0.8rem; color: #888"
+                >Deadline: Nov 1st</span
+              >
+            </div>
+          </div>
+          <div class="s9-item">
+            <div class="s9-img">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=200&q=80"
+              />
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 1.1rem">
+                Student Exchange
+              </div>
+              <span style="font-size: 0.8rem; color: #888">Learn More</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="label" style="margin-top: 80px"
+        >10. The "Breaking" Split</span
+      >
+      <div class="split-10">
+        <div class="s10-bar"></div>
+        <div class="s10-hero">
+          <h3 class="s10-title">Emergency Response: Earthquake Relief</h3>
+          <p>
+            Teams have been deployed to the affected region. International aid
+            is currently being coordinated through the central office.
+          </p>
+        </div>
+        <div class="s10-img-grid">
+          <div class="s10-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=600&q=80"
+            />
+            <div class="s10-overlay"><span>VIEW GALLERY</span></div>
+          </div>
+          <div class="s10-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1588647781075-8015391d1c44?auto=format&fit=crop&w=300&q=80"
+            />
+            <div class="s10-overlay"><span>MAPS</span></div>
+          </div>
+          <div class="s10-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=300&q=80"
+            />
+            <div class="s10-overlay"><span>DONATE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced UN Layouts</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CORE VARIABLES --- */
+        :root {
+            --primary-blue: #009edb;
+            --deep-blue: #0468B1;
+            --black: #221F21;
+            --white: #FDFEFF;
+            --grey-bg: #f5f7fa;
+            --font-main: 'Noto Sans', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: #fff;
+            color: var(--black);
+            padding: 40px 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        h2.section-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--deep-blue);
+            border-bottom: 2px solid var(--primary-blue);
+            display: inline-block;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            font-weight: 700;
+        }
+
+        img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* --- STYLE 11: The "Headline Split" (Hero Left + List Right) --- 
+           Great for landing pages. Shows one big important story and 3 smaller ones.
+        */
+        .layout-11 {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            height: 450px;
+        }
+        .layout-11 .hero-card {
+            position: relative;
+            background: var(--black);
+            height: 100%;
+        }
+        .layout-11 .hero-card img { opacity: 0.7; }
+        .layout-11 .hero-overlay {
+            position: absolute; bottom: 0; left: 0; padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9)); width: 100%;
+        }
+        .layout-11 .hero-title { color: var(--white); font-size: 2rem; font-weight: 700; line-height: 1.2; }
+        .layout-11 .hero-date { color: var(--primary-blue); font-weight: 700; margin-bottom: 10px; display: block; }
+        
+        .layout-11 .side-list { display: flex; flex-direction: column; justify-content: space-between; }
+        .layout-11 .mini-item { display: flex; gap: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .layout-11 .mini-item:last-child { border: none; padding-bottom: 0; }
+        .layout-11 .mini-img { width: 90px; height: 70px; flex-shrink: 0; }
+        .layout-11 .mini-title { font-size: 0.95rem; font-weight: 600; color: var(--black); }
+        .layout-11 .mini-date { font-size: 0.75rem; color: var(--deep-blue); margin-top: 5px; display: block; }
+
+        /* --- STYLE 12: The "Horizontal Scroller" --- 
+           Interactive, app-like feel. Good for a lot of updates in small space.
+        */
+        .layout-12-wrap {
+            overflow-x: auto;
+            padding-bottom: 20px; /* space for scrollbar */
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        .layout-12-card {
+            display: inline-block;
+            width: 280px;
+            margin-right: 20px;
+            vertical-align: top;
+            white-space: normal; /* text wrap inside card */
+        }
+        .layout-12-img { height: 350px; position: relative; margin-bottom: 15px; }
+        .layout-12-date { 
+            position: absolute; top: 0; right: 0; 
+            background: var(--primary-blue); color: var(--white); 
+            padding: 8px 12px; font-weight: 700; font-size: 0.8rem; 
+        }
+        .layout-12-title { font-size: 1.1rem; font-weight: 700; border-left: 3px solid var(--black); padding-left: 10px; }
+
+        /* --- STYLE 13: The "Mosaic" --- 
+           Breaks the grid. Looks like a curated magazine page.
+        */
+        .layout-13 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            gap: 15px;
+        }
+        .l13-item { position: relative; overflow: hidden; background: #000; }
+        .l13-item img { transition: transform 0.4s ease; opacity: 0.8; }
+        .l13-item:hover img { transform: scale(1.05); opacity: 0.6; }
+        
+        .l13-large { grid-column: span 2; grid-row: span 2; } /* The Big Block */
+        .l13-wide { grid-column: span 2; } /* Wide Block */
+        
+        .l13-content {
+            position: absolute; bottom: 0; left: 0; padding: 20px; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            pointer-events: none;
+        }
+        .l13-title { color: var(--white); font-weight: 600; font-size: 1rem; }
+        .l13-large .l13-title { font-size: 1.5rem; font-weight: 700; }
+
+        /* --- STYLE 14: The "Official Vertical Timeline" --- 
+           Perfect for "Updates from the Summit" or chronological news.
+        */
+        .layout-14 {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--grey-bg);
+        }
+        .l14-item { margin-bottom: 40px; position: relative; }
+        /* The Dot */
+        .l14-item::before {
+            content: ''; position: absolute; left: -36px; top: 5px;
+            width: 10px; height: 10px; background: var(--white);
+            border: 3px solid var(--primary-blue); border-radius: 50%;
+        }
+        .l14-flex { display: flex; align-items: flex-start; gap: 20px; }
+        .l14-date { min-width: 80px; color: var(--deep-blue); font-weight: 700; font-size: 0.9rem; }
+        .l14-content { background: var(--grey-bg); padding: 20px; border-radius: 4px; flex-grow: 1; }
+        .l14-title { font-weight: 700; margin-bottom: 5px; color: var(--black); }
+
+        /* --- STYLE 15: The "Overlap" (Depth) --- 
+           Very modern corporate. Image on left, text box overlaps it.
+        */
+        .layout-15 { display: flex; flex-direction: column; gap: 60px; }
+        .l15-row { display: flex; align-items: center; }
+        .l15-row:nth-child(even) { flex-direction: row-reverse; } /* Zig Zag */
+        
+        .l15-img-wrap { width: 55%; height: 350px; flex-shrink: 0; }
+        .l15-text-wrap { 
+            width: 50%; 
+            background: var(--white); 
+            padding: 40px; 
+            margin-left: -5%; /* The overlap magic */
+            z-index: 2; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-blue);
+        }
+        .l15-row:nth-child(even) .l15-text-wrap { margin-left: 0; margin-right: -5%; }
+        
+        .l15-date { color: var(--deep-blue); font-weight: 600; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: 10px; }
+        .l15-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+
+        /* --- STYLE 16: The "Full Width Hero Strip" --- */
+        .layout-16 {
+            background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .layout-16::before {
+            content: ''; position: absolute; inset: 0; 
+            background: rgba(4, 104, 177, 0.85); /* Deep Blue Overlay */
+        }
+        .l16-content {
+            position: relative; z-index: 2; max-width: 800px; padding: 0 40px; color: var(--white);
+            border-left: 5px solid var(--primary-blue); margin-left: 10%;
+        }
+        .l16-date { background: var(--white); color: var(--deep-blue); padding: 5px 10px; font-weight: 700; display: inline-block; margin-bottom: 20px; }
+        .l16-title { font-size: 2.2rem; font-weight: 700; line-height: 1.3; }
+
+        /* --- STYLE 17: The "Statement" (Typography Focus) --- 
+           No images. Just bold, impactful text updates. Good for policy changes.
+        */
+        .layout-17 {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+            background: var(--grey-bg); border: 1px solid #ddd;
+        }
+        .l17-card {
+            background: var(--white); padding: 40px 30px;
+            transition: background 0.3s;
+        }
+        .l17-card:hover { background: var(--deep-blue); }
+        .l17-card:hover .l17-title, .l17-card:hover .l17-date { color: var(--white); }
+        
+        .l17-date { font-size: 3rem; font-weight: 300; color: var(--primary-blue); line-height: 1; margin-bottom: 10px; display: block;}
+        .l17-month { font-size: 1rem; font-weight: 700; color: var(--black); text-transform: uppercase; display: block; margin-bottom: 20px;}
+        .l17-title { font-size: 1.1rem; font-weight: 600; color: var(--black); }
+
+        /* --- STYLE 18: The "Accordion List" --- 
+           Very compact. 
+        */
+        .layout-18-item {
+            border-bottom: 1px solid #ddd;
+            padding: 20px 0;
+            display: grid;
+            grid-template-columns: 100px 1fr 50px;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .layout-18-item:hover { background: #f9f9f9; padding-left: 10px; }
+        .l18-date { font-weight: 700; color: var(--deep-blue); font-size: 0.9rem; }
+        .l18-title { font-size: 1.1rem; font-weight: 500; }
+        .l18-icon { color: var(--primary-blue); font-size: 1.5rem; }
+
+        /* --- STYLE 19: The "Two-Tone" Card --- 
+           Vertical split inside the card.
+        */
+        .layout-19-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
+        .l19-card {
+            display: flex; height: 200px; border: 1px solid #eee;
+        }
+        .l19-left {
+            width: 35%; background: var(--deep-blue); color: var(--white);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 10px;
+        }
+        .l19-day { font-size: 2.5rem; font-weight: 700; }
+        .l19-right { width: 65%; padding: 25px; display: flex; align-items: center; }
+        .l19-title { font-size: 1.1rem; font-weight: 600; line-height: 1.5; }
+
+        /* --- STYLE 20: The "Magazine Feature" --- 
+           Large image with text block floating in the center.
+        */
+        .layout-20 {
+            position: relative; height: 500px; margin-bottom: 30px;
+        }
+        .l20-bg { position: absolute; inset: 0; z-index: 0; }
+        .l20-box {
+            position: relative; z-index: 1;
+            background: var(--white);
+            width: 500px;
+            top: 50%; left: 50px; transform: translateY(-50%);
+            padding: 40px;
+            border-left: 10px solid var(--primary-blue);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .l20-tag { text-transform: uppercase; letter-spacing: 2px; color: #888; font-size: 0.8rem; margin-bottom: 10px; display: block;}
+        .l20-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--black); }
+        .l20-link { color: var(--deep-blue); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary-blue); padding-bottom: 2px;}
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .layout-11, .layout-13, .layout-15, .l15-row, .l17-card, .layout-17 { display: block; height: auto; }
+            .layout-11 .hero-card { height: 300px; margin-bottom: 20px; }
+            .l13-item { height: 200px; margin-bottom: 10px; }
+            .l15-img-wrap { width: 100%; height: 250px; }
+            .l15-text-wrap { width: 100%; margin: 0; padding: 20px; border-top: none; border-left: 5px solid var(--primary-blue); }
+            .l16-content { margin-left: 0; }
+            .l20-box { width: 90%; left: 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="section-label">11. The Headline Split</h2>
+        <div class="layout-11">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1526304640152-d4619684e484?auto=format&fit=crop&w=1000&q=80" alt="UN">
+                <div class="hero-overlay">
+                    <span class="hero-date">TODAY'S TOP STORY</span>
+                    <div class="hero-title">New global initiative launched to tackle clean water scarcity.</div>
+                </div>
+            </div>
+            <div class="side-list">
+                <div class="mini-item">
+                    <div class="mini-img"><img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=200&q=80" alt=""></div>
+                    <div>
+                        <div class="mini-title">Security Council to meet regarding peacekeeping updates.</div>
+                        <span class="mini-date">2 HOURS AGO</span>
+                    </div>
+                </div>
+                <div class="mini-item">
+                    <div class="mini-img"><img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=200&q=80" alt=""></div>
+                    <div>
+                        <div class="mini-title">Economic forum concludes with new trade agreements.</div>
+                        <span class="mini-date">5 HOURS AGO</span>
+                    </div>
+                </div>
+                <div class="mini-item">
+                    <div class="mini-img"><img src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?auto=format&fit=crop&w=200&q=80" alt=""></div>
+                    <div>
+                        <div class="mini-title">Report released on digital literacy in remote regions.</div>
+                        <span class="mini-date">YESTERDAY</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-label">12. The Press Scroller (Swipe/Scroll Right)</h2>
+        <div class="layout-12-wrap">
+            <div class="layout-12-card">
+                <div class="layout-12-img">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=400&q=80" alt="">
+                    <div class="layout-12-date">12 OCT</div>
+                </div>
+                <div class="layout-12-title">Sustainable development goals met in Region A.</div>
+            </div>
+            <div class="layout-12-card">
+                <div class="layout-12-img">
+                    <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=400&q=80" alt="">
+                    <div class="layout-12-date">10 OCT</div>
+                </div>
+                <div class="layout-12-title">Education reform policies signed by 50 nations.</div>
+            </div>
+            <div class="layout-12-card">
+                <div class="layout-12-img">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="">
+                    <div class="layout-12-date">09 OCT</div>
+                </div>
+                <div class="layout-12-title">Climate action summit scheduled for next month.</div>
+            </div>
+             <div class="layout-12-card">
+                <div class="layout-12-img">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80" alt="">
+                    <div class="layout-12-date">08 OCT</div>
+                </div>
+                <div class="layout-12-title">Women in leadership forum opens today.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-label">13. The Mosaic</h2>
+        <div class="layout-13">
+            <div class="l13-item l13-large">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80">
+                <div class="l13-content"><div class="l13-title">Infrastructure Plan Approved</div></div>
+            </div>
+            <div class="l13-item">
+                <img src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=400&q=80">
+                <div class="l13-content"><div class="l13-title">Energy Update</div></div>
+            </div>
+            <div class="l13-item">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80">
+                <div class="l13-content"><div class="l13-title">Youth Forum</div></div>
+            </div>
+            <div class="l13-item l13-wide">
+                <img src="https://images.unsplash.com/photo-1461301214746-1e790926d323?auto=format&fit=crop&w=800&q=80">
+                <div class="l13-content"><div class="l13-title">Technology for Peace</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-label">14. The Official Record (Timeline)</h2>
+        <div class="layout-14">
+            <div class="l14-item">
+                <div class="l14-flex">
+                    <div class="l14-date">10:00 AM</div>
+                    <div class="l14-content">
+                        <div class="l14-title">Opening Remarks</div>
+                        <div>Secretary-General addresses the assembly regarding the annual budget.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="l14-item">
+                <div class="l14-flex">
+                    <div class="l14-date">12:30 PM</div>
+                    <div class="l14-content">
+                        <div class="l14-title">Press Briefing</div>
+                        <div>Spokesperson updates media on the situation in the Pacific region.</div>
+                    </div>
+                </div>
+            </div>
+             <div class="l14-item">
+                <div class="l14-flex">
+                    <div class="l14-date">03:00 PM</div>
+                    <div class="l14-content">
+                        <div class="l14-title">Committee Vote</div>
+                        <div>Votes cast for the new resolution on digital privacy.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-label">15. The Deep Layer (Overlap)</h2>
+        <div class="layout-15">
+            <div class="l15-row">
+                <div class="l15-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=800&q=80" alt="">
+                </div>
+                <div class="l15-text-wrap">
+                    <div class="l15-date">OCTOBER 15, 2023</div>
+                    <div class="l15-title">Bridging the digital divide in sub-Saharan Africa.</div>
+                    <p>A new multi-year plan involves government and private sectors to enhance connectivity.</p>
+                </div>
+            </div>
+            <div class="l15-row">
+                <div class="l15-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?auto=format&fit=crop&w=800&q=80" alt="">
+                </div>
+                <div class="l15-text-wrap">
+                    <div class="l15-date">OCTOBER 12, 2023</div>
+                    <div class="l15-title">Healthcare logistics improved by new protocols.</div>
+                    <p>Standardizing the delivery of essential medicines to remote outposts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout-16">
+        <div class="l16-content">
+            <div class="l16-date">FEATURE REPORT</div>
+            <div class="l16-title">The Future of Diplomacy: Digital Integration</div>
+            <p style="margin-top:20px; font-size: 1.1rem; opacity: 0.9;">How modern tools are reshaping international relations.</p>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 50px;"> <h2 class="section-label">17. The Statement (Type Focus)</h2>
+    <div class="layout-17">
+        <div class="l17-card">
+            <span class="l17-date">24</span>
+            <span class="l17-month">OCT / 2023</span>
+            <div class="l17-title">International UN Day celebrations worldwide.</div>
+        </div>
+        <div class="l17-card">
+            <span class="l17-date">30</span>
+            <span class="l17-month">OCT / 2023</span>
+            <div class="l17-title">Deadline for NGO grant applications.</div>
+        </div>
+        <div class="l17-card">
+            <span class="l17-date">02</span>
+            <span class="l17-month">NOV / 2023</span>
+            <div class="l17-title">Global climate report release date.</div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <h2 class="section-label">18. The Quick List</h2>
+        <div class="layout-18">
+            <div class="layout-18-item">
+                <div class="l18-date">12 OCT</div>
+                <div class="l18-title">Guidelines updated for field operations</div>
+                <div class="l18-icon">&rarr;</div>
+            </div>
+            <div class="layout-18-item">
+                <div class="l18-date">11 OCT</div>
+                <div class="l18-title">Press accreditation now open for Winter Assembly</div>
+                <div class="l18-icon">&rarr;</div>
+            </div>
+            <div class="layout-18-item">
+                <div class="l18-date">09 OCT</div>
+                <div class="l18-title">Voluntary contributions report 2023</div>
+                <div class="l18-icon">&rarr;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-label">19. The Calendar Card</h2>
+        <div class="layout-19-grid">
+            <div class="l19-card">
+                <div class="l19-left">
+                    <span class="l19-day">15</span>
+                    <span>OCT</span>
+                </div>
+                <div class="l19-right">
+                    <div class="l19-title">Meeting on Human Rights protocols in Geneva.</div>
+                </div>
+            </div>
+            <div class="l19-card">
+                <div class="l19-left" style="background: var(--black);">
+                    <span class="l19-day">18</span>
+                    <span>OCT</span>
+                </div>
+                <div class="l19-right">
+                    <div class="l19-title">Global security council special session.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top:50px;">
+        <h2 class="section-label">20. The Magazine Feature</h2>
+        <div class="layout-20">
+            <div class="l20-bg">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="World">
+            </div>
+            <div class="l20-box">
+                <span class="l20-tag">IN FOCUS</span>
+                <div class="l20-title">Connecting the World: A New Era of Unity</div>
+                <a href="#" class="l20-link">READ THE FULL STORY</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

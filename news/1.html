@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UN-Style News Layouts</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- 1. CORE VARIABLES & RESET --- */
+      :root {
+        --primary-blue: #009edb;
+        --deep-blue: #0468b1;
+        --black: #221f21;
+        --white: #fdfeff;
+        --grey-light: #f4f4f4;
+        --grey-border: #e0e0e0;
+        --font-main: "Noto Sans", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: #f0f2f5;
+        color: var(--black);
+        padding: 40px 20px;
+      }
+
+      h1.main-title {
+        text-align: center;
+        margin-bottom: 60px;
+        color: var(--deep-blue);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Wrapper for grid display */
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto 80px auto;
+      }
+
+      .section-header {
+        max-width: 1200px;
+        margin: 0 auto 20px auto;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--grey-border);
+        color: var(--black);
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .section-header span {
+        font-size: 0.9rem;
+        color: var(--deep-blue);
+        font-weight: 400;
+      }
+
+      /* Global Image Defaults */
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* --- STYLE 1: The "Diplomat" (Top Brand Bar) --- 
+           Classic UN style. Professional, structured, uses the blue bar for branding.
+        */
+      .card-1 {
+        background: var(--white);
+        border: 1px solid var(--grey-border);
+        border-top: 5px solid var(--primary-blue);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease;
+      }
+      .card-1:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      }
+      .card-1 .img-wrap {
+        height: 200px;
+        position: relative;
+      }
+      .card-1 .content {
+        padding: 20px;
+      }
+      .card-1 .date {
+        color: var(--primary-blue);
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      .card-1 .title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--black);
+      }
+
+      /* --- STYLE 2: The "Briefing" (Horizontal List) --- 
+           Great for sidebars or lists. Very space-efficient.
+        */
+      .card-2 {
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--grey-border);
+        padding: 15px 0;
+      }
+      .card-2 .img-wrap {
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+        margin-right: 20px;
+      }
+      .card-2 .content {
+        flex-grow: 1;
+      }
+      .card-2 .date {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+      }
+      .card-2 .date::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--primary-blue);
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .card-2 .title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--black);
+      }
+
+      /* --- STYLE 3: The "Impact" (Image Overlay) --- 
+           Modern, visual-heavy. Good for "Featured" stories.
+        */
+      .card-3 {
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+        background: var(--black);
+      }
+      .card-3 .img-wrap {
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+      .card-3:hover .img-wrap {
+        opacity: 0.5;
+      }
+      .card-3 .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 25px;
+        background: linear-gradient(to top, rgba(34, 31, 33, 0.9), transparent);
+        width: 100%;
+      }
+      .card-3 .date {
+        background: var(--primary-blue);
+        color: var(--white);
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        display: inline-block;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .card-3 .title {
+        color: var(--white);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* --- STYLE 4: The "Gazette" (Minimalist Border) --- 
+           Looks like a printed report. Very serious and clean.
+        */
+      .card-4 {
+        background: var(--white);
+        border: 1px solid var(--black);
+        padding: 20px;
+      }
+      .card-4 .img-wrap {
+        height: 180px;
+        margin-bottom: 20px;
+        filter: grayscale(100%);
+        transition: filter 0.3s;
+      }
+      .card-4:hover .img-wrap {
+        filter: grayscale(0%);
+      }
+      .card-4 .meta-line {
+        border-bottom: 1px solid var(--grey-border);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+      .card-4 .date {
+        font-size: 0.8rem;
+        color: var(--deep-blue);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .card-4 .title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--black);
+      }
+
+      /* --- STYLE 5: The "Timeline" (Left Border Accent) --- 
+           Implies a stream of updates.
+        */
+      .card-5 {
+        padding-left: 20px;
+        border-left: 4px solid var(--primary-blue);
+        background: transparent;
+      }
+      .card-5 .img-wrap {
+        height: 160px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .card-5 .date {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 5px;
+      }
+      .card-5 .title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--deep-blue);
+      }
+
+      /* --- STYLE 6: The "Modern Card" (Soft Shadow & Radius) --- 
+           A softer, more approachable modern web look.
+        */
+      .card-6 {
+        background: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: none;
+      }
+      .card-6 .img-wrap {
+        height: 180px;
+      }
+      .card-6 .content {
+        padding: 25px;
+      }
+      .card-6 .date {
+        color: var(--primary-blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .card-6 .title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 15px;
+      }
+      .card-6 .read-more {
+        font-size: 0.9rem;
+        color: var(--deep-blue);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      /* --- STYLE 7: The "Focus" (Inset Content) --- 
+           Text overlaps the image slightly. Magazine style.
+        */
+      .card-7 {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .card-7 .img-wrap {
+        height: 220px;
+        width: 100%;
+        margin-bottom: -40px;
+      }
+      .card-7 .content {
+        background: var(--white);
+        width: 90%;
+        margin: 0 auto;
+        position: relative;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-top: 3px solid var(--deep-blue);
+      }
+      .card-7 .date {
+        color: #888;
+        font-size: 0.75rem;
+        margin-bottom: 5px;
+      }
+      .card-7 .title {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      /* --- STYLE 8: The "Solid" (Blue Background) --- 
+           High contrast, good for highlighting critical updates.
+        */
+      .card-8 {
+        background: var(--deep-blue);
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+      }
+      .card-8 .img-wrap {
+        height: 180px;
+        order: 1;
+      }
+      .card-8 .content {
+        padding: 25px;
+        order: 2;
+        flex-grow: 1;
+      }
+      .card-8 .date {
+        color: var(--primary-blue);
+        font-weight: 400;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+      }
+      .card-8 .title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+      }
+
+      /* --- STYLE 9: The "Tag" (Floating Badge) --- */
+      .card-9 {
+        background: var(--white);
+        border: 1px solid #eee;
+      }
+      .card-9 .img-wrap {
+        height: 200px;
+        position: relative;
+      }
+      .card-9 .date-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--white);
+        padding: 5px 10px;
+        font-weight: 700;
+        color: var(--black);
+        font-size: 0.8rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .card-9 .content {
+        padding: 20px;
+      }
+      .card-9 .title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--deep-blue);
+      }
+
+      /* --- STYLE 10: The "Outline" (Typography Heavy) --- */
+      .card-10 {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .card-10 .date-box {
+        text-align: center;
+        border: 2px solid var(--primary-blue);
+        padding: 10px 5px;
+        color: var(--deep-blue);
+      }
+      .card-10 .date-box .day {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: block;
+        line-height: 1;
+      }
+      .card-10 .date-box .month {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+      .card-10 .content .img-wrap {
+        height: 120px;
+        margin-bottom: 10px;
+        display: none; /* Text focus */
+      }
+      .card-10 .title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .card-10 .excerpt {
+        font-size: 0.9rem;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="main-title">UN-Style Layout Variations</h1>
+
+    <div class="section-header">
+      Style 1: The Diplomat <span>(Top Border Brand)</span>
+    </div>
+    <div class="grid-container" id="grid-1"></div>
+
+    <div class="section-header">
+      Style 2: The Briefing <span>(Horizontal List)</span>
+    </div>
+    <div class="grid-container" id="grid-2" style="display: block"></div>
+
+    <div class="section-header">Style 3: The Impact <span>(Overlay)</span></div>
+    <div class="grid-container" id="grid-3"></div>
+
+    <div class="section-header">
+      Style 4: The Gazette <span>(Grayscale & Border)</span>
+    </div>
+    <div class="grid-container" id="grid-4"></div>
+
+    <div class="section-header">
+      Style 5: The Stream <span>(Left Border)</span>
+    </div>
+    <div class="grid-container" id="grid-5"></div>
+
+    <div class="section-header">
+      Style 6: Modern Card <span>(Shadow & Radius)</span>
+    </div>
+    <div class="grid-container" id="grid-6"></div>
+
+    <div class="section-header">
+      Style 7: The Focus <span>(Inset Content)</span>
+    </div>
+    <div class="grid-container" id="grid-7"></div>
+
+    <div class="section-header">
+      Style 8: The Deep Blue <span>(Inverted High Contrast)</span>
+    </div>
+    <div class="grid-container" id="grid-8"></div>
+
+    <div class="section-header">
+      Style 9: The Badge <span>(Floating Date)</span>
+    </div>
+    <div class="grid-container" id="grid-9"></div>
+
+    <div class="section-header">
+      Style 10: The Agenda <span>(Date Box)</span>
+    </div>
+    <div class="grid-container" id="grid-10"></div>
+
+    <script>
+      // Sample Data to simulate News Items
+      const newsData = [
+        {
+          title:
+            "Global initiative launched to support sustainable energy development in developing nations.",
+          date: "12 OCT 2023",
+          img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+        },
+        {
+          title:
+            "Security Council adopts resolution on peacekeeping operations update.",
+          date: "10 OCT 2023",
+          img: "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=800&q=80",
+        },
+        {
+          title:
+            "Annual report highlights progress in educational equality across three continents.",
+          date: "08 OCT 2023",
+          img: "https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80",
+        },
+      ];
+
+      // Function to generate HTML for different styles
+      function renderNews(styleId, containerId) {
+        const container = document.getElementById(containerId);
+
+        newsData.forEach((item) => {
+          let html = "";
+
+          // --- Logic to render specific HTML structure based on style ID ---
+
+          if (styleId === 1) {
+            html = `
+                    <div class="card-1">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 2) {
+            html = `
+                    <div class="card-2">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 3) {
+            html = `
+                    <div class="card-3">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 4) {
+            html = `
+                    <div class="card-4">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="meta-line">
+                            <div class="date">${item.date}</div>
+                        </div>
+                        <div class="title">${item.title}</div>
+                    </div>`;
+          } else if (styleId === 5) {
+            html = `
+                    <div class="card-5">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="date">${item.date}</div>
+                        <div class="title">${item.title}</div>
+                    </div>`;
+          } else if (styleId === 6) {
+            html = `
+                    <div class="card-6">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                            <a href="#" class="read-more">Read full story &rarr;</a>
+                        </div>
+                    </div>`;
+          } else if (styleId === 7) {
+            html = `
+                    <div class="card-7">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 8) {
+            html = `
+                    <div class="card-8">
+                        <div class="img-wrap"><img src="${item.img}" alt="News"></div>
+                        <div class="content">
+                            <div class="date">${item.date}</div>
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 9) {
+            html = `
+                    <div class="card-9">
+                        <div class="img-wrap">
+                            <img src="${item.img}" alt="News">
+                            <div class="date-badge">${item.date}</div>
+                        </div>
+                        <div class="content">
+                            <div class="title">${item.title}</div>
+                        </div>
+                    </div>`;
+          } else if (styleId === 10) {
+            // Splitting date for styling
+            const day = item.date.split(" ")[0];
+            const month = item.date.split(" ")[1];
+            html = `
+                    <div class="card-10">
+                        <div class="date-box">
+                            <span class="day">${day}</span>
+                            <span class="month">${month}</span>
+                        </div>
+                        <div class="content">
+                            <div class="title">${item.title}</div>
+                            <div class="excerpt">A brief summary of the news item would go here...</div>
+                        </div>
+                    </div>`;
+          }
+
+          container.innerHTML += html;
+        });
+      }
+
+      // Initialize all 10 styles
+      for (let i = 1; i <= 10; i++) {
+        renderNews(i, `grid-${i}`);
+      }
+    </script>
+  </body>
+</html>

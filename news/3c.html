@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News & Updates</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- 1. CORE VARIABLES & RESET --- */
+      :root {
+        --primary-blue: #009edb;
+        --deep-blue: #0468b1;
+        --black: #221f21;
+        --white: #fdfeff;
+        --grey-light: #f4f6f8;
+        --border-color: #e0e0e0;
+        --font-main: "Noto Sans", sans-serif;
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: #ffffff;
+        color: var(--black);
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Section Title Styling */
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+        border-left: 5px solid var(--primary-blue); /* Added accent line */
+        padding-left: 15px;
+      }
+
+      /* --- 2. THE COMPONENT STYLES (Split 1) --- */
+
+      /* Grid Layout */
+      .split-1 {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 40px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 40px;
+      }
+
+      /* Left Side: Hero Image */
+      .s1-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        cursor: pointer;
+        min-height: 450px;
+      }
+
+      .s1-hero img {
+        transition: var(--transition);
+        height: 100%;
+      }
+
+      .s1-hero:hover img {
+        transform: scale(1.03);
+      }
+
+      .s1-hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0.4) 50%,
+          transparent 100%
+        );
+        padding: 40px 30px;
+        color: var(--white);
+        pointer-events: none;
+      }
+
+      /* The Date Badge on Hero */
+      .s1-date-badge {
+        background: var(--primary-blue);
+        color: var(--white);
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .s1-hero-title {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      /* Right Side: List */
+      .s1-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .s1-item {
+        padding: 20px;
+        border-left: 3px solid transparent;
+        transition: var(--transition);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1; /* Makes items fill vertical space evenly */
+      }
+
+      /* Hover State */
+      .s1-item:hover {
+        background: var(--grey-light);
+        border-left: 3px solid var(--deep-blue);
+      }
+
+      /* Active State */
+      .s1-item.active {
+        background: var(--grey-light);
+        border-left: 3px solid var(--primary-blue);
+      }
+
+      .s1-date {
+        color: var(--primary-blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .s1-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.5;
+        color: var(--black);
+      }
+
+      /* --- 3. RESPONSIVE --- */
+      @media (max-width: 768px) {
+        .split-1 {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .s1-hero {
+          min-height: 250px;
+        }
+
+        .s1-hero-title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="section-title">News & Updates</h2>
+
+      <div class="split-1">
+        <div class="s1-hero" id="hero-display">
+          <img
+            id="hero-img"
+            src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1000&q=80"
+            alt="Main Featured Image"
+          />
+          <div class="s1-hero-overlay">
+            <span class="s1-date-badge" id="hero-date">24 OCT 2025</span>
+            <div class="s1-hero-title" id="hero-title">
+              New educational framework adopted by General Assembly.
+            </div>
+          </div>
+        </div>
+
+        <div class="s1-list">
+          <div
+            class="s1-item active"
+            onclick="updateHero(this, 'New educational framework adopted by General Assembly.', '24 OCT 2025')"
+          >
+            <div class="s1-date">24 OCT 2025</div>
+            <div class="s1-title">
+              New educational framework adopted by General Assembly.
+            </div>
+          </div>
+
+          <div
+            class="s1-item"
+            onclick="updateHero(this, 'Security Council discusses regional stability measures.', '23 OCT 2025')"
+          >
+            <div class="s1-date">23 OCT 2025</div>
+            <div class="s1-title">
+              Security Council discusses regional stability measures.
+            </div>
+          </div>
+
+          <div
+            class="s1-item"
+            onclick="updateHero(this, 'Climate report indicates need for rapid action in coastal zones.', '12 OCT 2025')"
+          >
+            <div class="s1-date">12 OCT 2025</div>
+            <div class="s1-title">
+              Climate report indicates need for rapid action in coastal zones.
+            </div>
+          </div>
+
+          <div
+            class="s1-item"
+            onclick="updateHero(this, 'Global health initiative reaches milestone in vaccine distribution.', '10 OCT 2025')"
+          >
+            <div class="s1-date">10 OCT 2025</div>
+            <div class="s1-title">
+              Global health initiative reaches milestone in vaccine
+              distribution.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /**
+       * Updates the Hero section when a list item is clicked.
+       * @param {HTMLElement} element - The clicked .s1-item
+       * @param {string} titleText - The headline text
+       * @param {string} dateText - The date string for the badge
+       */
+      function updateHero(element, titleText, dateText) {
+        // 1. Remove 'active' class from all items
+        const items = document.querySelectorAll(".s1-item");
+        items.forEach((item) => item.classList.remove("active"));
+
+        // 2. Add 'active' class to the clicked element
+        element.classList.add("active");
+
+        // 3. Update the Hero Title with a fade effect
+        const heroTitle = document.getElementById("hero-title");
+        heroTitle.style.opacity = 0;
+
+        setTimeout(() => {
+          heroTitle.innerText = titleText;
+          heroTitle.style.opacity = 1;
+        }, 150);
+
+        // 4. Update the Hero Date Badge
+        const heroDate = document.getElementById("hero-date");
+        heroDate.innerText = dateText;
+      }
+    </script>
+  </body>
+</html>
